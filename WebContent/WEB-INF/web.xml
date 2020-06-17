@@ -8,7 +8,7 @@
   
 <!--   <filter>
     <description>字符编码过滤器</description>
-    <filter-name>MyEncodeFilter</filter-name>
+    <filter-name>EncodeFilter</filter-name>
     <filter-class>filter.EncodeFilter</filter-class>
   </filter>
   <filter-mapping>
