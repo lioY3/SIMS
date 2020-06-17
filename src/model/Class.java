@@ -5,9 +5,9 @@ import java.io.Serializable;
 public class Class implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private String Clno;//班级号
-	private String Clname;//班级名
-	private String Dno;//学院编号
+	private String Clno;//班级编号
+	private String Clname;//班级名称
+	private String Dno;//院系编号
 	public String getClno() {
 		return Clno;
 	}
@@ -26,7 +26,5 @@ public class Class implements Serializable {
 	public void setDno(String dno) {
 		Dno = dno;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+
 }

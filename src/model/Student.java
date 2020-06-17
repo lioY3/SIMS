@@ -12,6 +12,7 @@ public class Student implements Serializable {
 	private String Sbirthday;//生日
 	private int Sage;//年龄
 	private String Sid;//身份证
+	private String Snation;//民族
 	private String clno;//班级号
 	
 	public String getSno() {
@@ -55,6 +56,12 @@ public class Student implements Serializable {
 	}
 	public void setClno(String clno) {
 		this.clno = clno;
+	}
+	public String getSnation() {
+		return Snation;
+	}
+	public void setSnation(String snation) {
+		Snation = snation;
 	}
 	
 	
