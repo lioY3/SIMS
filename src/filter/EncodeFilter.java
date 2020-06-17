@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebFilter;
  * Servlet Filter implementation class EncodeFilter
  */
 //@WebFilter("/*")
+//暂时屏蔽
 public class EncodeFilter implements Filter {
 
     /**
