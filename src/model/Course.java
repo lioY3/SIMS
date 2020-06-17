@@ -1,18 +1,17 @@
-package com.model;
+package model;
 
 import java.io.Serializable;
 
-import model.String;
 
 public class Course implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private String Cno;//¿Î³ÌºÅ
-	private String Cname;//¿Î³ÌÃû³Æ
-	private int Credit;//Ñ§·Ö
-	private String Term;//
-	private String Hours;//Ñ§Ê±
-	private String Tno;//Ö´½ÌÀÏÊ¦±àºÅ
+	private String Cno;//è¯¾ç¨‹å·
+	private String Cname;//è¯¾ç¨‹å
+	private int Credit;//å­¦åˆ†
+	private String Term;//å­¦æœŸ
+	private String Hours;//å­¦æ—¶
+	private String Tno;//Ö´æ•™å¸ˆç¼–å·
 	public String getCno() {
 		return Cno;
 	}

@@ -1,15 +1,14 @@
-package com.model;
+package model;
 
 import java.io.Serializable;
 
-import model.String;
 
 public class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	private String username;//ÓÃ»§Ãû
-	private String password;//ÃÜÂë
-	private String level;//È¨ÏŞ¼¶±ğ
+	private String username;//ç”¨æˆ·å
+	private String password;//å¯†ç 
+	private String level;//çº§åˆ«
 	public String getUsername() {
 		return username;
 	}
