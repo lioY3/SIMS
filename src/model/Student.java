@@ -1,8 +1,6 @@
-package com.model;
+package model;
 
 import java.io.Serializable;
-
-import model.String;
 
 public class Student implements Serializable {
 
