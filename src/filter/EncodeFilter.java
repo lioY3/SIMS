@@ -33,12 +33,11 @@ public class EncodeFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		
-		//设置编码格式
+		//璁剧疆缂栫爜鏍煎紡
 		request.setCharacterEncoding("UTF-8");
-		//设置返回类型
+		//璁剧疆杩斿洖绫诲瀷
 		response.setContentType("text/html; charset=utf-8");
-		//放行资源
+		//鏀捐璧勬簮
 		chain.doFilter(request, response);
 	}
 

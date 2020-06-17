@@ -5,9 +5,9 @@ import java.io.Serializable;
 public class Class implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private String Clno;//°à¼¶±àºÅ
-	private String Clname;//°à¼¶Ãû³Æ
-	private String Dno;//ËùÊôÔºÏµ
+	private String Clno;//ç­çº§å·
+	private String Clname;//ç­çº§å
+	private String Dno;//å­¦é™¢ç¼–å·
 	public String getClno() {
 		return Clno;
 	}

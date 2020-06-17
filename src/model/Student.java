@@ -6,13 +6,13 @@ public class Student implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private String Sno;//Ñ§ºÅ
-	private String Sname;//ĞÕÃû
-	private String Ssex;//ĞÔ±ğ
-	private String Sbirthday;//ÉúÈÕ
-	private int Sage;//ÄêÁä
-	private String Sid;//Éí·İÖ¤ºÅ
-	private String clno;//ËùÔÚ°à¼¶
+	private String Sno;//å­¦å·
+	private String Sname;//å§“å
+	private String Ssex;//æ€§åˆ«
+	private String Sbirthday;//ç”Ÿæ—¥
+	private int Sage;//å¹´é¾„
+	private String Sid;//èº«ä»½è¯
+	private String clno;//ç­çº§å·
 	
 	public String getSno() {
 		return Sno;
