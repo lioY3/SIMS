@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebFilter;
 /**
  * Servlet Filter implementation class EncodeFilter
  */
-//@WebFilter("/EncodeFilter")
+@WebFilter("/*")
 public class EncodeFilter implements Filter {
 
     /**
@@ -36,7 +36,7 @@ public class EncodeFilter implements Filter {
 		//设置编码格式
 		request.setCharacterEncoding("UTF-8");
 		//设置返回类型
-		response.setContentType("text/html; charset=utf-8");
+		//response.setContentType("text/html; charset=utf-8");
 		//放行资源
 		chain.doFilter(request, response);
 	}
