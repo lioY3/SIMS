@@ -5,12 +5,12 @@ import java.io.Serializable;
 public class Course implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private String Cno;//¿Î³ÌºÅ
-	private String Cname;//¿Î³ÌÃû³Æ
-	private int Credit;//Ñ§·Ö
+	private String Cno;//è¯¾ç¨‹å·
+	private String Cname;//è¯¾ç¨‹åç§°
+	private int Credit;//å­¦åˆ†
 	private String Term;//
-	private String Hours;//Ñ§Ê±
-	private String Tno;//Ö´½ÌÀÏÊ¦±àºÅ
+	private String Hours;//å­¦æ—¶
+	private String Tno;//æ•™å¸ˆç¼–å·
 	public String getCno() {
 		return Cno;
 	}
