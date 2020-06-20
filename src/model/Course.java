@@ -2,16 +2,15 @@ package model;
 
 import java.io.Serializable;
 
-
 public class Course implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String Cno;//课程号
-	private String Cname;//课程名
+	private String Cname;//课程名称
 	private int Credit;//学分
-	private String Term;//学期
+	private String Term;//
 	private String Hours;//学时
-	private String Tno;//ִ教师编号
+	private String Tno;//教师编号
 	public String getCno() {
 		return Cno;
 	}
