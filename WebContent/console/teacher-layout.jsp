@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,7 +60,7 @@
 						href="javascript:;">学生管理</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="https://blog.csdn.net/weixin_42855542/article/details/83476597">学生信息查询</a>
+								<a href="TestServlet.select?id=tosudentview">学生信息查询</a>
 							</dd>
 							<dd>
 								<a href="https://www.baidu.com">学生信息修改</a>
@@ -110,8 +112,6 @@
 
 		<div class="layui-body">
 			<!-- 内容主体区域 -->
-			<!--  div style="padding: 15px;">
-			</div>-->
 			<iframe id="iframeMain" src="MainPage.jsp" frameborder="0" height="99.4%" width="100%" scrolling="no"></iframe>
 		</div>
 
