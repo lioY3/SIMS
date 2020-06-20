@@ -1,8 +1,6 @@
-package com.model;
+package model;
 
 import java.io.Serializable;
-
-import model.String;
 
 public class User implements Serializable{
 
@@ -31,3 +29,4 @@ public class User implements Serializable{
 	
 
 }
+
