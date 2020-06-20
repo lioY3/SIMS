@@ -60,7 +60,7 @@
 						href="javascript:;">学生管理</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="TestServlet.select?id=tosudentview">学生信息查询</a>
+								<a href="../student/Stu-Infor.jsp">学生信息查询</a>
 							</dd>
 							<dd>
 								<a href="https://www.baidu.com">学生信息修改</a>
