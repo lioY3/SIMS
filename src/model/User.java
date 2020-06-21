@@ -3,7 +3,6 @@ package model;
 import java.io.Serializable;
 
 
-
 public class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -21,6 +20,7 @@ public class User implements Serializable{
 	 * 教师类型用户
 	 */
 	public static final int USER_TEACHER = 3;
+
 	private String username;//用户名
 	private String account; //账户
 	private String password;//密码
@@ -50,6 +50,4 @@ public class User implements Serializable{
 		this.account = account;
 	}
 	
-	
-
 }
