@@ -45,7 +45,7 @@
 							<a href="">修改密码</a>
 						</dd>
 						<dd>
-							<a href="">退出登录</a>
+							<a href="SystemServlet?method=LoginOut">退出登录</a>
 						</dd>
 					</dl></li>
 			</ul>
