@@ -39,7 +39,7 @@ public class SystemServlet extends HttpServlet {
 		request.getSession().removeAttribute("user");
 		String contextPath = request.getContextPath();
 		// 转发到登录界面
-		response.sendRedirect(contextPath + "/index.jsp");
+		response.sendRedirect(contextPath);
 	}
 
 

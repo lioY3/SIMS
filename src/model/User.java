@@ -8,6 +8,15 @@ public class User {
 	private String account; // 账户
 	private String password;// 密码
 	private int type;// 级别
+	private String username;//用户名
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
 	public String getAccount() {
 		return account;

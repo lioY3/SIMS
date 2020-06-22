@@ -17,16 +17,17 @@
        text-transform: uppercase;
       
 }
+
 </style>
 <title>Insert title here</title>
 </head>
 <body>
-<div style="position:absolute;left:20%; top:0%;bottom:0%; width:100%; height:100%; z-index:-1">   
+<div style="position:absolute;left:20%; top:0%;bottom:0%; width:100%; height:100%; z-index:-1" >   
 	<img src="${pageContext.request.contextPath }/image/background.png" height="100%" width="80%"/>   
 </div>
 <div style="position:absolute;left:15%; top:25%;bottom:0%;">
 <p><font class="ward">
-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp欢迎使用</font></p><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎使用</font></p><br>
 <p><font class="ward">
 学生信息管理系统!!
 </font></p>

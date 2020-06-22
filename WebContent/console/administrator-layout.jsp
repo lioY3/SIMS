@@ -14,38 +14,18 @@
 	<div class="layui-layout layui-layout-admin">
 		<div class="layui-header">
 			<div class="layui-logo"><h3><a href="console/MainPage.jsp">学生信息管理系统</a></h3></div>
-			
-			<!-- 界面上方左侧选择框 
-			<ul class="layui-nav layui-layout-left">
-				<li class="layui-nav-item"><a href="">控制台</a></li>
-				<li class="layui-nav-item"><a href="">商品管理</a></li>
-				<li class="layui-nav-item"><a href="">用户</a></li>
-				<li class="layui-nav-item"><a href="javascript:;">其它系统</a>
-					<dl class="layui-nav-child">
-						<dd>
-							<a href="https://blog.csdn.net/weixin_42855542/article/details/83476597">邮件管理</a>
-						</dd>
-						<dd>
-							<a href="">消息管理</a>
-						</dd>
-						<dd>
-							<a href="">授权管理</a>
-						</dd>
-					</dl></li>
-			</ul>
-			-->
-			
+
 			
 			<ul class="layui-nav layui-layout-right">
 				<li class="layui-nav-item"><a href="javascript:;"> <img
-						src="image/School-Logo.JPG" class="layui-nav-img"> 管理员
+						src="image/School-Logo.JPG" class="layui-nav-img"> ${user.username}
 				</a>
 					<dl class="layui-nav-child">
 						<dd>
 							<a href="">修改密码</a>
 						</dd>
 						<dd>
-							<a href="SystemServlet?method=LoginOut">退出登录</a>
+							<div><a href="SystemServlet?method=LoginOut">退出登录</a></div>
 						</dd>
 					</dl></li>
 			</ul>
@@ -113,9 +93,8 @@
 
 		<div class="layui-body">
 			<!-- 内容主体区域 -->
-			<!--  div style="padding: 15px;">
-			</div>-->
-			<iframe id="iframeMain" src="console/MainPage.jsp" frameborder="0" height="99.4%" width="100%" scrolling="no"></iframe>
+			
+			<iframe id="iframeMain" src="console/MainPage.jsp" frameborder="0" height="100%" width="100%" scrolling="no"></iframe>
 		</div>
 
 		<div class="layui-footer" align="center">
