@@ -11,29 +11,31 @@ public class DBUtil {
      * @return Connection对象
      */
     public static Connection getConnection(){
-    	String dbUserName = "chen";
-    	String dbUserPasswd = "chen295";
-    	String dbURL = "jdbc:mysql://47.112.206.61:3306/StudentInfoManagement";
-
-    	Connection conn = null;
+    	String user = "chen";
+    	String password = "chen295";
+    	String url = "jdbc:mysql://47.112.206.61:3306/StudentInfoManagement?useSSL=false";
+    	String driver = "com.mysql.jdbc.Driver";
+    	Connection con = null;
+    	
     	try {
-    		Class.forName("com.mysql.jdbc.Driver");
-    		conn = (Connection) DriverManager.getConnection(dbURL,dbUserName,dbUserPasswd);
+    		Class.forName(driver);
+    		con = (Connection) DriverManager.getConnection(url,user,password);
     	} catch (ClassNotFoundException | SQLException e) {
     		e.printStackTrace();
     	} 
-    	return conn;
+    	
+    	return con;
     }
     
     /**
      * 关闭数据库连接
-     * @param conn Connection对象
+     * @param con Connection对象
      */
-    public static void closeConnection(Connection conn) {
-		//判断conn是否为空
-    	if(conn != null){
+    public static void closeConnection(Connection con) {
+		//判断con是否为空
+    	if(con != null){
     		try {
-				conn.close();//关闭数据库连接
+				con.close();//关闭数据库连接
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
