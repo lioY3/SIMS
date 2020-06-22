@@ -2,6 +2,7 @@ package service;
 
 import java.util.List;
 
+import inter.SystemDaoInter;
 import model.User;
 
 /**
@@ -32,7 +33,7 @@ SystemDaoInter dao = new SystemDaoImpl();
 	 */
 	public User getAdmin(User user) {
 		User searchUser = (User) dao.getObject(User.class, 
-				"SELECT * FROM user WHERE account=? AND password=? AND type=?", 
+				"SELECT * FROM user WHERE username=? AND password=? AND type=?", 
 				new Object[]{user.getAccount(), user.getPassword(), user.getType()});
 		
 		return searchUser;
@@ -43,7 +44,7 @@ SystemDaoInter dao = new SystemDaoImpl();
 	 * @param user
 	 */
 	public void editPassword(User user) {
-		dao.update("UPDATE user SET password=? WHERE account=?", 
+		dao.update("UPDATE user SET password=? WHERE username=?", 
 				new Object[]{user.getPassword(),user.getAccount()});
 	}
 	
