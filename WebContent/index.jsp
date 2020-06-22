@@ -105,7 +105,7 @@ ini_set('display_errors','off');
       <div class="row cl">
         <div class="formControls col-8 col-offset-3">
           <input class="input-text size-L" name="vcode" type="text" placeholder="请输入验证码" style="width:200px;">
-          <img title="点击图片切换验证码" id="vcodeImg" src="111.jsp" style="left:40%;"></div>
+          <img title="点击图片切换验证码" id="vcodeImg" src="111.jsp" style="height:40px;width:115px;"></div>
       </div>
       <div class="mt-20 skin-minimal" style="text-align: center;">
 		<div class="radio-box">
