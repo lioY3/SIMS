@@ -13,26 +13,6 @@
 		<div class="layui-header">
 			<div class="layui-logo"><h3><a href="MainPage.jsp">学生信息管理系统</a></h3></div>
 			
-			<!-- 界面上方左侧选择框 
-			<ul class="layui-nav layui-layout-left">
-				<li class="layui-nav-item"><a href="">控制台</a></li>
-				<li class="layui-nav-item"><a href="">商品管理</a></li>
-				<li class="layui-nav-item"><a href="">用户</a></li>
-				<li class="layui-nav-item"><a href="javascript:;">其它系统</a>
-					<dl class="layui-nav-child">
-						<dd>
-							<a href="https://blog.csdn.net/weixin_42855542/article/details/83476597">邮件管理</a>
-						</dd>
-						<dd>
-							<a href="">消息管理</a>
-						</dd>
-						<dd>
-							<a href="">授权管理</a>
-						</dd>
-					</dl></li>
-			</ul>
-			-->
-			
 			
 			<ul class="layui-nav layui-layout-right">
 				<li class="layui-nav-item"><a href="javascript:;"> <img
@@ -62,7 +42,7 @@
 								<a href="../student/Stu-Infor.jsp">学生信息查询</a>
 							</dd>
 							<dd>
-								<a href="https://www.baidu.com">学生信息修改</a>
+								<a href="../student/Stu-modify.jsp">学生信息修改</a>
 							</dd>
 						</dl></li>
 					<li class="layui-nav-item"><a href="javascript:;">教师管理</a>
