@@ -1,17 +1,10 @@
 package model;
 
-/**
- * 教师类
- * 
- *
- */
 public class Teacher {
-	
-	private String Tno; //编号
-	
-	private String Tname; //姓名
-	
-	private String Tsex; //性别
+
+	private String Tno; // 编号
+	private String Tname; // 姓名
+	private String Tsex; // 性别
 
 	public String getTno() {
 		return Tno;
@@ -35,7 +28,6 @@ public class Teacher {
 
 	public void setTsex(String tsex) {
 		Tsex = tsex;
-	} 
-	
+	}
+
 }
-	
