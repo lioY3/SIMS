@@ -1,6 +1,6 @@
-package inter;
+package dao.inter;
 
-import inter.BaseDaoInter;
+import dao.inter.BaseDaoInter;
 
 public interface SystemDaoInter extends BaseDaoInter {
 	

@@ -2,7 +2,7 @@ package service;
 
 import java.util.List;
 
-import inter.SystemDaoInter;
+import dao.inter.SystemDaoInter;
 import model.User;
 import net.sf.json.JSONArray;
 
