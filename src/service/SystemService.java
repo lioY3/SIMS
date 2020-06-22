@@ -2,7 +2,9 @@ package service;
 
 import java.util.List;
 
+import dao.impl.SystemDaoImpl;
 import dao.inter.SystemDaoInter;
+import model.SystemInfo;
 import model.User;
 import net.sf.json.JSONArray;
 
@@ -37,7 +39,7 @@ public class SystemService {
 	public User getAdmin(User user) {
 		User searchUser = (User) dao.getObject(User.class, 
 				"SELECT * FROM user WHERE username=? AND password=? AND type=?", 
-				new Object[]{user.getAccount(), user.getPassword(), user.getType()});
+				new Object[]{user.getAccount(), user.getPassword(), user.getLevel()});
 		return searchUser;
 	}
 

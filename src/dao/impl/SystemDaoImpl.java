@@ -1,7 +1,5 @@
 package dao.impl;
 
-import java.sql.Connection;
-
 import dao.impl.BaseDaoImpl;
 import dao.inter.SystemDaoInter;
 
