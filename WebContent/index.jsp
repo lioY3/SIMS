@@ -25,7 +25,7 @@
 	$(function(){
 		//点击图片切换验证码
 		$("#vcodeImg").click(function(){
-			this.src="LoginServlet?method=GetVCode&t"+new Date().getTime();
+			this.src="LoginServlet?method=GetVCode&time"+new Date().getTime();
 		});
 		
 		//登录

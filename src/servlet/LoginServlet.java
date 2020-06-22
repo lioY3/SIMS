@@ -15,23 +15,19 @@ import service.SystemService;
 import utils.VCodeGenerator;
 
 /**
- * Servlet implementation class LoginServlet1
+ * 登陆
  */
-@WebServlet("/LoginServlet1")
+@WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private SystemService service = new SystemService();
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
+	
+	//创建service对象
+	//private SystemService service = new SystemService();
+	
 	public LoginServlet() {
 		super();
 	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 获取请求的方法
 		String method = request.getParameter("method");
@@ -41,7 +37,7 @@ public class LoginServlet extends HttpServlet {
 		}
 	}
 
-	private void getVCode(HttpServletRequest request, HttpServletResponse response) {
+	private void getVCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// 创建验证码生成器对象
 		VCodeGenerator vcGenerator = new VCodeGenerator();
 		// 生成验证码
@@ -51,26 +47,19 @@ public class LoginServlet extends HttpServlet {
 		// 生成验证码图片
 		BufferedImage vImg = vcGenerator.generatorVCodeImage(vcode);
 		// 输出图像
-		try {
-			ImageIO.write(vImg, "gif", response.getOutputStream());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		ImageIO.write(vImg, "gif", response.getOutputStream());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 获取请求的方法
 		String method = request.getParameter("method");
 
-		if ("Login".equals(method)) { // 验证登录
+		if ("Login".equals(method)) {
 			login(request, response);
 		}
 	}
 
-	private void login(HttpServletRequest request, HttpServletResponse response) {
+	private void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// 获取用户输入的账户
 		String account = request.getParameter("account");
 		// 获取用户输入的密码
@@ -94,7 +83,7 @@ public class LoginServlet extends HttpServlet {
 			User user = new User();
 			user.setAccount(account);
 			user.setPassword(password);
-			user.setLevel(Integer.parseInt(request.getParameter("type")));
+			user.setType(Integer.parseInt(request.getParameter("type")));
 
 			// 创建系统数据层对象,查询用户是否存在
 			User loginUser = service.getAdmin(user);
@@ -111,11 +100,6 @@ public class LoginServlet extends HttpServlet {
 			}
 		}
 		// 返回登录信息
-		try {
-			response.getWriter().write(msg);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		response.getWriter().write(msg);
 	}
-
 }
