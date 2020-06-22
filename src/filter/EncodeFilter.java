@@ -7,36 +7,55 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 字符编码过滤器
+ * 
+ * @author chenw
+ */
+@WebFilter("/*")
 public class EncodeFilter implements Filter {
 
-	public EncodeFilter() {
+    /**
+     * Default constructor. 
+     */
+    public EncodeFilter() {
+        // TODO Auto-generated constructor stub
+    }
 
-	}
-
+	/**
+	 * @see Filter#destroy()
+	 */
 	public void destroy() {
-
+		// TODO Auto-generated method stub
 	}
 
-	public void doFilter(ServletRequest req, ServletResponse rep, FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest request = (HttpServletRequest) req;
-		HttpServletResponse response = (HttpServletResponse) rep;
+	/**
+	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
+	 */
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletResponse rep = (HttpServletResponse) response;
 		
-		String a = request.getRequestURI();
+		String a = req.getRequestURI();
 		if (a.contains(".css") || a.contains(".js") || a.contains(".png") || a.contains(".jpg")) {
-			chain.doFilter(request, response);
+			chain.doFilter(req, rep);
 		}
 		else {
-			request.setCharacterEncoding("utf-8");
-			response.setContentType("text/html; charset=utf-8");
-			chain.doFilter(request, response);
+			req.setCharacterEncoding("utf-8");
+			rep.setContentType("text/html; charset=utf-8");
+			chain.doFilter(req, rep);
 		}
 	}
 
+	/**
+	 * @see Filter#init(FilterConfig)
+	 */
 	public void init(FilterConfig fConfig) throws ServletException {
-
+		// TODO Auto-generated method stub
 	}
 
 }
