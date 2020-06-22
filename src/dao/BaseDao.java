@@ -1,4 +1,4 @@
-package dao.inter;
+package dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -10,7 +10,7 @@ import java.util.List;
  *
  */
 @SuppressWarnings("rawtypes") //去除警告
-public interface BaseDaoInter {
+public interface BaseDao {
 	
 	/**
 	 * 获取数据集合
