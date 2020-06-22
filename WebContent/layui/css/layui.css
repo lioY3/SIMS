@@ -16,6 +16,9 @@ h1, h2, h3, h4, h5, h6 {
 	overflow: hidden
 }
 
+.layui-table {
+	color: #fff; 
+}
 .layui-btn, .layui-edge, .layui-inline, img {
 	vertical-align: middle
 }
@@ -2945,13 +2948,16 @@ a cite {
 	font-weight: 400
 }
 
-.layui-table tbody tr:hover, .layui-table thead tr, .layui-table-click,
+	 .layui-table-click,
 	.layui-table-header, .layui-table-hover, .layui-table-mend,
 	.layui-table-patch, .layui-table-tool, .layui-table-total,
 	.layui-table-total tr, .layui-table[lay-even] tr:nth-child(even) {
 	background-color: #f2f2f2
 }
-
+.layui-table thead tr,.layui-table-hover, .layui-table tbody tr:hover{
+	background-color: #ffffbf;
+	color:#000
+}
 .layui-table td, .layui-table th, .layui-table-col-set,
 	.layui-table-fixed-r, .layui-table-grid-down, .layui-table-header,
 	.layui-table-page, .layui-table-tips-main, .layui-table-tool,
@@ -3093,7 +3099,7 @@ a cite {
 .layui-table-tool .layui-inline[lay-event] {
 	position: relative;
 	width: 26px;
-	height: 26px;
+	height: 6px;
 	padding: 5px;
 	line-height: 16px;
 	margin-right: 10px;
@@ -3133,7 +3139,7 @@ a cite {
 	border: 1px solid #d2d2d2;
 	text-align: left;
 	overflow-y: auto;
-	background-color: #fff;
+	background-color: #8000ff;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, .12)
 }
 
@@ -3324,7 +3330,7 @@ a cite {
 	width: 100%;
 	padding: 7px 7px 0;
 	height: 41px;
-	font-size: 12px;
+	font-size: 30px;
 	white-space: nowrap
 }
 

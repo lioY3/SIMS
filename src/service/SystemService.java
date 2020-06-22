@@ -2,6 +2,7 @@ package service;
 
 import java.util.List;
 
+import dao.inter.SystemDaoInter;
 import model.User;
 import net.sf.json.JSONArray;
 
@@ -34,10 +35,9 @@ public class SystemService {
 	 * @return
 	 */
 	public User getAdmin(User user) {
-		User searchUser = (User) dao.getObject(User.class,
-				"SELECT * FROM user WHERE account=? AND password=? AND type=?",
-				new Object[] { user.getAccount(), user.getPassword(), user.getType() });
-
+		User searchUser = (User) dao.getObject(User.class, 
+				"SELECT * FROM user WHERE username=? AND password=? AND type=?", 
+				new Object[]{user.getAccount(), user.getPassword(), user.getType()});
 		return searchUser;
 	}
 
@@ -47,8 +47,10 @@ public class SystemService {
 	 * @param user
 	 */
 	public void editPassword(User user) {
+
 		dao.update("UPDATE user SET password=? WHERE account=?",
 				new Object[] { user.getPassword(), user.getAccount() });
+
 	}
 
 	/**
