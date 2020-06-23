@@ -25,7 +25,7 @@
 	$(function(){
 		//点击图片切换验证码
 		$("#vcodeImg").click(function(){
-			this.src="LoginServlet?method=GetVCode&time"+new Date().getTime();
+			this.src="SystemServlet?method=GetVCode&time"+new Date().getTime();
 		});
 		
 		//登录
@@ -33,7 +33,7 @@
 			var data = $("#form").serialize();//序列化表单值 使用ajax()提交表单
 			$.ajax({
 				type: "post",
-				url: "LoginServlet?method=Login",//登录获取数据后端
+				url: "SystemServlet?method=Login",//登录获取数据后端
 				data: data, 
 				dataType: "text", //返回数据类型
 				success: function(msg){
@@ -90,7 +90,7 @@ ini_set('display_errors','off');
       <div class="row cl">
         <div class="formControls col-8 col-offset-3">
           <input class="input-text size-L" name="vcode" type="text" placeholder="请输入验证码" style="width:200px;">
-          <img title="点击图片切换验证码" id="vcodeImg" style="height:40px;width:115px" src="LoginServlet?method=GetVCode"></div>
+          <img title="点击图片切换验证码" id="vcodeImg" style="height:40px;width:115px" src="SystemServlet?method=GetVCode"></div>
       </div>
       <div class="mt-20 skin-minimal" style="text-align: center;">
 		<div class="radio-box">
