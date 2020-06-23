@@ -14,6 +14,7 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import com.mysql.jdbc.PreparedStatement;
 import dao.BaseDao;
+import utils.DBUtil;
 import utils.MysqlTool;
 import java.sql.Statement;
 import java.sql.*;
@@ -93,10 +94,16 @@ public class BaseDaoImpl implements BaseDao{
 	
 	@SuppressWarnings("rawtypes")
 	public Object getObject(Class type, String sql, Object[] param) {
-		QueryRunner qr = new QueryRunner(MysqlTool.getDataSource());
+		/*
+		 * QueryRunner qr = new QueryRunner(MysqlTool.getDataSource()); Object obj = new
+		 * LinkedList<>(); try { obj = qr.query(sql, new BeanHandler(type), param); }
+		 * catch (SQLException e) { e.printStackTrace(); } return obj;
+		 */
+		Connection con = DBUtil.getConnection();
+		QueryRunner qr = new QueryRunner();
 		Object obj = new LinkedList<>();
 		try {
-			obj = qr.query(sql, new BeanHandler(type), param);
+			obj = qr.query(con, sql, new BeanHandler(type), param);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
