@@ -1,6 +1,5 @@
 package model;
 
-import com.lizhou.bean.Clazz;
 
 public class Course {
 	
