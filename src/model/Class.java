@@ -41,5 +41,6 @@ public class Class {
 	public void setStudentList(List<Student> studentList) {
 		this.studentList = studentList;
 	}
+	
 
 }

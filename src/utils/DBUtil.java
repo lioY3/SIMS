@@ -10,25 +10,24 @@ import javax.sql.DataSource;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.mysql.jdbc.Statement;
 
-
 public class DBUtil {
 
 	private static ComboPooledDataSource dataSource = null;
-	
+
 	private static ThreadLocal<Connection> tl = new ThreadLocal<Connection>();
-	
+
 	static {
 		dataSource = new ComboPooledDataSource();
 	}
-	
-	public static DataSource getDataSource(){
+
+	public static DataSource getDataSource() {
 		return dataSource;
 	}
-	
-	public static Connection getConnection(){
+
+	public static Connection getConnection() {
 		Connection conn = tl.get();
 		try {
-			if(conn == null){
+			if (conn == null) {
 				conn = dataSource.getConnection();
 			}
 		} catch (SQLException e) {
@@ -37,12 +36,13 @@ public class DBUtil {
 		tl.set(conn);
 		return conn;
 	}
-	
+
 	/**
 	 * 开始事务
+	 * 
 	 * @throws SQLException
 	 */
-	public static void startTransaction(){
+	public static void startTransaction() {
 		Connection conn = getConnection();
 		try {
 			conn.setAutoCommit(false);
@@ -50,26 +50,28 @@ public class DBUtil {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * 回滚事务
+	 * 
 	 * @throws SQLException
 	 */
-	public static void rollback(){
+	public static void rollback() {
 		Connection conn = getConnection();
 		try {
 			conn.rollback();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	/**
 	 * 提交事务
+	 * 
 	 * @throws SQLException
 	 */
-	public static void commit(){
+	public static void commit() {
 		Connection conn = getConnection();
 		try {
 			conn.commit();
@@ -77,39 +79,40 @@ public class DBUtil {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * 关闭Connection,并移除线程中的连接
+	 * 
 	 * @throws SQLException
 	 */
-	public static void closeConnection(){
+	public static void closeConnection() {
 		close(getConnection());
 		tl.remove();
 	}
-	
-	public static void close(Connection connection){
+
+	public static void close(Connection connection) {
 		try {
-			if(connection != null){
+			if (connection != null) {
 				connection.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void close(Statement stm){
+
+	public static void close(Statement stm) {
 		try {
-			if(stm != null){
+			if (stm != null) {
 				stm.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void close(ResultSet rs){
+
+	public static void close(ResultSet rs) {
 		try {
-			if(rs != null){
+			if (rs != null) {
 				rs.close();
 			}
 		} catch (SQLException e) {
@@ -120,13 +123,12 @@ public class DBUtil {
 	public static void close(PreparedStatement ps) {
 		// TODO Auto-generated method stub
 		try {
-			if(ps != null){
+			if (ps != null) {
 				ps.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
 
 }
