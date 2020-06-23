@@ -7,14 +7,16 @@
 <link rel="stylesheet" href="../layui/css/layui.css" media="all">
 </head>
 <body>
+<script src="../jquery/jquery-3.4.1.min.js"></script>
+<script src="../layui/layui.js"></script>
+
 <div style="position:absolute; top:0; width:100%; height:100%; z-index:-1">   
 	<img src="../image/bg2.JPG" height="100%" width="100%"/>   
 </div>
 	
 	<br>
 	<br>
-	<br>
-	<div class="demoTable" style="position:relative;left:16%">
+	<div class="demoTable" style="position:relative;left:15%">
 		姓名：
 		<div class="layui-inline">
 			<input class="layui-input" name="keyword" id="send_name"
@@ -38,13 +40,27 @@
 		<i class="layui-icon">&#xe615;</i>搜索</button>
 	</div>
 	
-
+	<hr class="layui-bg-blue">
+	<script type="text/html" id="Stu_headerBar">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="add">
+            <i class="layui-icon">&#xe608;</i> 新&emsp;增
+        </button>
+        <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="refresh" style=" margin-left: 15px">
+            <i class="layui-icon">&#xe669;</i> 刷&emsp;新
+        </button>
+    </div>
+	</script>
+		<script type="text/html" id="Stu_lineBar">
+        <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="edit"><i class="layui-icon ">&#xe642;</i> </a>
+    	<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon">&#xe640;</i></a>
+        </button>
+	</script>
 	<div style="text-align: center;">
         <div class="layui-inline">
 			<table id="stu-info" lay-filter="test"></table>
 		</div>
 	</div>
-	<script src="../layui/layui.js"></script>
 	
 	<script>
 		layui.use('table', function() {
@@ -55,7 +71,7 @@
 				elem : '#stu-info',
 				id : 'tableOne',
 				height : 450,
-				width : 900,
+				width : 1200,
 				url : "testdata.json" //数据接口
 				,
 				page : true //开启分页
@@ -66,43 +82,27 @@
 				,
 				size : 'sm'//小尺寸表格
 				,
+				toolbar: '#Stu_headerBar'
+				,
+				title : '学生信息表'
+				,
 				cols : [ [ //表头
-/* 				{
-					field : 'id',
-					width : 80,
-					title : 'ID',
-					sort : true
-				}, {
-					field : 'username',
-					width : 80,
-					title : '用户名'
-				}, {
-					field : 'sex',
-					width : 80,
-					title : '性别',
-					sort : true
-				}, {
-					field : 'city',
-					width : 80,
-					title : '城市'
-				}, {
-					field : 'sign',
-					title : '签名',
-					width : 80
-				}, {
-					fixed : 'right',
-					title : '操作',
-					toolbar : '#goods_lineBar',
-					width : 80,
-					align : 'center'
-				} */
-			     {field: 'Sno', title: '学号', sort: true, fixed: 'left',align:'center'}
+				{type: 'checkbox', fixed: 'left'}
+			     ,{field: 'Sno', title: '学号', sort: true, fixed: 'left',align:'center'}
 				 ,{field: 'Sname', title: '姓名',align:'center'}
 				 ,{field: 'Ssex', title: '性别',align:'center'}
 				 ,{field: 'Snation', title: '民族',align:'center'}
 				 ,{field: 'Sbirthday', title: '出生日期', sort: true,align:'center'} 
+				 ,{field: 'Sid', title: '身份证',align:'center'}
 				 ,{field: 'Dname', title: '学院',align:'center'}
 				 ,{field: 'Clname', title: '班级', sort: true,align:'center'} 
+				 ,{
+		               fixed: 'right',
+		               title: '操作',
+		               toolbar: '#Stu_lineBar',
+		               width: 160,
+		               align: 'center'
+		             }
 				] ]
 			});
 		
@@ -177,7 +177,7 @@
 					$('#do_searchclass').on('click', function() {
 						var type = $(this).data('type');
 						active[type] ? active[type].call(this) : '';
-			});
+					});
 		});
 	</script>
 </body>

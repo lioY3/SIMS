@@ -2,19 +2,14 @@ package service;
 
 import java.util.List;
 
-import dao.impl.SystemDaoImpl;
-import dao.inter.SystemDaoInter;
-import model.SystemInfo;
+import dao.SystemDao;
+import daoimpl.SystemDaoImpl;
 import model.User;
 import net.sf.json.JSONArray;
 
-/**
- * 年级服务层
- *
- */
 public class SystemService {
 
-	SystemDaoInter dao = new SystemDaoImpl();
+	SystemDao dao = new SystemDaoImpl();
 
 	/**
 	 * 获取系统所有账号
@@ -37,9 +32,9 @@ public class SystemService {
 	 * @return
 	 */
 	public User getAdmin(User user) {
-		User searchUser = (User) dao.getObject(User.class, 
-				"SELECT * FROM user WHERE username=? AND password=? AND type=?", 
-				new Object[]{user.getAccount(), user.getPassword(), user.getLevel()});
+		User searchUser = (User) dao.getObject(User.class,
+				"SELECT * FROM user WHERE Account=? AND Password=? AND Type=?",
+				new Object[] { user.getAccount(), user.getPassword(), user.getType() });
 		return searchUser;
 	}
 
@@ -53,22 +48,6 @@ public class SystemService {
 		dao.update("UPDATE user SET password=? WHERE account=?",
 				new Object[] { user.getPassword(), user.getAccount() });
 
-	}
-
-	/**
-	 * 修改系统信息
-	 * 
-	 * @param name  修改的名称
-	 * @param value 值
-	 * @return 返回修改后的系统信息对象
-	 */
-	public SystemInfo editSystemInfo(String name, String value) {
-		// 修改数据库
-		dao.update("UPDATE system SET " + name + " = ?", new Object[] { value });
-		// 重新加载数据
-		// 获取系统初始化对象
-		SystemInfo sys = (SystemInfo) dao.getObject(SystemInfo.class, "SELECT * FROM system", null);
-		return sys;
 	}
 
 }

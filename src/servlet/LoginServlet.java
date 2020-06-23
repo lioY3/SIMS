@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	//创建service对象
-	//private SystemService service = new SystemService();
+	private SystemService service = new SystemService();
 	
 	public LoginServlet() {
 		super();

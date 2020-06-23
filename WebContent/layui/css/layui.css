@@ -2950,14 +2950,20 @@ a cite {
 
 	 .layui-table-click,
 	.layui-table-header, .layui-table-hover, .layui-table-mend,
-	.layui-table-patch, .layui-table-tool, .layui-table-total,
+	.layui-table-patch,  .layui-table-total,
 	.layui-table-total tr, .layui-table[lay-even] tr:nth-child(even) {
 	background-color: #f2f2f2
 }
+
 .layui-table thead tr,.layui-table-hover, .layui-table tbody tr:hover{
 	background-color: #ffffbf;
 	color:#000
 }
+
+.layui-table-tool{
+	background-color: #009688;
+}
+
 .layui-table td, .layui-table th, .layui-table-col-set,
 	.layui-table-fixed-r, .layui-table-grid-down, .layui-table-header,
 	.layui-table-page, .layui-table-tips-main, .layui-table-tool,
@@ -3099,7 +3105,7 @@ a cite {
 .layui-table-tool .layui-inline[lay-event] {
 	position: relative;
 	width: 26px;
-	height: 6px;
+	height: 27px;
 	padding: 5px;
 	line-height: 16px;
 	margin-right: 10px;
@@ -3139,7 +3145,7 @@ a cite {
 	border: 1px solid #d2d2d2;
 	text-align: left;
 	overflow-y: auto;
-	background-color: #8000ff;
+	background-color: #ffffff;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, .12)
 }
 
