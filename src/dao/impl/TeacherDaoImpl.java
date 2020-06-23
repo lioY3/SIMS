@@ -89,6 +89,7 @@ public class TeacherDaoImpl extends BaseDaoImpl implements TeacherDao {
 		return list;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public List<Teacher> getTeacherList(String sql, Object[] param, java.lang.Class clno) {
 		// TODO Auto-generated method stub
