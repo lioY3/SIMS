@@ -9,8 +9,6 @@ import java.util.List;
 import org.apache.commons.beanutils.BeanUtils;
 
 import dao.impl.BaseDaoImpl;
-import com.mysql.jdbc.ResultSetMetaData;
-
 import dao.TeacherDao;
 import model.Class;
 import model.Course;
@@ -61,21 +59,21 @@ public class TeacherDaoImpl extends BaseDaoImpl implements TeacherDao {
 					itemParam.add(clno.getClno());
 				}
 				
-				List<Object> objList = getList(CourseItem.class, itemSql.toString(), itemParam);
-				List<CourseItem> itemList = new LinkedList<>();
+				List<Object> objList = getList(Course.class, itemSql.toString(), itemParam);
+				List<Course> courseList = new LinkedList<>();
 				for(Object obj : objList){
-					CourseItem item = (CourseItem) obj;
+					Course item = (Course) obj;
 					//查询班级
-					String clno = (String) getObject(Class.class, "SELECT * FROM class WHERE Clno=?", new Object[]{item.getClno()});
-					Course course = (Course) getObject(Course.class, "SELECT * FROM course WHERE id=?", new Object[]{item.getCourseid()});
+//					String Cno = (String) getObject(Course.class, "SELECT * FROM class WHERE Cno=?", new Object[]{item.getCno()});
+//					String Tno = (String) getObject(Teacher.class, "SELECT * FROM course WHERE id=?", new Object[]{item.getCourseid()});
+//					
+//					item.setClazz(clno1);
+//					item.setCourse(course);
 					
-					item.setClazz(clno);
-					item.setCourse(course);
-					
-					itemList.add(item);
+					courseList.add(item);
 				}
 				//添加
-				teacher.setCourseList(itemList);
+				teacher.setCourseList(courseList);
 				//添加到集合
 				list.add(teacher);
 			}
