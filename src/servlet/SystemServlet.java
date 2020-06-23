@@ -48,7 +48,12 @@ public class SystemServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// 获取请求的方法
+		String method = request.getParameter("method");
+
+		if ("EditPassword".equals(method)) { // 修改密码
+			editPasswod(request, response);
+		}
 		doGet(request, response);
 	}
 
@@ -119,4 +124,12 @@ public class SystemServlet extends HttpServlet {
 		response.getWriter().write(msg);
 	}
 
+	private void editPasswod(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		User user = new User();
+		user.setAccount(request.getParameter("account"));
+		user.setPassword(request.getParameter("password"));
+		service.editPassword(user);
+		response.getWriter().write("success");
+	}
+	
 }
