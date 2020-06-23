@@ -49,6 +49,8 @@
 						window.location.href = "SystemServlet?method=toAdminView";//管理员
 					} else if("teacher" == msg){
 						window.location.href = "SystemServlet?method=toTeacherView";//教师
+					} else if("student" == msg){
+						window.location.href = "SystemServlet?method=toStudentView";//学生
 					}
 				}
 				
@@ -94,12 +96,16 @@ ini_set('display_errors','off');
       </div>
       <div class="mt-20 skin-minimal" style="text-align: center;">
 		<div class="radio-box">
-			<input type="radio" id="radio-1" name="type" value="1" />
+			<input type="radio" id="radio-1" name="type" value="1" checked/>
 			<label for="radio-1">管理员</label>
 		</div>
 		<div class="radio-box">
 			<input type="radio" id="radio-2" name="type" value="2" />
 			<label for="radio-2">教师</label>
+		</div>
+		<div class="radio-box">
+			<input type="radio" id="radio-3" name="type" value="3" />
+			<label for="radio-3">学生</label>
 		</div>
 	  </div>
 	
