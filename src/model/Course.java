@@ -1,11 +1,12 @@
 package model;
 
 public class Course {
-	
+
 	private String Cno;// 课程号
 	private String Cname;// 课程名称
+	private Class cls; // 班级
 	private int Credit;// 学分
-	private String Term;//
+	private String Term;// 学期
 	private String Hours;// 学时
 	private String Tno;// 教师编号
 
@@ -23,6 +24,14 @@ public class Course {
 
 	public void setCname(String cname) {
 		Cname = cname;
+	}
+
+	public Class getCls() {
+		return cls;
+	}
+
+	public void setCls(Class cls) {
+		this.cls = cls;
 	}
 
 	public int getCredit() {

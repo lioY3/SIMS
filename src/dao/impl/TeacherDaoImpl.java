@@ -3,17 +3,19 @@ package dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 
+import dao.impl.BaseDaoImpl;
+import com.mysql.jdbc.ResultSetMetaData;
+
+import dao.TeacherDao;
 import model.Class;
 import model.Course;
 import model.Teacher;
 import utils.DBUtil;
-import dao.TeacherDao;
 
 /**
  * 教师数据层
@@ -23,63 +25,61 @@ import dao.TeacherDao;
 public class TeacherDaoImpl extends BaseDaoImpl implements TeacherDao {
 
 	public List<Teacher> getTeacherList(String sql, Object[] param, Class clno) {
-		// 数据集合
+		//数据集合
 		List<Teacher> list = new LinkedList<>();
 		try {
-			// 获取数据库连接
+			//获取数据库连接
 			Connection conn = DBUtil.getConnection();
-			// 预编译
+			//预编译
 			PreparedStatement ps = conn.prepareStatement(sql);
-			// 设置参数
-			if (param != null && param.length > 0) {
-				for (int i = 0; i < param.length; i++) {
-					ps.setObject(i + 1, param[i]);
+			//设置参数
+			if(param != null && param.length > 0){
+				for(int i = 0;i < param.length;i++){
+					ps.setObject(i+1, param[i]);
 				}
 			}
-			// 执行sql语句
+			//执行sql语句
 			ResultSet rs = ps.executeQuery();
-			// 获取元数据
-			java.sql.ResultSetMetaData meta = rs.getMetaData();
-			// 遍历结果集
-			while (rs.next()) {
-				// 创建对象
+			//获取元数据
+			ResultSetMetaData meta = (ResultSetMetaData) rs.getMetaData();
+			//遍历结果集
+			while(rs.next()){
+				//创建对象
 				Teacher teacher = new Teacher();
-				// 遍历每个字段
-				for (int i = 1; i <= meta.getColumnCount(); i++) {
+				//遍历每个字段
+				for(int i=1;i <= meta.getColumnCount();i++){
 					String field = meta.getColumnName(i);
 					BeanUtils.setProperty(teacher, field, rs.getObject(field));
 				}
-
+				
 				List<Object> itemParam = new LinkedList<>();
-				StringBuffer itemSql = new StringBuffer("SELECT * FROM Teacher WHERE Tno=? ");
+				StringBuffer itemSql = new StringBuffer("SELECT * FROM clazz_course_teacher WHERE teacherid=? ");
 				itemParam.add(teacher.getTno());
-
-				if (clno != null) {
+				
+				if(clno != null){
 					itemSql.append(" AND clazzid=?");
 					itemParam.add(clno.getClno());
 				}
-
-				List<Object> objList = getList(CourseItem.class, itemSql.toString(), itemParam);
-				List<CourseItem> itemList = new LinkedList<>();
-				for (Object obj : objList) {
-					CourseItem item = (CourseItem) obj;
-					// 查询班级
-					String clno = (String) getObject(Class.class, "SELECT * FROM class WHERE Clno=?",
-							new Object[] { item.getClno() });
-					Course course = (Course) getObject(Course.class, "SELECT * FROM course WHERE id=?",
-							new Object[] { item.getCourseid() });
-
-					item.setClazz(clno);
-					item.setCourse(course);
-
+				
+				List<Object> objList = getList(Course.class, itemSql.toString(), itemParam);
+				List<Course> itemList = new LinkedList<>();
+				for(Object obj : objList){
+					Course item = (Course) obj;
+					//查询班级
+					Class sclass = (Class) getObject(Class.class, "SELECT * FROM class WHERE Clno=?", new Object[]{item.getCls()});
+					//Course course = (Course) getObject(Course.class, "SELECT * FROM course WHERE Cno=?", new Object[]{item.getCno()});
+					
+					item.setCls(sclass);
+					//item.setCourse(course);
+					
 					itemList.add(item);
 				}
-				// 添加
+				//添加
 				teacher.setCourseList(itemList);
-				// 添加到集合
+				//添加到集合
 				list.add(teacher);
 			}
-			// 关闭连接
+			//关闭连接
 			DBUtil.closeConnection();
 			DBUtil.close(ps);
 			DBUtil.close(rs);
@@ -88,4 +88,6 @@ public class TeacherDaoImpl extends BaseDaoImpl implements TeacherDao {
 		}
 		return list;
 	}
+	
+
 }
