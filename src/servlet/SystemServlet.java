@@ -14,7 +14,9 @@ import model.User;
 import service.SystemService;
 import utils.VCodeGenerator;
 
-
+/**
+ * Servlet implementation class SystemServlet
+ */
 @WebServlet("/SystemServlet")
 public class SystemServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -46,14 +48,9 @@ public class SystemServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 获取请求的方法
-		String method = request.getParameter("method");
-
-		if ("EditPassword".equals(method)) { // 修改密码
-			editPasswod(request, response);
-		}
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
-
 
 	private void loginOut(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// 退出系统时清除系统登录的用户
@@ -120,15 +117,6 @@ public class SystemServlet extends HttpServlet {
 		}
 		// 返回登录信息
 		response.getWriter().write(msg);
-	}
-	
-
-	private void editPasswod(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		User user = new User();
-		user.setAccount(request.getParameter("account"));
-		user.setPassword(request.getParameter("password"));
-		service.editPassword(user);
-		response.getWriter().write("success");
 	}
 
 }
