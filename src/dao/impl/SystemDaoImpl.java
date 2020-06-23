@@ -1,6 +1,5 @@
 package dao.impl;
 
-import dao.BaseDao;
 import dao.impl.BaseDaoImpl;
 import dao.SystemDao;
 /**
