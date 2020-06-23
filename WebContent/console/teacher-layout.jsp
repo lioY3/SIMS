@@ -7,13 +7,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link rel="shortcut icon" href="image/favicon.ico"/>
 
-<title>学生管理系统主界面</title>
+<title>教师端|学生管理系统</title>
 <link rel="stylesheet" href="layui/css/layui.css">
 </head>
 <body class="layui-layout-body">
 	<div class="layui-layout layui-layout-admin">
 		<div class="layui-header">
-			<div class="layui-logo"><h3><a href="MainPage.jsp">学生信息管理系统</a></h3></div>
+			<div class="layui-logo"><h3><a href="console/MainPage.jsp">学生信息管理系统</a></h3></div>
 			
 			
 			<ul class="layui-nav layui-layout-right">
@@ -61,9 +61,6 @@
 							<dd>
 								<a href="javascript:;">课程信息查询</a>
 							</dd>
-							<dd>
-								<a href="javascript:;">课程信息修改</a>
-							</dd>
 						</dl>
 					</li>
 					<li class="layui-nav-item"><a href="javascript:;">成绩管理</a>
@@ -73,16 +70,6 @@
 							</dd>
 							<dd>
 								<a href="javascript:;">成绩录入修改</a>
-							</dd>
-						</dl>
-					</li>
-					<li class="layui-nav-item"><a href="javascript:;">高级</a>
-						<dl class="layui-nav-child">
-						<dd>
-								<a href="javascript:;">男女比</a>
-							</dd>
-							<dd>
-								<a href="javascript:;">人数比</a>
 							</dd>
 						</dl>
 					</li>
