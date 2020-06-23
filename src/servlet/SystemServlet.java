@@ -42,6 +42,8 @@ public class SystemServlet extends HttpServlet {
 			request.getRequestDispatcher("/console/administrator-layout.jsp").forward(request, response);
 		} else if ("toTeacherView".equals(method)) { // 到教师界面
 			request.getRequestDispatcher("/console/teacher-layout.jsp").forward(request, response);
+		} else if ("toStudentView".equals(method)) { // 到学生界面
+			request.getRequestDispatcher("/console/student-layout.jsp").forward(request, response);
 		}
 	}
 

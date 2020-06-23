@@ -15,7 +15,6 @@
 		<div class="layui-header">
 			<div class="layui-logo"><h3><a href="console/MainPage.jsp">学生信息管理系统</a></h3></div>
 
-			
 			<ul class="layui-nav layui-layout-right">
 				<li class="layui-nav-item"><a href="javascript:;"> <img
 						src="image/School-Logo.JPG" class="layui-nav-img"> ${user.username}
