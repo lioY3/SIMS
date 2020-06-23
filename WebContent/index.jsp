@@ -25,7 +25,7 @@
 	$(function(){
 		//点击图片切换验证码
 		$("#vcodeImg").click(function(){
-			this.src="LoginServlet?method=GetVCode&time"+new Date().getTime();
+			this.src="SystemServlet?method=GetVCode&time"+new Date().getTime();
 		});
 		
 		//登录
@@ -33,7 +33,7 @@
 			var data = $("#form").serialize();//序列化表单值 使用ajax()提交表单
 			$.ajax({
 				type: "post",
-				url: "LoginServlet?method=Login",//登录获取数据后端
+				url: "SystemServlet?method=Login",//登录获取数据后端
 				data: data, 
 				dataType: "text", //返回数据类型
 				success: function(msg){
@@ -49,6 +49,8 @@
 						window.location.href = "SystemServlet?method=toAdminView";//管理员
 					} else if("teacher" == msg){
 						window.location.href = "SystemServlet?method=toTeacherView";//教师
+					} else if("student" == msg){
+						window.location.href = "SystemServlet?method=toStudentView";//学生
 					}
 				}
 				
@@ -90,16 +92,20 @@ ini_set('display_errors','off');
       <div class="row cl">
         <div class="formControls col-8 col-offset-3">
           <input class="input-text size-L" name="vcode" type="text" placeholder="请输入验证码" style="width:200px;">
-          <img title="点击图片切换验证码" id="vcodeImg" style="height:40px;width:115px" src="LoginServlet?method=GetVCode"></div>
+          <img title="点击图片切换验证码" id="vcodeImg" style="height:40px;width:115px" src="SystemServlet?method=GetVCode"></div>
       </div>
       <div class="mt-20 skin-minimal" style="text-align: center;">
 		<div class="radio-box">
-			<input type="radio" id="radio-1" name="type" value="1" />
+			<input type="radio" id="radio-1" name="type" value="1" checked/>
 			<label for="radio-1">管理员</label>
 		</div>
 		<div class="radio-box">
 			<input type="radio" id="radio-2" name="type" value="2" />
 			<label for="radio-2">教师</label>
+		</div>
+		<div class="radio-box">
+			<input type="radio" id="radio-3" name="type" value="3" />
+			<label for="radio-3">学生</label>
 		</div>
 	  </div>
 	
