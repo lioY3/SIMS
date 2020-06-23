@@ -72,7 +72,7 @@ public interface BaseDao {
 	 * @param type
 	 * @param sql
 	 * @param param
-	 * @return
+	 * @return*****
 	 */
 	Object getObject(Class type, String sql, Object[] param);
 	
@@ -113,7 +113,7 @@ public interface BaseDao {
 	/**
 	 * 插入或更新一条数据
 	 * @param sql
-	 * @param param
+	 * @param param *****
 	 */
 	void update(String sql, Object[] param);
 	
