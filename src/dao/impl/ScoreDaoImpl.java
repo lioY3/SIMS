@@ -10,7 +10,7 @@ import com.mysql.jdbc.Connection;
 import dao.ScoreDao;
 import model.Score;
 import model.Student;
-import utils.MysqlTool;
+import utils.DBUtil;
 
 public class ScoreDaoImpl extends BaseDaoImpl implements ScoreDao {
 
@@ -25,7 +25,7 @@ public class ScoreDaoImpl extends BaseDaoImpl implements ScoreDao {
 		String stuSql = stuSb.toString();
 		
 		//获取数据库连接
-		Connection conn = (Connection) MysqlTool.getConnection();
+		Connection conn = (Connection) DBUtil.getConnection();
 		
 		//获取该年级下的所有学生
 		List<Object> stuList = getList(Student.class, stuSql, stuParam);

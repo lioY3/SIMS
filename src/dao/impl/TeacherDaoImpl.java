@@ -9,6 +9,8 @@ import java.util.List;
 import org.apache.commons.beanutils.BeanUtils;
 
 import dao.impl.BaseDaoImpl;
+import com.mysql.jdbc.ResultSetMetaData;
+
 import dao.TeacherDao;
 import model.Class;
 import model.Course;
@@ -20,9 +22,9 @@ import utils.MysqlTool;
  *
  */
 
-public class TeacherDaoImpl extends BaseDaoImpl implements TeacherDao {
+public class TeacherDaoImpl extends BaseDaoImpl implements TeacherDaoInter {
 
-	public List<Teacher> getTeacherList(String sql, Object[] param, Class clno) {
+	public List<Teacher> getTeacherList(String sql, Object[] param, Grade grade, Clazz clazz) {
 		//数据集合
 		List<Teacher> list = new LinkedList<>();
 		try {
@@ -39,7 +41,7 @@ public class TeacherDaoImpl extends BaseDaoImpl implements TeacherDao {
 			//执行sql语句
 			ResultSet rs = ps.executeQuery();
 			//获取元数据
-			java.sql.ResultSetMetaData meta = rs.getMetaData();
+			ResultSetMetaData meta = rs.getMetaData();
 			//遍历结果集
 			while(rs.next()){
 				//创建对象
@@ -51,29 +53,34 @@ public class TeacherDaoImpl extends BaseDaoImpl implements TeacherDao {
 				}
 				
 				List<Object> itemParam = new LinkedList<>();
-				StringBuffer itemSql = new StringBuffer("SELECT * FROM Teacher WHERE Tno=? ");
-				itemParam.add(teacher.getTno());
-				
-				if(clno != null){
+				StringBuffer itemSql = new StringBuffer("SELECT * FROM clazz_course_teacher WHERE teacherid=? ");
+				itemParam.add(teacher.getId());
+				if(grade != null){
+					itemSql.append(" AND gradeid=?");
+					itemParam.add(grade.getId());
+				}
+				if(clazz != null){
 					itemSql.append(" AND clazzid=?");
-					itemParam.add(clno.getClno());
+					itemParam.add(clazz.getId());
 				}
 				
-				List<Object> objList = getList(Course.class, itemSql.toString(), itemParam);
-				List<Course> courseList = new LinkedList<>();
+				List<Object> objList = getList(CourseItem.class, itemSql.toString(), itemParam);
+				List<CourseItem> itemList = new LinkedList<>();
 				for(Object obj : objList){
-					Course item = (Course) obj;
+					CourseItem item = (CourseItem) obj;
 					//查询班级
-//					String Cno = (String) getObject(Course.class, "SELECT * FROM class WHERE Cno=?", new Object[]{item.getCno()});
-//					String Tno = (String) getObject(Teacher.class, "SELECT * FROM course WHERE id=?", new Object[]{item.getCourseid()});
-//					
-//					item.setClazz(clno1);
-//					item.setCourse(course);
+					Clazz sclazz = (Clazz) getObject(Clazz.class, "SELECT * FROM clazz WHERE id=?", new Object[]{item.getClazzid()});
+					Grade sgrade = (Grade) getObject(Grade.class, "SELECT * FROM grade WHERE id=?", new Object[]{item.getGradeid()});
+					Course course = (Course) getObject(Course.class, "SELECT * FROM course WHERE id=?", new Object[]{item.getCourseid()});
 					
-					courseList.add(item);
+					item.setClazz(sclazz);
+					item.setGrade(sgrade);
+					item.setCourse(course);
+					
+					itemList.add(item);
 				}
 				//添加
-				teacher.setCourseList(courseList);
+				teacher.setCourseList(itemList);
 				//添加到集合
 				list.add(teacher);
 			}
@@ -86,14 +93,6 @@ public class TeacherDaoImpl extends BaseDaoImpl implements TeacherDao {
 		}
 		return list;
 	}
-
-	@SuppressWarnings("rawtypes")
-	@Override
-	public List<Teacher> getTeacherList(String sql, Object[] param, java.lang.Class clno) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
-
 
 }

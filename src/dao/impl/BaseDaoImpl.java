@@ -1,7 +1,7 @@
 package dao.impl;
 
 import java.sql.Connection;
-
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -12,12 +12,9 @@ import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
-import com.mysql.jdbc.PreparedStatement;
 import dao.BaseDao;
 import utils.DBUtil;
-import utils.MysqlTool;
-import java.sql.Statement;
-import java.sql.*;
+
 
 /**
  * 基础Dao层
@@ -28,7 +25,7 @@ public class BaseDaoImpl implements BaseDao{
 	
 	@SuppressWarnings("rawtypes")
 	public List<Object> getList(Class type, String sql) {
-		QueryRunner qr = new QueryRunner(MysqlTool.getDataSource());
+		QueryRunner qr = new QueryRunner(DBUtil.getDataSource());
 		List<Object> list = new LinkedList<>();
 		try {
 			list = (List<Object>) qr.query(sql, new BeanListHandler(type));
@@ -40,7 +37,7 @@ public class BaseDaoImpl implements BaseDao{
 	
 	@SuppressWarnings("rawtypes")
 	public List<Object> getList(Class type, String sql, Object[] param) {
-		QueryRunner qr = new QueryRunner(MysqlTool.getDataSource());
+		QueryRunner qr = new QueryRunner(DBUtil.getDataSource());
 		List<Object> list = new LinkedList<>();
 		try {
 			list = (List<Object>) qr.query(sql, new BeanListHandler(type), param);
@@ -124,7 +121,7 @@ public class BaseDaoImpl implements BaseDao{
 	
 	@SuppressWarnings("rawtypes")
 	public Long count(String sql) {
-		QueryRunner qr = new QueryRunner(MysqlTool.getDataSource());
+		QueryRunner qr = new QueryRunner(DBUtil.getDataSource());
 		Long count = 0L;
 		try {
 			count = (Long) qr.query(sql, new ScalarHandler());
@@ -136,7 +133,7 @@ public class BaseDaoImpl implements BaseDao{
 	
 	@SuppressWarnings("rawtypes")
 	public Long count(String sql, Object[] param) {
-		QueryRunner qr = new QueryRunner(MysqlTool.getDataSource());
+		QueryRunner qr = new QueryRunner(DBUtil.getDataSource());
 		Long count = 0L;
 		try {
 			count = (Long) qr.query(sql, new ScalarHandler(), param);
@@ -156,7 +153,7 @@ public class BaseDaoImpl implements BaseDao{
 	}
 	
 	public void update(String sql, Object[] param) {
-		QueryRunner qr = new QueryRunner(MysqlTool.getDataSource());
+		QueryRunner qr = new QueryRunner(DBUtil.getDataSource());
 		try {
 			qr.update(sql, param);
 		} catch (SQLException e) {
@@ -192,7 +189,7 @@ public class BaseDaoImpl implements BaseDao{
 	public int insertReturnKeys(String sql, Object[] param) {
 		int key = 0;
 		//获取数据库连接
-		Connection conn = MysqlTool.getConnection();
+		Connection conn = DBUtil.getConnection();
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			//设置值
@@ -242,7 +239,7 @@ public class BaseDaoImpl implements BaseDao{
 	}
 	
 	public void insertBatch(String sql, Object[][] param) {
-		QueryRunner runner = new QueryRunner(MysqlTool.getDataSource());
+		QueryRunner runner = new QueryRunner(DBUtil.getDataSource());
 		try {
 			runner.batch(sql, param);
 		} catch (SQLException e) {
@@ -289,7 +286,7 @@ public class BaseDaoImpl implements BaseDao{
 		List<String> list = new LinkedList<>();
 		try {
 			//获取数据库连接
-			Connection conn = MysqlTool.getConnection();
+			Connection conn = DBUtil.getConnection();
 			//预编译
 			PreparedStatement ps = conn.prepareStatement(sql);
 			//设置值
@@ -307,9 +304,9 @@ public class BaseDaoImpl implements BaseDao{
 				list.add(account);
 			}
 			//关闭连接
-			MysqlTool.closeConnection();
-			MysqlTool.close(ps);
-			MysqlTool.close(rs);
+			DBUtil.closeConnection();
+			DBUtil.close(ps);
+			DBUtil.close(rs);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

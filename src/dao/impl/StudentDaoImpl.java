@@ -14,7 +14,7 @@ import model.Student;
 import model.Class;
 import dao.StudentDao;
 
-import utils.MysqlTool;
+import utils.DBUtil;
 
 
 public class StudentDaoImpl extends BaseDaoImpl implements StudentDao {
@@ -24,7 +24,7 @@ public class StudentDaoImpl extends BaseDaoImpl implements StudentDao {
 		List<Student> list = new LinkedList<>();
 		try {
 			//获取数据库连接
-			Connection conn = MysqlTool.getConnection();
+			Connection conn = DBUtil.getConnection();
 			//预编译
 			PreparedStatement ps = conn.prepareStatement(sql);
 			//设置参数
@@ -54,9 +54,9 @@ public class StudentDaoImpl extends BaseDaoImpl implements StudentDao {
 				list.add(stu);
 			}
 			//关闭连接
-			MysqlTool.closeConnection();
-			MysqlTool.close(ps);
-			MysqlTool.close(rs);
+			DBUtil.closeConnection();
+			DBUtil.close(ps);
+			DBUtil.close(rs);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
