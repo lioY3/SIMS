@@ -61,7 +61,7 @@
         <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="add">
             <i class="layui-icon">&#xe608;</i> 新&emsp;增
         </button>
-        <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="refresh" style=" margin-left: 15px">
+        <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="refresh"  id ="ref" style=" margin-left: 15px">
             <i class="layui-icon">&#xe669;</i> 刷&emsp;新
         </button>
     </div>
@@ -89,6 +89,7 @@
 			<input type="hidden" name="action" id="action">
 			<!--隐藏字段request_type，用于提供请求方式:get,post,put-->
 			<input type="hidden" name="request_type" id="request_type">
+			<input type="hidden" name="request_Sno" id="request_Sno">
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">学号:</label>
@@ -292,6 +293,13 @@
 					            var data = {};
 					            data.action = 'addStu';
 					            data.request_type = 'post';
+					            data.Sno=null;
+					            data.Sname=null;
+					            data.Ssex=null;
+					            data.Sbirthday=null;
+					            data.Sid=null;
+					            data.Dname=null;
+					            data.Clname=null;
 					            // 调用打开弹层的工具方法
 					            open_form("#open_div", data, '增加学生', '380px', '550px');
 					            break;
@@ -307,8 +315,28 @@
 						            // 根据编辑行为为form隐藏项赋值
 						            data.action = 'updateStu';
 						            data.request_type = 'post';
+						            data.request_Sno = id;
 						            open_form("#open_div", data, '编辑学生', '380px', '550px');
 						            break; 
+						        case 'del':
+				                    layer.confirm('真的删除该行么', function (index) {
+				                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+				                        //向服务端发送删除指令
+				                        $.ajax({
+				                            type: "get",  //数据提交方式(post/get)
+				                            url: "/goods/deleteGood?id=" + Sno,  //提交到的url
+				                            contentType: "application/json; charset=utf-8",
+				                            dataType: "json",//返回的数据类型格式
+				                            success: function (result) {
+				                                layer.msg(result.msg, {icon: 1, time: 1000});
+				                            }, error: function (e) {
+				                                console.log(e, 'error');
+				                                layer.msg("异常，请再次重试！", {icon: 1, time: 1000});
+				                            }
+				                        });
+				                        layer.close(index);
+				                    });
+				                    break;
 						    }
 						});
  					
@@ -316,7 +344,6 @@
 						form.on('submit(Stu_submit)', function (data) {
 						    var uri = data.field.action;
 						    var type = data.field.request_type;
-						
 						    $.ajax({
 						         type: type,
 						         url: '/goods/' + uri,
@@ -336,7 +363,7 @@
 						                layer.msg('修改成功', {icon: 1, time: 1000});
 						            } else {  //失败
 						                layer.alert(result.msg, {icon: 2}, function () {
-						                    layer.close(index);tableOne
+						                    layer.close(index);
 						                });
 						            }
 						        }
