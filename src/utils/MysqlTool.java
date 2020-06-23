@@ -1,6 +1,7 @@
 package utils;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -86,10 +87,10 @@ public class MysqlTool {
 		tl.remove();
 	}
 	
-	public static void close(Connection conn){
+	public static void close(Connection connection){
 		try {
-			if(conn != null){
-				conn.close();
+			if(connection != null){
+				connection.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -110,6 +111,17 @@ public class MysqlTool {
 		try {
 			if(rs != null){
 				rs.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void close(PreparedStatement ps) {
+		// TODO Auto-generated method stub
+		try {
+			if(ps != null){
+				ps.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

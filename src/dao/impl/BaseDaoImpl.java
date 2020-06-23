@@ -1,6 +1,7 @@
 package dao.impl;
 
 import java.sql.Connection;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -12,16 +13,19 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import com.mysql.jdbc.PreparedStatement;
-import dao.inter.BaseDaoInter;
+import dao.BaseDao;
 import utils.MysqlTool;
+import java.sql.Statement;
+import java.sql.*;
 
 /**
  * 基础Dao层
  *
  */
 @SuppressWarnings("unchecked")
-public class BaseDaoImpl implements BaseDaoInter{
+public class BaseDaoImpl implements BaseDao{
 	
+	@SuppressWarnings("rawtypes")
 	public List<Object> getList(Class type, String sql) {
 		QueryRunner qr = new QueryRunner(MysqlTool.getDataSource());
 		List<Object> list = new LinkedList<>();
@@ -33,6 +37,7 @@ public class BaseDaoImpl implements BaseDaoInter{
 		return list;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public List<Object> getList(Class type, String sql, Object[] param) {
 		QueryRunner qr = new QueryRunner(MysqlTool.getDataSource());
 		List<Object> list = new LinkedList<>();
@@ -44,6 +49,7 @@ public class BaseDaoImpl implements BaseDaoInter{
 		return list;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public List<Object> getList(Class type, String sql, List<Object> param) {
 		Object[] params = new Object[param.size()];
 		for(int i = 0;i < param.size();i++){
@@ -52,6 +58,7 @@ public class BaseDaoImpl implements BaseDaoInter{
 		return getList(type, sql, params);
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public List<Object> getList(Connection conn, Class type, String sql) {
 		QueryRunner qr = new QueryRunner();
 		List<Object> list = new LinkedList<>();
@@ -63,6 +70,7 @@ public class BaseDaoImpl implements BaseDaoInter{
 		return list;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public List<Object> getList(Connection conn, Class type, String sql, Object[] param) {
 		QueryRunner qr = new QueryRunner();
 		List<Object> list = new LinkedList<>();
@@ -74,6 +82,7 @@ public class BaseDaoImpl implements BaseDaoInter{
 		return list;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public List<Object> getList(Connection conn, Class type, String sql, List<Object> param) {
 		Object[] params = new Object[param.size()];
 		for(int i = 0;i < param.size();i++){
@@ -82,6 +91,7 @@ public class BaseDaoImpl implements BaseDaoInter{
 		return getList(conn, type, sql, params);
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public Object getObject(Class type, String sql, Object[] param) {
 		QueryRunner qr = new QueryRunner(MysqlTool.getDataSource());
 		Object obj = new LinkedList<>();
@@ -93,6 +103,7 @@ public class BaseDaoImpl implements BaseDaoInter{
 		return obj;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public Object getObject(Connection conn, Class type, String sql, Object[] param) {
 		QueryRunner qr = new QueryRunner();
 		Object obj = new LinkedList<>();
@@ -104,6 +115,7 @@ public class BaseDaoImpl implements BaseDaoInter{
 		return obj;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public Long count(String sql) {
 		QueryRunner qr = new QueryRunner(MysqlTool.getDataSource());
 		Long count = 0L;
@@ -115,6 +127,7 @@ public class BaseDaoImpl implements BaseDaoInter{
 		return count;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public Long count(String sql, Object[] param) {
 		QueryRunner qr = new QueryRunner(MysqlTool.getDataSource());
 		Long count = 0L;
