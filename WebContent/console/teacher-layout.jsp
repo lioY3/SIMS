@@ -93,7 +93,7 @@
 
 		<div class="layui-body">
 			<!-- 内容主体区域 -->
-			<iframe id="iframeMain" src="console/MainPage.jsp" frameborder="0" height="100%" width="100%" scrolling="no"></iframe>
+			<iframe id="iframeMain" src="console/MainPage.jsp" frameborder="0" height="99.4%" width="100%" scrolling="no"></iframe>
 		</div>
 
 		<div class="layui-footer" align="center">
