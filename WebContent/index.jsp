@@ -93,22 +93,7 @@ ini_set('display_errors','off');
         <div class="formControls col-8 col-offset-3">
           <input class="input-text size-L" name="vcode" type="text" placeholder="请输入验证码" style="width:200px;">
           <img title="点击图片切换验证码" id="vcodeImg" style="height:40px;width:115px" src="SystemServlet?method=GetVCode"></div>
-      </div>
-      <div class="mt-20 skin-minimal" style="text-align: center;">
-		<div class="radio-box">
-			<input type="radio" id="radio-1" name="type" value="1" checked/>
-			<label for="radio-1">管理员</label>
-		</div>
-		<div class="radio-box">
-			<input type="radio" id="radio-2" name="type" value="2" />
-			<label for="radio-2">教师</label>
-		</div>
-		<div class="radio-box">
-			<input type="radio" id="radio-3" name="type" value="3" />
-			<label for="radio-3">学生</label>
-		</div>
-	  </div>
-	
+      </div>	
       <div class="row">
         <div class="formControls col-8 col-offset-3">
           <input id="submitBtn" type="button" class="btn btn-success radius size-L " style="width:320px;background:#49bcb0" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">

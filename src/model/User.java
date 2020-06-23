@@ -4,6 +4,7 @@ public class User {
 
 	public static final int ADMIN = 1;// 管理员用户
 	public static final int TEACHER = 2;// 教师用户
+	public static final int STUDENT = 3;// 学生用户
 
 	private String account; // 账户
 	private String password;// 密码

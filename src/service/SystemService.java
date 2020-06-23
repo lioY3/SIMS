@@ -33,8 +33,8 @@ public class SystemService {
 	 */
 	public User getAdmin(User user) {
 		User searchUser = (User) dao.getObject(User.class,
-				"SELECT * FROM user WHERE Account=? AND Password=? AND Type=?",
-				new Object[] { user.getAccount(), user.getPassword(), user.getType() });
+				"SELECT * FROM user WHERE Account=? AND Password=?",
+				new Object[] { user.getAccount(), user.getPassword()});
 		return searchUser;
 	}
 
