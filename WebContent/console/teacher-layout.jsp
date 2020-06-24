@@ -50,10 +50,7 @@
 					<li class="layui-nav-item"><a href="javascript:;">教师管理</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="javascript:;">教师信息查询</a>
-							</dd>
-							<dd>
-								<a href="javascript:;">教师信息修改</a>
+								<a href="teacher/Tea-Infor.jsp">教师信息查询</a>
 							</dd>
 						</dl></li>
 					<li class="layui-nav-item"><a href="javascript:;">课程管理</a>
