@@ -1,12 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<jsp:include page="../password/pass-revise.jsp"/>
 <!DOCTYPE html>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<link rel="shortcut icon" href="image/favicon.ico"/>
-
+<script src="jquery/jquery-3.4.1.min.js"></script>
+<link href="bootstrap-3.3.7-dist/css/bootstrap-theme.css" rel="stylesheet"/>
+<link href="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrapz.css">
+<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <title>管理员端|学生管理系统</title>
 <link rel="stylesheet" href="layui/css/layui.css">
 </head>
@@ -21,7 +27,7 @@
 				</a>
 					<dl class="layui-nav-child">
 						<dd>
-							<a href="">修改密码</a>
+							  <a href="javascript:void(0);"data-toggle="modal" data-target="#wyp">修改密码</a>
 						</dd>
 						<dd>
 							<div><a href="SystemServlet?method=LoginOut">退出登录</a></div>

@@ -15,9 +15,8 @@ public class SystemService {
 	 * @return
 	 */
 	public User getAdmin(User user) {
-		User searchUser = (User) dao.getObject(User.class,
-				"SELECT * FROM user WHERE Account=? AND Password=?",
-				new Object[] { user.getAccount(), user.getPassword()});
+		User searchUser = (User) dao.getObject(User.class, "SELECT * FROM user WHERE Account=? AND Password=?",
+				new Object[] { user.getAccount(), user.getPassword() });
 		return searchUser;
 	}
 

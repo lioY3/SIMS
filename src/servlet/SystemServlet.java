@@ -14,7 +14,9 @@ import model.User;
 import service.SystemService;
 import utils.VCodeGenerator;
 
-
+/**
+ * Servlet implementation class SystemServlet
+ */
 @WebServlet("/SystemServlet")
 public class SystemServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -52,8 +54,8 @@ public class SystemServlet extends HttpServlet {
 		if ("EditPassword".equals(method)) { // 修改密码
 			editPasswod(request, response);
 		}
+		doGet(request, response);
 	}
-
 
 	private void loginOut(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// 退出系统时清除系统登录的用户
@@ -84,7 +86,6 @@ public class SystemServlet extends HttpServlet {
 		// 获取用户输入的验证码
 		String vcode = request.getParameter("vcode");
 		// 获取登录类型
-		// int type = Integer.parseInt(request.getParameter("type"));
 
 		// 返回信息
 		String msg = null;
@@ -100,7 +101,6 @@ public class SystemServlet extends HttpServlet {
 			User user = new User();
 			user.setAccount(account);
 			user.setPassword(password);
-			// user.setType(Integer.parseInt(request.getParameter("type")));
 
 			// 创建系统数据层对象,查询用户是否存在
 			User loginUser = service.getAdmin(user);
@@ -121,7 +121,6 @@ public class SystemServlet extends HttpServlet {
 		// 返回登录信息
 		response.getWriter().write(msg);
 	}
-	
 
 	private void editPasswod(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		User user = new User();
@@ -130,5 +129,5 @@ public class SystemServlet extends HttpServlet {
 		service.editPassword(user);
 		response.getWriter().write("success");
 	}
-
+	
 }

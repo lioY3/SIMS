@@ -91,15 +91,15 @@ public class BaseDaoImpl implements BaseDao{
 	
 	@SuppressWarnings("rawtypes")
 	public Object getObject(Class type, String sql, Object[] param) {
-		Connection con = DBUtil.getConnection();
-		QueryRunner qr = new QueryRunner();
+		QueryRunner qr = new QueryRunner(DBUtil.getDataSource());
 		Object obj = new LinkedList<>();
 		try {
-			obj = qr.query(con, sql, new BeanHandler(type), param);
+			obj = qr.query(sql, new BeanHandler(type), param);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return obj;
+
 	}
 	
 	@SuppressWarnings("rawtypes")

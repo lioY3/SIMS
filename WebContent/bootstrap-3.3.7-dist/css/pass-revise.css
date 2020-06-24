@@ -1,0 +1,10 @@
+@charset "UTF-8";
+.fa fa-lock{
+  left:30%;
+}
+
+
+.form-control-feedback {
+	line-height: 50px;
+	left: 30px;
+} 
