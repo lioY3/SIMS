@@ -2,6 +2,8 @@ package dao;
 
 import java.util.List;
 
+import model.Page;
+
 /**
  * 班级数据层接口
  *
@@ -10,7 +12,7 @@ import java.util.List;
 public interface ClassDao extends BaseDao {
 
 	@SuppressWarnings("rawtypes")
-	List<Class> getClazzDetailList(String clno);
+	List<Class> getClazzDetailList(String clno, Page page);
 	
 	/**
 	 * 获取班级详细信息
