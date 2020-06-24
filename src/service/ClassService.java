@@ -26,13 +26,13 @@ public class ClassService {
 	
 	/**
 	 * 获取指定的班级
-	 * @param gid 年级ID
+
 	 * @return JSON格式的班级
 	 */
-	public String getClazzList(String gradeid){
-		int id = Integer.parseInt(gradeid);
+	public String getClassList(String clno){
+		//int id = Integer.parseInt(clno);
 		//获取数据
-		List<Object> list = dao.getList(Class.class, "SELECT * FROM class WHERE clno=?", new Object[]{id});
+		List<Object> list = dao.getList(Class.class, "SELECT * FROM class WHERE clno=?", new Object[]{clno});
 		//json化
 		JsonConfig config = new JsonConfig();
 		config.setExcludes(new String[]{"clno", "studentList"});
@@ -78,51 +78,6 @@ public class ClassService {
 	 */
 	public void addClass(String clname, String clno) {
 		dao.insert("INSERT INTO class(clname, clno) value(?,?)", new Object[]{clname, clno});
-	}
-	
-	/**
-	 * 删除班级
-	 * @param clazzid
-	 * @throws Exception 
-	 */
-	public void deleteClazz(String clno) throws Exception {
-		//获取连接
-		Connection conn = DBUtil.getConnection();
-		try {
-			//开启事务
-			DBUtil.startTransaction();
-			//删除成绩表
-			dao.deleteTransaction(conn, "DELETE FROM score WHERE clno=?", new Object[]{clno});
-			//删除考试记录
-//			dao.deleteTransaction(conn, "DELETE FROM exam WHERE clazzid=?", new Object[]{clazzid});
-			//删除用户
-			List<Object> list = dao.getList(Student.class, "SELECT number FROM student WHERE clno=?",  new Object[]{clno});
-			if(list.size() > 0){
-				Object[] param = new Object[list.size()];
-				for(int i = 0;i < list.size();i++){
-					Student stu = (Student) list.get(i);
-					param[i] = stu.getSno();
-				}
-				String sql = "DELETE FROM user WHERE sno IN ("+StringTool.getMark(list.size())+")";
-				dao.deleteTransaction(conn, sql, param);
-				//删除学生
-				dao.deleteTransaction(conn, "DELETE FROM student WHERE clno=?", new Object[]{clno});
-			}
-			//删除班级的课程和老师的关联
-			dao.deleteTransaction(conn, "DELETE FROM class_course_teacher WHERE clno=?", new Object[]{clno});
-			//最后删除班级
-			dao.deleteTransaction(conn, "DELETE FROM class WHERE clno=?",  new Object[]{clno});
-			
-			//提交事务
-			DBUtil.commit();
-		} catch (Exception e) {
-			//回滚事务
-			DBUtil.rollback();
-			e.printStackTrace();
-			throw e;
-		} finally {
-			DBUtil.closeConnection();
-		}
 	}
 	
 }
