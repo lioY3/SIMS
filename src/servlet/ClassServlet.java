@@ -61,9 +61,12 @@ public class ClassServlet extends HttpServlet {
 
 	private void classDetailList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		//获取参数
-		String Clno = request.getParameter("Clno");
-	
-		String result = service.getClazzDetailList(Clno);
+		String clno = request.getParameter("clno");
+		//获取分页参数
+		int page = Integer.parseInt(request.getParameter("page"));
+		int rows = Integer.parseInt(request.getParameter("rows"));
+		
+		String result = service.getClazzDetailList(clno, new Page(page, rows));
 		//返回数据
         response.getWriter().write(result);
 	}
