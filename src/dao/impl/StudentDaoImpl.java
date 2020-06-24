@@ -10,7 +10,7 @@ import java.util.List;
 import org.apache.commons.beanutils.BeanUtils;
 
 import dao.impl.BaseDaoImpl;
-import model.Student;
+import model.StudentInfo;
 import dao.StudentDao;
 
 import utils.DBUtil;
@@ -18,9 +18,9 @@ import utils.DBUtil;
 
 public class StudentDaoImpl extends BaseDaoImpl implements StudentDao {
 
-	public List<Student> getStudentList(String sql, List<Object> param) {
+	public List<StudentInfo> getStudentInfoList(String sql, List<Object> param) {
 		//数据集合
-		List<Student> list = new LinkedList<>();
+		List<StudentInfo> list = new LinkedList<>();
 		try {
 			//获取数据库连接
 			Connection con = DBUtil.getConnection();
@@ -41,17 +41,21 @@ public class StudentDaoImpl extends BaseDaoImpl implements StudentDao {
 			//遍历结果集
 			while(rs.next()){
 				//创建对象
-				Student stu = new Student();
+				StudentInfo stuInfo = new StudentInfo();
 				//遍历每个字段
 				for(int i=1;i <= meta.getColumnCount();i++){
 					String field = meta.getColumnName(i);
-					BeanUtils.setProperty(stu, field, rs.getObject(field));
+					
+					System.out.println(field+" "+rs.getObject(field));
+					
+					BeanUtils.setProperty(stuInfo, field, rs.getObject(field));
 				}
 				
 				//添加到集合
-				list.add(stu);
+				list.add(stuInfo);
 			}
 			
+
 			//关闭连接
 			DBUtil.closeConnection();
 			DBUtil.close(ps);
@@ -61,7 +65,5 @@ public class StudentDaoImpl extends BaseDaoImpl implements StudentDao {
 		}
 		return list;
 	}
-	
-
 
 }
