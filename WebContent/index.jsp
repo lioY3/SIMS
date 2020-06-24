@@ -20,6 +20,32 @@
 <script type="text/javascript" src="h-ui/lib/icheck/jquery.icheck.min.js"></script> 
 
 <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+<style type="text/css">
+body, html {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+.container {
+  position: relative;
+  overflow: hidden;
+}
+img {
+  transition: .1s ease-in-out;
+}
+.container div {
+  overflow: hidden;
+  float: left;
+}
+.blur img {
+  filter: blur(15px);
+  -webkit-filter: blur(15px);
+}
+.blur img:hover {
+  filter: blur(0);
+  -webkit-filter: blur(0);
+}
+</style>
 
 <script type="text/javascript">
 	$(function(){
@@ -72,6 +98,9 @@ ini_set('display_errors','off');
 <div class="header">SIMS</div>
 <div class="header2">学生成绩管理系统</div>
 <div class="loginWraper">
+	<div  class="blur container" >   
+	<img src="${pageContext.request.contextPath }/image/bg1.JPG" height="100%" width="100%"/>   
+</div>
   <div id="loginform" class="loginBox">
     <form id="form" class="form form-horizontal" method="post">
     
