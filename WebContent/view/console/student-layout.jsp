@@ -63,7 +63,7 @@
 		<div class="layui-body">
 			<!-- 内容主体区域 -->
 
-			<iframe id="iframeMain" src="${pageContext.request.contextPath}/console/MainPage.jsp" frameborder="0"
+			<iframe id="iframeMain" src="${pageContext.request.contextPath}/view/console/MainPage.jsp" frameborder="0"
 				height="100%" width="100%" scrolling="no"></iframe>
 		</div>
 

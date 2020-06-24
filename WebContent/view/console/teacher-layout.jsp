@@ -41,16 +41,16 @@
 						href="javascript:;">学生管理</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="student/Stu-Infor.jsp">学生信息查询</a>
+								<a href="view/student/Stu-Infor.jsp">学生信息查询</a>
 							</dd>
 							<dd>
-								<a href="student/Stu-modify.jsp">学生信息修改</a>
+								<a href="view/student/Stu-modify.jsp">学生信息修改</a>
 							</dd>
 						</dl></li>
 					<li class="layui-nav-item"><a href="javascript:;">教师管理</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="teacher/Tea-Infor.jsp">教师信息查询</a>
+								<a href="view/teacher/Tea-Infor.jsp">教师信息查询</a>
 							</dd>
 						</dl></li>
 					<li class="layui-nav-item"><a href="javascript:;">课程管理</a>
@@ -77,7 +77,7 @@
 
 		<div class="layui-body">
 			<!-- 内容主体区域 -->
-			<iframe id="iframeMain" src="${pageContext.request.contextPath}/console/MainPage.jsp" frameborder="0" height="99.4%" width="100%" scrolling="no"></iframe>
+			<iframe id="iframeMain" src="${pageContext.request.contextPath}/view/console/MainPage.jsp" frameborder="0" height="99.4%" width="100%" scrolling="no"></iframe>
 		</div>
 
 		<div class="layui-footer" align="center">

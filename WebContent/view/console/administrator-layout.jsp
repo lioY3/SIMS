@@ -7,6 +7,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/static/image/favicon.ico" />
+
 <script src="${pageContext.request.contextPath}/static/jquery/jquery-3.4.1.min.js"></script>
 <link href="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/css/bootstrap-theme.css" rel="stylesheet"/>
 <link href="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet" />
@@ -165,7 +167,7 @@
 		<div class="layui-body">
 			<!-- 内容主体区域 -->
 			
-			<iframe id="iframeMain" src="${pageContext.request.contextPath}/console/MainPage.jsp" frameborder="0" height="100%" width="100%" scrolling="no"></iframe>
+			<iframe id="iframeMain" src="${pageContext.request.contextPath}/view/console/MainPage.jsp" frameborder="0" height="100%" width="100%" scrolling="no"></iframe>
 		</div>
 
 		<div class="layui-footer" align="center">

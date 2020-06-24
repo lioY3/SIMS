@@ -4,20 +4,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/static/image/favicon.ico" />
+
 <link href="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/css/pass-revise.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/css/bootstrap.css">
 <script src="${pageContext.request.contextPath}/static/easyui/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 
-<title>Insert title here</title>
+<title>管理员端|学生管理系统</title>
 <script type="text/javascript">  
  function xiugai(){
 	 $("wyp").show();
  }
  
-
-
 
  $(function(){
 	$("#StorePassword").on('input',function(){

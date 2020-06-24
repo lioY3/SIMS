@@ -39,11 +39,11 @@ public class SystemServlet extends HttpServlet {
 		} else if ("Login".equals(method)) { // 登陆
 			login(request, response);
 		} else if ("toAdminView".equals(method)) { // 到管理员界面
-			request.getRequestDispatcher("/console/administrator-layout.jsp").forward(request, response);
+			request.getRequestDispatcher("view/console/administrator-layout.jsp").forward(request, response);
 		} else if ("toTeacherView".equals(method)) { // 到教师界面
-			request.getRequestDispatcher("/console/teacher-layout.jsp").forward(request, response);
+			request.getRequestDispatcher("view/console/teacher-layout.jsp").forward(request, response);
 		} else if ("toStudentView".equals(method)) { // 到学生界面
-			request.getRequestDispatcher("/console/student-layout.jsp").forward(request, response);
+			request.getRequestDispatcher("view/console/student-layout.jsp").forward(request, response);
 		}
 	}
 

@@ -28,9 +28,9 @@ public class StudentServlet extends HttpServlet {
 		String method = request.getParameter("method");
 		
 		if ("toStudentInfoView".equals(method)) {
-			request.getRequestDispatcher("student/Stu-Infor.jsp").forward(request, response);
+			request.getRequestDispatcher("view/student/Stu-Infor.jsp").forward(request, response);
 		} else if ("toStudentModifyView".equals(method)) {
-			request.getRequestDispatcher("student/Stu-modify.jsp").forward(request, response);
+			request.getRequestDispatcher("view/student/Stu-modify.jsp").forward(request, response);
 		}
 
 	}
