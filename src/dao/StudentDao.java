@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import model.Student;
+import model.StudentInfo;
 
 
 /**
@@ -13,11 +14,12 @@ import model.Student;
 public interface StudentDao extends BaseDao {
 	
 	/**
-	 * 获取学生信息
+	 * 获取学生详细信息
 	 * @param sql 要执行的sql语句
 	 * @param param 参数
 	 * @return
 	 */
-	public List<Student> getStudentList(String sql, List<Object> param);
+	//public List<Student> getStudentList(String sql, List<Object> param);
+	public List<StudentInfo> getStudentInfoList(String sql, List<Object> param);
 	
 }

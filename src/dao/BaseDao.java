@@ -68,7 +68,7 @@ public interface BaseDao {
 	List<Object> getList(Connection conn, Class type, String sql, List<Object> param);
 	
 	/**
-	 * 获取一个对象
+	 * 获取一个对象 *****
 	 * @param type
 	 * @param sql
 	 * @param param
@@ -111,7 +111,7 @@ public interface BaseDao {
 	
 	
 	/**
-	 * 插入或更新一条数据
+	 * 插入或更新一条数据 *****
 	 * @param sql
 	 * @param param
 	 */
@@ -174,7 +174,7 @@ public interface BaseDao {
 	 * @return 返回插入数据的主键
 	 * @throws SQLException
 	 */
-	int insertReturnKeysTransaction(Connection conn, String sql, Object[] param) throws SQLException;
+	String insertReturnKeysTransaction(Connection conn, String sql, Object[] param) throws SQLException;
 	
 	
 	/**

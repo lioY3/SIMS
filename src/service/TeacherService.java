@@ -9,6 +9,7 @@ import java.util.Map;
 import dao.TeacherDao;
 import dao.impl.TeacherDaoImpl;
 import model.Course;
+import model.Page;
 import model.Teacher;
 import model.User;
 import net.sf.json.JSONArray;
@@ -33,7 +34,7 @@ public class TeacherService {
 	 */
 	public String getTeacherList(Page page) {
 		//sql语句
-		String sql = "SELECT * FROM teacher ORDER BY id DESC LIMIT ?,?";
+		String sql = "SELECT * FROM teacher ORDER BY tno DESC LIMIT ?,?";
 		//获取数据
 		List<Teacher> list = dao.getTeacherList(sql, new Object[]{page.getStart(), page.getSize()}, null);
 		//获取总记录数
@@ -56,53 +57,20 @@ public class TeacherService {
 	 * @param number
 	 * @return
 	 */
-	public Teacher getTeacher(String number) {
+	public Teacher getTeacher(String tno) {
 		//sql语句
-		String sql = "SELECT * FROM teacher WHERE number=?";
+		String sql = "SELECT * FROM teacher WHERE tno=?";
 		//获取数据
-		List<Teacher> list = dao.getTeacherList(sql, new Object[]{number}, null);
+		List<Teacher> list = dao.getTeacherList(sql, new Object[]{tno}, null);
         //返回
 		return list.get(0);
 	}
 	
-	/**
-	 * 获取某年级下老师的班级
-	 * @param number
-	 * @param grade
-	 * @return
-	 */
-	@SuppressWarnings("rawtypes")
-	public String getExamClazz(String tno) {
-		//sql语句
-		String sql = "SELECT * FROM teacher WHERE tno=?";
-		//获取数据
-		Teacher list = dao.getTeacherList(sql, new Object[]{tno}, null).get(0);
-		
-		List<Class> clazzList = new LinkedList<>();
-		List<Course> courseItem = list.getCourseList();
-		for(Course item : courseItem){
-			boolean flag = true;
-			for(Class clazz : clazzList){
-				if(clazz.getId() == item.getClazzid()){
-					flag = false;
-					break;
-				}
-			}
-			if(flag){
-				clazzList.add(item.getClass());
-			}
-		}
-		String result = JSONArray.fromObject(clazzList).toString();
-		
-        //返回
-		return result;
-	}
 	
 	/**
-	 * 查询考试下老师的课程
-	 * @param number
-	 * @param grade
-	 * @param clazz
+	 * 查询课程下老师的课程
+	 * @param tno
+	 * @param class
 	 * @return
 	 */
 	public String getCourse(String tno, String clno) {
@@ -127,8 +95,8 @@ public class TeacherService {
 	 * @param number
 	 * @return
 	 */
-	public String getTeacherResult(String number) {
-		Teacher teacher = getTeacher(number);
+	public String getTeacherResult(String tno) {
+		Teacher teacher = getTeacher(tno);
 		String result = JSONObject.fromObject(teacher).toString();
         //返回
 		return result;
@@ -145,7 +113,7 @@ public class TeacherService {
 			//开启事务
 			DBUtil.startTransaction();
 			
-			String sql = "INSERT INTO teacher(tnumber, tname, tsex, tphone) value(?,?,?,?)";
+			String sql = "INSERT INTO teacher(tno, tname, tsex, tphone) value(?,?,?,?)";
 			Object[] param = new Object[]{
 					teacher.getTno(), 
 					teacher.getTname(), 
@@ -153,18 +121,17 @@ public class TeacherService {
 					teacher.getTphone(),
 				};
 			//添加教师信息
-			int teacherid = dao.insertReturnKeysTransaction(conn, sql, param);
+			String tno = dao.insertReturnKeysTransaction(conn, sql, param);
 			//设置课程
 			if(teacher.getCourse() != null && teacher.getCourse().length > 0){
 				for(String course : teacher.getCourse()){
 					String[] gcc = course.split("_");
-					int gradeid = Integer.parseInt(gcc[0]);
-					int clazzid = Integer.parseInt(gcc[1]);
-					int courseid = Integer.parseInt(gcc[2]);
+					String clno = gcc[1];
+					String cno = gcc[2];
 					
 					dao.insertTransaction(conn, 
-							"INSERT INTO clazz_course_teacher(clazzid, gradeid, courseid, teacherid) value(?,?,?,?) ", 
-							new Object[]{clazzid, gradeid, courseid, teacherid});
+							"INSERT INTO clazz_course_teacher(clno, cno, tno) value(?,?,?) ", 
+							new Object[]{clno, cno, tno});
 				}
 			}
 			//添加用户记录
@@ -172,7 +139,7 @@ public class TeacherService {
 					new Object[]{
 						teacher.getTno(),
 						teacher.getTname(),
-						//User.USER_TEACHER
+						User.TEACHER
 				});
 			
 			//提交事务
@@ -198,7 +165,7 @@ public class TeacherService {
 			//开启事务
 			DBUtil.startTransaction();
 			
-			String sql = "UPDATE teacher set name=?,sex=?,phone=?,qq=? WHERE id=?";
+			String sql = "UPDATE teacher set tname=?,tsex=?,tphone=? WHERE tno=?";
 			Object[] param = new Object[]{
 					teacher.getTname(), 
 					teacher.getTsex(), 
@@ -210,18 +177,17 @@ public class TeacherService {
 			dao.update("UPDATE user SET tname=? WHERE tno=?", 
 					new Object[]{teacher.getTname(), teacher.getTno()});
 			//删除教师与课程的关联
-			dao.deleteTransaction(conn, "DELETE FROM clazz_course_teacher WHERE teacherid =?", new Object[]{teacher.getTno()});
+			dao.deleteTransaction(conn, "DELETE FROM class_course_teacher WHERE tno =?", new Object[]{teacher.getTno()});
 			//设置课程
 			if(teacher.getCourse() != null && teacher.getCourse().length > 0){
 				for(String course : teacher.getCourse()){
 					String[] gcc = course.split("_");
-					int gradeid = Integer.parseInt(gcc[0]);
-					int clazzid = Integer.parseInt(gcc[1]);
-					int courseid = Integer.parseInt(gcc[2]);
+					String clno = gcc[0];
+					String cno = gcc[1];
 					
 					dao.insertTransaction(conn, 
-							"INSERT INTO clazz_course_teacher(clazzid, gradeid, courseid, teacherid) value(?,?,?,?) ", 
-							new Object[]{clazzid, gradeid, courseid, teacher.getTno()});
+							"INSERT INTO class_course_teacher(clno, cno, tno) value(?,?,?) ", 
+							new Object[]{clno, cno, teacher.getTno()});
 				}
 			}
 			
@@ -251,7 +217,7 @@ public class TeacherService {
 				teacher.getTsex(),
 				teacher.getTphone()});
 		
-		dao.update("UPDATE user SET name=? WHERE tno=?", 
+		dao.update("UPDATE user SET username=? WHERE accound=?", 
 				new Object[]{teacher.getTname(), teacher.getTno()});
 	}
 	
@@ -264,9 +230,9 @@ public class TeacherService {
 	public void deleteTeacher(String[] ids, String[] numbers) throws Exception{
 		//获取占位符
 		String mark = StringTool.getMark(ids.length);
-		Integer tid[] = new Integer[ids.length];
+		String tno[] = new String[ids.length];
 		for(int i =0 ;i < ids.length;i++){
-			tid[i] = Integer.parseInt(ids[i]);
+			tno[i] = ids[i];
 		}
 		//获取连接
 		Connection conn = DBUtil.getConnection();
@@ -274,11 +240,11 @@ public class TeacherService {
 		DBUtil.startTransaction();
 		try {
 			//删除教师与课程的关联
-			dao.deleteTransaction(conn, "DELETE FROM clazz_course_teacher WHERE teacherid IN("+mark+")", tid);
+			dao.deleteTransaction(conn, "DELETE FROM class_course_teacher WHERE tno IN("+mark+")", tno);
 			//删除教师
-			dao.deleteTransaction(conn, "DELETE FROM teacher WHERE id IN("+mark+")", tid);
+			dao.deleteTransaction(conn, "DELETE FROM teacher WHERE tno IN("+mark+")", tno);
 			//删除系统用户
-			dao.deleteTransaction(conn, "DELETE FROM user WHERE account IN("+mark+")",  numbers);
+			dao.deleteTransaction(conn, "DELETE FROM user WHERE account IN("+mark+")",  tno);
 			
 			//提交事务
 			DBUtil.commit();

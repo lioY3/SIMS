@@ -9,6 +9,7 @@ import dao.StudentDao;
 import dao.impl.StudentDaoImpl;
 import model.Page;
 import model.Student;
+import model.StudentInfo;
 import net.sf.json.JSONObject;
 
 public class StudentService {
@@ -17,8 +18,7 @@ public class StudentService {
 
 	public String getStudentList(Student student, Page page) {
 		// sql语句
-		StringBuffer sb = new StringBuffer("SELECT * FROM student ");
-		//		+ " join class on student.clno=class.clno" + " join department on department.dno=class.dno ");
+		StringBuffer sb = new StringBuffer("SELECT * FROM studentinfo ");
 		
 		// 参数
 		List<Object> param = new LinkedList<>();
@@ -32,9 +32,11 @@ public class StudentService {
 
 		// String sql = sb.toString().replaceFirst("AND", "WHERE");
 		String sql = sb.toString();
+		
+		System.out.println(sql);
 
 		// 获取数据
-		List<Student> list = dao.getStudentList(sql, param);
+		List<StudentInfo> list = dao.getStudentInfoList(sql, param);
 		// 获取总记录数
 		long total = getCount(student);
 		// 定义Map
