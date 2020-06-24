@@ -7,6 +7,7 @@ import java.util.Map;
 
 import dao.ClassDao;
 import dao.impl.ClassDaoImpl;
+import model.Page;
 import model.Student;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -46,13 +47,14 @@ public class ClassService {
 	 * @param page
 	 * @return
 	 */
-	public String getClazzDetailList(String clno) {
+	public String getClazzDetailList(String clno, Page page) {
 		//获取数据
 		@SuppressWarnings("rawtypes")
-		List<Class> list = dao.getClazzDetailList(clno);
+		List<Class> list = dao.getClazzDetailList(clno,page);
 		//获取总记录数
 		long total = 0;
 		if(!StringTool.isEmpty(clno)){
+			//int gid = Integer.parseInt(clno);
 			total = dao.count("SELECT COUNT(*) FROM class WHERE clno=?", new Object[]{clno});
 		} else {
 			total = dao.count("SELECT COUNT(*) FROM class", new Object[]{});
