@@ -1,0 +1,11 @@
+@charset "UTF-8";
+ <style>
+.navbar-brand{
+    float:right;
+}
+ layui-logo{
+  top:20%;
+ }
+ 
+    </style>
+   
