@@ -11,7 +11,6 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import dao.impl.BaseDaoImpl;
 import model.Student;
-import model.Class;
 import dao.StudentDao;
 
 import utils.DBUtil;
@@ -24,17 +23,19 @@ public class StudentDaoImpl extends BaseDaoImpl implements StudentDao {
 		List<Student> list = new LinkedList<>();
 		try {
 			//获取数据库连接
-			Connection conn = DBUtil.getConnection();
+			Connection con = DBUtil.getConnection();
 			//预编译
-			PreparedStatement ps = conn.prepareStatement(sql);
+			PreparedStatement ps = con.prepareStatement(sql);
 			//设置参数
 			if(param != null && param.size() > 0){
 				for(int i = 0;i < param.size();i++){
 					ps.setObject(i+1, param.get(i));
 				}
 			}
-			//执行sql语句
+			//执行SQL语句
 			ResultSet rs = ps.executeQuery();
+			
+			
 			//获取元数据
 			ResultSetMetaData meta = rs.getMetaData();
 			//遍历结果集
@@ -46,13 +47,11 @@ public class StudentDaoImpl extends BaseDaoImpl implements StudentDao {
 					String field = meta.getColumnName(i);
 					BeanUtils.setProperty(stu, field, rs.getObject(field));
 				}
-				//查询班级
-				String clno = (String) getObject(Class.class, "SELECT * FROM class WHERE Clno=?", new Object[]{stu.getClno()});
-				//添加
-				stu.setClno(clno);
+				
 				//添加到集合
 				list.add(stu);
 			}
+			
 			//关闭连接
 			DBUtil.closeConnection();
 			DBUtil.close(ps);

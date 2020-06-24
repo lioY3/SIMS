@@ -39,9 +39,9 @@ public class TeacherServlet extends HttpServlet {
 		//获取请求的方法
 		String method = request.getParameter("method");
 		if("toTeacherListView".equalsIgnoreCase(method)){ //转发到教师信息查询页面
-			request.getRequestDispatcher("/teacher/Tea-Infor.jsp").forward(request, response);
+			request.getRequestDispatcher("view/teacher/Tea-Infor.jsp").forward(request, response);
 		} else if("toTeacherNoteListView".equalsIgnoreCase(method)){ //转发到教师信息修改页面
-			request.getRequestDispatcher("/teacher/Tea-modify.jsp").forward(request, response);
+			request.getRequestDispatcher("view/teacher/Tea-modify.jsp").forward(request, response);
 		} 
 	}
 	

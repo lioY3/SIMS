@@ -5,21 +5,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-<link rel="shortcut icon" href="image/favicon.ico"/>
+<link rel="shortcut icon" href="static/image/favicon.ico"/>
 
-<link href="h-ui/css/H-ui.min.css" rel="stylesheet" type="text/css" />
-<link href="h-ui/css/H-ui.login.css" rel="stylesheet" type="text/css" />
-<link href="h-ui/lib/icheck/icheck.css" rel="stylesheet" type="text/css" />
-<link href="h-ui/lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<link href="static/h-ui/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="static/h-ui/css/H-ui.login.css" rel="stylesheet" type="text/css" />
+<link href="static/h-ui/lib/icheck/icheck.css" rel="stylesheet" type="text/css" />
+<link href="static/h-ui/lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
 
-<link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="static/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="static/easyui/themes/icon.css">
 
-<script type="text/javascript" src="easyui/jquery.min.js"></script> 
-<script type="text/javascript" src="h-ui/js/H-ui.js"></script> 
-<script type="text/javascript" src="h-ui/lib/icheck/jquery.icheck.min.js"></script> 
+<script type="text/javascript" src="static/easyui/jquery.min.js"></script> 
+<script type="text/javascript" src="static/h-ui/js/H-ui.js"></script> 
+<script type="text/javascript" src="static/h-ui/lib/icheck/jquery.icheck.min.js"></script> 
 
-<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="static/easyui/jquery.easyui.min.js"></script>
 <style type="text/css">
 body, html {
   margin: 0;
@@ -100,7 +100,7 @@ ini_set('display_errors','off');
 <div class="header2">学生成绩管理系统</div>
 <div class="loginWraper">
 	<div  class="blur container" >   
-	<img src="${pageContext.request.contextPath }/image/bg1.JPG" height="100%" width="100%"/>   
+	<img src="static/image/bg1.JPG" height="100%" width="100%"/>   
 </div>
   <div id="loginform" class="loginBox">
     <form id="form" class="form form-horizontal" method="post">

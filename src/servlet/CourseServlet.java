@@ -30,7 +30,7 @@ public class CourseServlet extends HttpServlet {
 		//获取请求的方法
 		String method = request.getParameter("method");
 		if("toCourseListView".equalsIgnoreCase(method)){ //转发到课程列表页
-			request.getRequestDispatcher("/course/Cou-Infor.jsp").forward(request, response);
+			request.getRequestDispatcher("view/course/Cou-Infor.jsp").forward(request, response);
 		}
 	}
 
