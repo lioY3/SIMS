@@ -58,6 +58,8 @@
 				width : 900,
 				url : "testdata.json" //数据接口
 				,
+				method :'post'//提交方式
+				,
 				page : true //开启分页
 				,
 				limit : 8//默认展示的每页记录数
@@ -67,10 +69,10 @@
 				size : 'sm'//小尺寸表格
 				,
 				cols : [ [ //表头
-			     {field: 'Tno', title: '教师号', sort: true, fixed: 'left',align:'center'}
-				 ,{field: 'Tname', title: '姓名',align:'center'}
-				 ,{field: 'Tsex', title: '性别',align:'center'}
-				 ,{field: 'Cname', title: '班级',align:'center'} 
+			     {field: 'tno', title: '教师号', sort: true, fixed: 'left',align:'center'}
+				 ,{field: 'tname', title: '姓名',align:'center'}
+				 ,{field: 'tsex', title: '性别',align:'center'}
+				 ,{field: 'cname', title: '授课课程',align:'center'} 
 				] ]
 			});
 		
@@ -86,7 +88,7 @@
 						},
 						where : {
 							key : {
-								Tname : send_name.val()
+								tname : send_name.val()
 							}
 						}
 					}, 'data');
@@ -98,7 +100,7 @@
 				active[type] ? active[type].call(this) : '';
 			});
 			
-			/*	--	按学号重载	--	*/
+			/*	--	按教师号重载	--	*/
 			var $ = layui.$, active = {
 					reload : function() {
 						var send_no = $('#send_no');
@@ -110,7 +112,7 @@
 							},
 							where : {
 								key : {
-									Tno : send_no.val()
+									tno : send_no.val()
 								}
 							}
 						}, 'data');
@@ -123,7 +125,7 @@
 				});
 				
 				
-			/*	--	按班级重载	--	*/
+			/*	--	按课程重载	--	*/
 				var $ = layui.$, active = {
 						reload : function() {
 							var send_cname = $('#send_cname');
@@ -135,7 +137,7 @@
 								},
 								where : {
 									key : {
-										Cname : send_cname.val()
+										cname : send_cname.val()
 									}
 								}
 							}, 'data');

@@ -104,7 +104,7 @@
 				</div>
 			</div>
 			<div class="layui-form-item">
-    			<label class="layui-form-label">单选框</label>
+    			<label class="layui-form-label">性别:</label>
     			<div class="layui-input-block">
      				<input type="radio" name="Ssex" id="form_Ssex" value="男" title="男"><i class="layui-icon" style="font-size: 17px; color: #1E9FFF;">&#xe662;</i>
      				&emsp;
