@@ -4,12 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="../bootstrap-3.3.7-dist/css/pass-revise.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrapz.css">
-<link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.css">
-<script src="../easyui/jquery.min.js"></script>
-<script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<link href="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/css/pass-revise.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/css/bootstrap.css">
+<script src="${pageContext.request.contextPath}/static/easyui/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 
 <title>Insert title here</title>
 <script type="text/javascript">  

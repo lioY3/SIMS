@@ -1,18 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="../password/pass-revise.jsp"/>
+<jsp:include page="pass-revise.jsp"/>
 <!DOCTYPE html>
 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<script src="jquery/jquery-3.4.1.min.js"></script>
-<link href="bootstrap-3.3.7-dist/css/bootstrap-theme.css" rel="stylesheet"/>
-<link href="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrapz.css">
-<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
-<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/jquery/jquery-3.4.1.min.js"></script>
+<link href="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/css/bootstrap-theme.css" rel="stylesheet"/>
+<link href="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" >
+<link href="${pageContext.request.contextPath}/static/layui/css/layui.css" rel="stylesheet">
+<script src="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script>
         $(function () {
         $(".dropdown").mouseover(function () {
@@ -25,7 +26,6 @@
     })
     </script>
 <title>管理员端|学生管理系统</title>
-<link rel="stylesheet" href="layui/css/layui.css">
 </head>
 <body class="layui-layout-body">
 	<div class="layui-layout layui-layout-admin">
@@ -37,7 +37,7 @@
                             <a href="#" class="dropdown-toggle"
                                data-toggle="dropdown"
                                style="height: 60px">
-                                <img alt="" class="img-circle" src="img/004.jpg" width="38px" height="38px"/>
+                                <img alt="" class="img-circle" src="static/image/004.jpg" width="38px" height="38px"/>
                                 <span style="color: #FFFFFF;font-size: 15px">
                                 <i>AD</i>
                             </span>
@@ -46,7 +46,7 @@
                                  style="background: #FFFFFF;width: 320px;overflow: hidden">
                                 <div style="margin-top: 16px;border-bottom: 1px solid #eeeeee">
                                     <div style="text-align: center">
-                                        <img class="img-circle" src="img/004.jpg"
+                                        <img class="img-circle" src="static/image/004.jpg"
                                              style="width: 38px;height: 38px;"/>
                                     </div>
                                     <div style="color: #323534;text-align: center;line-height: 36px;font-size: 15px">
@@ -165,7 +165,7 @@
 		<div class="layui-body">
 			<!-- 内容主体区域 -->
 			
-			<iframe id="iframeMain" src="console/MainPage.jsp" frameborder="0" height="100%" width="100%" scrolling="no"></iframe>
+			<iframe id="iframeMain" src="${pageContext.request.contextPath}/console/MainPage.jsp" frameborder="0" height="100%" width="100%" scrolling="no"></iframe>
 		</div>
 
 		<div class="layui-footer" align="center">
@@ -173,14 +173,14 @@
 			© jmu.edu.cn - 集美大学计算机工程学院
 		</div>
 	</div>
-	<script src="layui/layui.js"></script>
+	<script src="static/layui/layui.js"></script>
 	<script>
 //JavaScript代码区域
 layui.use('element', function(){
   var element = layui.element;
 });
 </script>
-<script src="jquery/jquery-3.4.1.min.js">
+<script src="static/jquery/jquery-3.4.1.min.js">
 </script>
 <script>
 $(document).ready(function(){

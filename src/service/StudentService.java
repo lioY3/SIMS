@@ -33,8 +33,6 @@ public class StudentService {
 		// String sql = sb.toString().replaceFirst("AND", "WHERE");
 		String sql = sb.toString();
 
-		System.out.println(sql);
-
 		// 获取数据
 		List<Student> list = dao.getStudentList(sql, param);
 		// 获取总记录数

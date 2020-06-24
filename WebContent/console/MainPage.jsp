@@ -23,7 +23,7 @@
 </head>
 <body>
 <div style="position:absolute;left:20%; top:0%;bottom:0%; width:100%; height:100%; z-index:-1" >   
-	<img src="${pageContext.request.contextPath }/image/background.png" height="100%" width="80%"/>   
+	<img src="${pageContext.request.contextPath }/static/image/background.png" height="100%" width="80%"/>   
 </div>
 <div style="position:absolute;left:15%; top:25%;bottom:0%;">
 <p><font class="ward">
