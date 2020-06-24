@@ -6,7 +6,6 @@ public class Student {
 	private String Sname;// 姓名
 	private String Ssex;// 性别
 	private String Sbirthday;// 生日
-	private int Sage;// 年龄
 	private String Sid;// 身份证
 	private String Snation;// 民族
 	private String clno;// 班级号
@@ -41,14 +40,6 @@ public class Student {
 
 	public void setSbirthday(String sbirthday) {
 		Sbirthday = sbirthday;
-	}
-
-	public int getSage() {
-		return Sage;
-	}
-
-	public void setSage(int sage) {
-		Sage = sage;
 	}
 
 	public String getSid() {

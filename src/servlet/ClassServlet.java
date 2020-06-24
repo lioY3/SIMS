@@ -36,15 +36,15 @@ public class ClassServlet extends HttpServlet {
 		} else if("AddClass".equalsIgnoreCase(method)){ //添加班级
 			addClass(request, response);
 		} else if("DeleteClass".equalsIgnoreCase(method)){ //删除班级
-			deleteClass(request, response);
+			deleteClazz(request, response);
 		}
 		
 	}
 	
-	private void deleteClass(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		int Clno = Integer.parseInt(request.getParameter("Clno"));
+	private void deleteClazz(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String Clno = request.getParameter("Clno");
 		try {
-			service.deleteClass(Clno);
+			service.deleteClazz(Clno);
 			response.getWriter().write("success");
 		} catch (Exception e) {
 			response.getWriter().write("fail");
@@ -53,20 +53,20 @@ public class ClassServlet extends HttpServlet {
 	}
 
 	private void addClass(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String name = request.getParameter("name");
-		String gradeid = request.getParameter("gradeid");
-		service.addClass(name, gradeid);
+		String clname = request.getParameter("clname");
+		String Clno = request.getParameter("Clno");
+		service.addClass(clname, Clno);
 		response.getWriter().write("success");
 	}
 
 	private void classDetailList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		//获取参数
-		String gradeid = request.getParameter("gradeid");
+		String clno = request.getParameter("clno");
 		//获取分页参数
 		int page = Integer.parseInt(request.getParameter("page"));
 		int rows = Integer.parseInt(request.getParameter("rows"));
 		
-		String result = service.getClassDetailList(gradeid, new Page(page, rows));
+		String result = service.getClazzDetailList(clno, new Page(page, rows));
 		//返回数据
         response.getWriter().write(result);
 	}
@@ -78,7 +78,7 @@ public class ClassServlet extends HttpServlet {
 		if(StringTool.isEmpty(Clno)){
 			return;
 		}
-		String result = service.getClassList(Clno);
+		String result = service.getClazzList(Clno);
 		//返回数据
         response.getWriter().write(result);
 	}

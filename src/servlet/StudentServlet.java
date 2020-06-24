@@ -7,17 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.lizhou.bean.Page;
-import com.lizhou.bean.Student;
-import com.lizhou.tools.StringTool;
-
+import model.Page;
+import model.Student;
 import service.StudentService;
+import utils.StringTool;
 
 
-
-/**
- * Servlet implementation class StudentServlet
- */
 @WebServlet("/StudentServlet")
 public class StudentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -34,11 +29,11 @@ public class StudentServlet extends HttpServlet {
 		String method = request.getParameter("method");
 		
 		if ("toStudentInfoView".equals(method)) {
-			request.getRequestDispatcher("/student/Stu-Infor.jsp").forward(request, response);
+			request.getRequestDispatcher("student/Stu-Infor.jsp").forward(request, response);
 		} else if ("toStudentModifyView".equals(method)) {
-			request.getRequestDispatcher("/student/Stu-modify.jsp").forward(request, response);
+			request.getRequestDispatcher("student/Stu-modify.jsp").forward(request, response);
 		}
-		
+
 	}
 
 
@@ -51,34 +46,22 @@ public class StudentServlet extends HttpServlet {
 			studentList(request, response);
 		}
 		
-		doGet(request, response);
 	}
 
 
-	private void studentList(HttpServletRequest request, HttpServletResponse response) {
-		//年级ID
-		String gradeid = request.getParameter("gradeid");
-		//班级ID
-		String clazzid = request.getParameter("clazzid");
+	private void studentList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		//获取分页参数
 		int page = Integer.parseInt(request.getParameter("page"));
-		int rows = Integer.parseInt(request.getParameter("rows"));
+		int limit = Integer.parseInt(request.getParameter("limit"));
 		
 		//封装参数
 		Student student = new Student();
 		
-		if(!StringTool.isEmpty(gradeid)){
-			student.setGradeid(Integer.parseInt(gradeid));
-		}
-		if(!StringTool.isEmpty(clazzid)){
-			student.setClazzid(Integer.parseInt(clazzid));
-		}
-		
 		//获取数据
-		String result = service.getStudentList(student, new Page(page, rows));
+		String result = service.getStudentList(student, new Page(page, limit));
+
 		//返回数据
         response.getWriter().write(result);
-		
 		
 	}
 
