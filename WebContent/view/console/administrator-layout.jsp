@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="../personinfo/pass-revise.jsp"/>
+<jsp:include page="/view/personinfo/pass-revise.jsp"/>
 <!DOCTYPE html>
 
 <html>
@@ -32,16 +32,16 @@
 <body class="layui-layout-body">
 	<div class="layui-layout layui-layout-admin">
 		<div class="layui-header">
-			<div class="layui-logo"><h3><a href="console/MainPage.jsp"style="text-decoration:none;text-align:center;">学生信息管理系统</a></h3></div>
+			<div class="layui-logo"><h3><a href="${pageContext.request.contextPath}/view/console/MainPage.jsp"style="text-decoration:none;text-align:center;">学生信息管理系统</a></h3></div>
 
 			 <ul class="nav navbar-nav navbar-right"style="right:0%">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle"
                                data-toggle="dropdown"
                                style="height: 60px">
-                                <img alt="" class="img-circle" src="static/image/004.jpg" width="38px" height="38px"/>
+                                <img alt="" class="img-circle" src="static/image/004.jpg" width="38px" height="38px" />
                                 <span style="color: #FFFFFF;font-size: 15px">
-                                <!-- <i>AD</i> -->
+                                <i>${user.username}</i>
                             </span>
                             </a>
                             <div class="dropdown-menu pull-right"
@@ -59,18 +59,19 @@
                                 <div class="row" style="margin-left: 15px;margin-right: 15px;margin-top: 10px">
                                     <div class="col-md-4 text-center grid">
                                         <i class="fa fa-user" style="font-size: 25px;line-height: 45px;"></i>
-                                        <p style="padding: 0px;margin-top: 6px;margin-bottom: 10px;font-size: 12px" onclick="javascript:window.location.href='personinfo/infochange.jsp'">
-                                               个人中心</p>
+                                        <p style="padding: 0px;margin-top: 6px;margin-bottom: 10px;font-size: 12px" 
+                                        onclick="javascript:window.location.href='${pageContext.request.contextPath}/view/personinfo/infochange.jsp'">
+                                               	个人中心</p>
                                     </div>
                                     <div class="col-md-4 text-center grid">
                                         <i class="fa fa-gear" style="font-size: 25px;line-height: 45px;"></i>
                                         <p style="padding: 0px;margin-top: 6px;margin-bottom: 10px;font-size: 12px" >
-                                            账号管理</p>
+                                            	账号管理</p>
                                     </div>
                                     <div class="col-md-4 text-center grid">
                                         <i class="fa fa-key" style="font-size: 25px;line-height: 45px;"></i>
                                         <p style="padding: 0px;margin-top: 6px;margin-bottom: 10px;font-size: 12px"data-toggle="modal" data-target="#wyp">
-                                            密码修改</p>
+                                         	   密码修改</p>
                                     </div>
                                 </div>
  
@@ -78,26 +79,23 @@
                                     <div class="col-md-4 text-center grid">
                                         <i class="fa fa-user-circle" style="font-size: 25px;line-height: 45px;"></i>
                                         <p style="padding: 0px;margin-top: 6px;margin-bottom: 10px;font-size: 12px">
-                                            修改头像</p>
+                                           	 修改头像</p>
                                     </div>
                                     <div class="col-md-4 text-center grid">
                                         <i class="fa fa-comments" style="font-size: 25px;line-height: 45px;"></i>
                                         <p style="padding: 0px;margin-top: 6px;margin-bottom: 10px;font-size: 12px">
-                                            消息</p>
+                                          	  消息</p>
                                     </div>
                                     <div class="col-md-4 text-center grid">
                                         <i class="fa fa-heart-o" style="font-size: 25px;line-height: 45px;"></i>
                                         <p style="padding: 0px;margin-top: 6px;margin-bottom: 10px;font-size: 12px">
-                                            帮助中心</p>
+                                            	帮助中心</p>
                                     </div>
                                 </div>
  
- 
-                                <div class="row" style="margin-top: 20px">
-                                    <div class="text-center"
-                                         style="padding: 15px;margin: 0px;background: #f6f5f5;color: #323534;">
-                                        <i class="fa fa-sign-out"></i> 退出登入界面
-                                    </div>
+                                <div class="text-center"onclick="javascript:window.location.href='SystemServlet?method=LoginOut'"
+                                		style="margin-top: 20px; padding: 15px;margin: 0px;background: #f6f5f5;color: #323534;">
+                                		退出登陆
                                 </div>
                             </div>
                         </li>
@@ -114,19 +112,19 @@
 						href="javascript:;"style="text-decoration:none;">学生管理</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href=""style="text-decoration:none;">学生信息查询</a>
+								<a href="view/student/Stu-Infor.jsp"style="text-decoration:none;">学生信息查询</a>
 							</dd>
 							<dd>
-								<a href=""style="text-decoration:none;">学生信息修改</a>
+								<a href="view/student/Stu-modify.jsp"style="text-decoration:none;">学生信息修改</a>
 							</dd>
 						</dl></li>
 					<li class="layui-nav-item"><a href="javascript:;" style="text-decoration:none;">教师管理</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="javascript:;"style="text-decoration:none;">教师信息查询</a>
+								<a href="view/teacher/Tea-Infor.jsp"style="text-decoration:none;">教师信息查询</a>
 							</dd>
 							<dd>
-								<a href="javascript:;"style="text-decoration:none;">教师信息修改</a>
+								<a href="view/teacher/Tea-modify.jsp"style="text-decoration:none;">教师信息修改</a>
 							</dd>
 						</dl></li>
 					<li class="layui-nav-item"><a href="javascript:;"style="text-decoration:none;">课程管理</a>
@@ -149,7 +147,7 @@
 							</dd>
 						</dl>
 					</li>
-					<li class="layui-nav-item"><a href="javascript:;"style="text-decoration:none;">高级</a>
+<!-- 					<li class="layui-nav-item"><a href="javascript:;"style="text-decoration:none;">高级</a>
 						<dl class="layui-nav-child">
 						<dd>
 								<a href="javascript:;"style="text-decoration:none;">男女比</a>
@@ -158,7 +156,7 @@
 								<a href="javascript:;"style="text-decoration:none;">人数比</a>
 							</dd>
 						</dl>
-					</li>
+					</li> -->
 				</ul>
 
 			</div>
