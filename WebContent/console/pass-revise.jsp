@@ -16,9 +16,6 @@
 	 $("wyp").show();
  }
  
-
-
-
  $(function(){
 	$("#StorePassword").on('input',function(){
 		if(this.value.length==6)
@@ -41,14 +38,6 @@
 	
  });
  
- 
-
-  
-  
-
-
-
-
 
 </script>
 </head>
@@ -102,8 +91,6 @@
 				</div>
 			</form>
 
-
-			<!-- END FORM-->
 		</div>
 	</div>
 	</div>

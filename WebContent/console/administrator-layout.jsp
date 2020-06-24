@@ -39,7 +39,7 @@
                                style="height: 60px">
                                 <img alt="" class="img-circle" src="static/image/004.jpg" width="38px" height="38px"/>
                                 <span style="color: #FFFFFF;font-size: 15px">
-                                <i>AD</i>
+                                <!-- <i>AD</i> -->
                             </span>
                             </a>
                             <div class="dropdown-menu pull-right"
@@ -50,7 +50,7 @@
                                              style="width: 38px;height: 38px;"/>
                                     </div>
                                     <div style="color: #323534;text-align: center;line-height: 36px;font-size: 15px">
-                                        <span>管理员</span>
+                                        <span>${user.username}</span>
                                     </div>
                                 </div>
  
@@ -112,10 +112,10 @@
 						href="javascript:;"style="text-decoration:none;">学生管理</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="https://blog.csdn.net/weixin_42855542/article/details/83476597"style="text-decoration:none;">学生信息查询</a>
+								<a href=""style="text-decoration:none;">学生信息查询</a>
 							</dd>
 							<dd>
-								<a href="https://www.baidu.com"style="text-decoration:none;">学生信息修改</a>
+								<a href=""style="text-decoration:none;">学生信息修改</a>
 							</dd>
 						</dl></li>
 					<li class="layui-nav-item"><a href="javascript:;" style="text-decoration:none;">教师管理</a>
