@@ -13,7 +13,7 @@
 <body class="layui-layout-body">
 	<div class="layui-layout layui-layout-admin">
 		<div class="layui-header">
-			<div class="layui-logo"><h3><a href="console/MainPage.jsp">学生信息管理系统</a></h3></div>
+			<div class="layui-logo"><h3><a href="${pageContext.request.contextPath}/view/console/MainPage.jsp">学生信息管理系统</a></h3></div>
 			
 			
 			<ul class="layui-nav layui-layout-right">
