@@ -86,7 +86,6 @@ public class SystemServlet extends HttpServlet {
 		// 获取用户输入的验证码
 		String vcode = request.getParameter("vcode");
 		// 获取登录类型
-		// int type = Integer.parseInt(request.getParameter("type"));
 
 		// 返回信息
 		String msg = null;
@@ -102,7 +101,6 @@ public class SystemServlet extends HttpServlet {
 			User user = new User();
 			user.setAccount(account);
 			user.setPassword(password);
-			// user.setType(Integer.parseInt(request.getParameter("type")));
 
 			// 创建系统数据层对象,查询用户是否存在
 			User loginUser = service.getAdmin(user);
