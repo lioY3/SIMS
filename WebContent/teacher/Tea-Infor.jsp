@@ -4,11 +4,11 @@
 <html>
 <head>
 <title>Student Information</title>
-<link rel="stylesheet" href="../layui/css/layui.css" media="all">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css" media="all">
 </head>
 <body>
 <div style="position:absolute; top:0; width:100%; height:100%; z-index:-1">   
-	<img src="../image/bg2.JPG" height="100%" width="100%"/>   
+	<img src="${pageContext.request.contextPath}/static/image/bg2.JPG" height="100%" width="100%"/>   
 </div>
 	
 	<br>
@@ -44,7 +44,7 @@
 			<table id="tea-info" lay-filter="test"></table>
 		</div>
 	</div>
-	<script src="../layui/layui.js"></script>
+	<script src="${pageContext.request.contextPath}/static/layui/layui.js"></script>
 	
 	<script>
 		layui.use('table', function() {
