@@ -4,10 +4,6 @@ import java.io.IOException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,18 +13,13 @@ import org.apache.commons.beanutils.BeanUtils;
 
 
 import service.ScoreService;
-import service.StudentService;
-import service.TeacherService;
-
-
 import model.Score;
-import net.sf.json.JSONObject;
 
 /**
  * 成绩类Servlet
- * @author bojiangzhou
  *
  */
+@SuppressWarnings("serial")
 public class ScoreServlet extends HttpServlet {
 	
 	//创建服务层对象

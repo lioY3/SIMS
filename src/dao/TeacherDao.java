@@ -20,6 +20,6 @@ public interface TeacherDao extends BaseDao {
 	 * @param class 班级参数
 	 * @return
 	 */
-	public List<Teacher> getTeacherList(String sql, Object[] param, Class clno);
+	public List<Teacher> getTeacherList(String sql, Object[] param, String clno);
 	
 }
