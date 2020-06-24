@@ -7,11 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.lizhou.bean.Page;
-import com.lizhou.bean.Student;
-import com.lizhou.tools.StringTool;
-
+import model.Student;
 import service.StudentService;
+import utils.StringTool;
 
 
 
