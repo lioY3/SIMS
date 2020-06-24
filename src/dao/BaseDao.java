@@ -174,7 +174,7 @@ public interface BaseDao {
 	 * @return 返回插入数据的主键
 	 * @throws SQLException
 	 */
-	int insertReturnKeysTransaction(Connection conn, String sql, Object[] param) throws SQLException;
+	String insertReturnKeysTransaction(Connection conn, String sql, Object[] param) throws SQLException;
 	
 	
 	/**
