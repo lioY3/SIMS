@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Student Information</title>
+<title>课程信息修改</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css" media="all">
 </head>
 <body>
@@ -19,43 +19,29 @@
 
 	<br>
 	<!------------------------------------------------------------搜索栏--------------------------------------------------------->
-	<div class="demoTable" style="position: relative; left: 15%">
+	<div class="demoTable" style="position:relative;left:16%">
 		姓名：
 		<div class="layui-inline">
 			<input class="layui-input" name="keyword" id="send_name"
 				autocomplete="off">
 		</div>
-		<button
-			class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal"
-			data-type="reload" id="do_searchname">
-			<i class="layui-icon">&#xe615;</i>搜索
-		</button>
-		&nbsp;&nbsp;学号：
+		<button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal" data-type="reload" id="do_searchname">
+		<i class="layui-icon">&#xe615;</i>搜索</button>
+		学号：
 		<div class="layui-inline">
 			<input class="layui-input" name="keyword" id="send_no"
 				autocomplete="off">
 		</div>
-		<button
-			class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal"
-			data-type="reload" id="do_searchno">
-			<i class="layui-icon">&#xe615;</i>搜索
-		</button>
-		&nbsp;&nbsp;课程：
-		<div class="layui-inline">
-			<input class="layui-input" name="keyword" id="send_cname" autocomplete="off">
-		</div>
-		<button
-			class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal"
-			data-type="reload" id="do_searchcname">
-			<i class="layui-icon">&#xe615;</i>搜索
-		</button>
+		<button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal" data-type="reload" id="do_searchno">
+		<i class="layui-icon">&#xe615;</i>搜索</button>		
 	</div>
 	<!------------------------------------------------------------------搜索栏------------------------------------------------------------>
+	
 	
 	<hr class="layui-bg-blue">
 	
 	<!---------------------------------------------------新增、刷新、编辑、删除按钮-------------------------------------------------------->
-	<script type="text/html" id="tea_headerBar">
+	<script type="text/html" id="Cour_headerBar">
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="add">
             <i class="layui-icon">&#xe608;</i> 新&emsp;增
@@ -65,8 +51,10 @@
         </button>
     </div>
 	</script>
-	<script type="text/html" id="tea_lineBar">
+	<script type="text/html" id="Cour_lineBar">
+        <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="edit"><i class="layui-icon ">&#xe642;</i> </a>
     	<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon">&#xe640;</i></a>
+        </button>
 	</script>
 	<!---------------------------------------------------新增、刷新、编辑、删除按钮-------------------------------------------------------->
 	
@@ -74,45 +62,56 @@
 	<!-------------------------------------------------------------数据表格--------------------------------------------------------------->
 	<div style="text-align: center;">
 		<div class="layui-inline">
-			<table id="tea-info" lay-filter="tea"></table>
+			<table id="Cour-info" lay-filter="Cour"></table>
 		</div>
 	</div>
 	<!-------------------------------------------------------------数据表格--------------------------------------------------------------->
 	
-	<!-------------------------------------------------------------新增表单--------------------------------------------------------->
-	<div class="layui-row" id="open_div" style="display: none;">
-		<form id="add_form" class="layui-form" action="post" style="margin-top: 20px; align: center;">
-			<input type="hidden" name="request_no" id="request_no">
+	<!-------------------------------------------------------------新增、编辑表单--------------------------------------------------------->
+	<div class="layui-row" id="addopen_div" style="display: none;">
+		<form id="add_form" class="layui-form" action="" style="margin-top: 20px; align: center;">
 
 			<div class="layui-form-item">
-				<label class="layui-form-label">教师号:</label>
+				<label class="layui-form-label">课程号:</label>
+				<div class="layui-inline">
+					<input type="text" name="cno" id="form_cno" class="layui-input" autocomplete="off">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">课程名：</label>
+				<div class="layui-inline">
+					<input type="text" name="cname" id="form_cname" class="layui-input" autocomplete="off">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">学分：</label>
+					<div class="layui-input-inline">
+				        <input type="text"  name="credit" id="form_credit" class="layui-input">
+				    </div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">学期:</label>
+				<div class="layui-inline">
+					<input type="text" name="term" id="term" class="layui-input" autocomplete="off">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">学时:</label>
+				<div class="layui-inline">
+					<input type="text" name="hours" id="form_hours" class="layui-input" autocomplete="off">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">任课教师号:</label>
 				<div class="layui-inline">
 					<input type="text" name="tno" id="form_tno" class="layui-input" autocomplete="off">
 				</div>
 			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">姓名：</label>
-				<div class="layui-inline">
-					<input type="text" name="tname" id="form_tname" class="layui-input" autocomplete="off">
-				</div>
-			</div>
-			<div class="layui-form-item">
-    			<label class="layui-form-label">性别:</label>
-    			<div class="layui-input-block">
-     				<input type="radio" name="tsex" id="form_tsex" value="男" title="男"><i class="layui-icon" style="font-size: 17px; color: #1E9FFF;">&#xe662;</i>
-     				&emsp;
-     				<input type="radio" name="tsex" id="form_tsex" value="女"title="女"><i class="layui-icon"style="font-size: 17px; color: red;">&#xe661;</i>
-     			</div>
-  			</div>
-  			<div class="layui-form-item">
-				<label class="layui-form-label">教授课程：</label>
-				<div class="layui-inline">
-					<input type="text" name="tname" id="form_tname" class="layui-input" autocomplete="off">
-				</div>
-			</div>
 			<div class="layui-form-item" style="margin-left: 40%">
 				<div class="layui-btn-group">
-					<button class="layui-btn layui-btn-normal layui-btn-sm" lay-submit="" lay-filter="tea_submit">提&ensp;交</button>
+					<button class="layui-btn layui-btn-normal layui-btn-sm" lay-submit="" lay-filter="Cour_submit">提&ensp;交</button>
 					<button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重&ensp;置</button>
 				</div>
 			</div>
@@ -126,11 +125,11 @@
 			
 		/*		-- 表格实例	 --		*/		
 			table.render({
-				elem : '#tea-info',
+				elem : '#Cour-info',
 				id : 'tableOne',
 				height : 450,
 				width : 1200,
-				url : "${pageContext.request.contextPath}/student/test.json" //数据接口
+				url : "test.json" //数据接口
 				,
 				page : true //开启分页
 				,
@@ -142,27 +141,31 @@
 				,
 				size : 'sm'//小尺寸表格
 				,
-				toolbar: '#tea_headerBar'
+				toolbar: '#Cour_headerBar'
 				,
 				title : '学生信息表'
 				,
 				cols : [ [ //表头
 				{type: 'checkbox', fixed: 'left'}
-			     ,{field: 'tno', title: '教师号', sort: true, fixed: 'left',align:'center'}
-				 ,{field: 'tname', title: '姓名',align:'center'}
-				 ,{field: 'tsex', title: '性别',align:'center'}
-				 ,{field: 'cname', title: '教授课程',align:'center'}
+			     ,{field: 'cno', title: '学号', sort: true, fixed: 'left',align:'center'}
+				 ,{field: 'cname', title: '姓名',align:'center'}
+				 ,{field: 'Ssex', title: '性别',align:'center'}
+				 ,{field: 'Snation', title: '民族',align:'center'}
+				 ,{field: 'credit', title: '出生日期', sort: true,align:'center'} 
+				 ,{field: 'Sid', title: '身份证',align:'center'}
+				 ,{field: 'Dname', title: '学院',align:'center'}
+				 ,{field: 'Clname', title: '班级', sort: true,align:'center'} 
 				 ,{
 		               fixed: 'right',
 		               title: '操作',
-		               toolbar: '#tea_lineBar',
-		               width: 130,
+		               toolbar: '#Cour_lineBar',
+		               width: 160,
 		               align: 'center'
 		             }
 				] ]
 			});
 		
-			/*	--	按姓名重载	--	*/
+			/*	--	按课程名重载	--	*/
 			var $ = layui.$, active = {
 				reload : function() {
 					var send_name = $('#send_name');
@@ -174,7 +177,7 @@
 						},
 						where : {
 							key : {
-								tname : send_name.val()
+								cname : send_name.val()
 							}
 						}
 					}, 'data');
@@ -186,7 +189,7 @@
 				active[type] ? active[type].call(this) : '';
 			});
 			
-			/*	--	按教师号重载	--	*/
+			/*	--	按课程号重载	--	*/
 			var $ = layui.$, active = {
 					reload : function() {
 						var send_no = $('#send_no');
@@ -198,7 +201,7 @@
 							},
 							where : {
 								key : {
-									tno : send_no.val()
+									cno : send_no.val()
 								}
 							}
 						}, 'data');
@@ -210,33 +213,9 @@
 					active[type] ? active[type].call(this) : '';
 				});
 				
-				
-			/*	--	按教授课程重载	--	*/
-				var $ = layui.$, active = {
-						reload : function() {
-							var send_cname = $('#send_cname');
-
-							//执行重载
-							table.reload('tableOne', {
-								page : {
-									curr : 1//重新从第 1 页开始
-								},
-								where : {
-									key : {
-										cname : send_cname.val()
-									}
-								}
-							}, 'data');
-						}
-					};
-
-					$('#do_searchcname').on('click', function() {
-						var type = $(this).data('type');
-						active[type] ? active[type].call(this) : '';
-					});
 					
  			/*	--	监听头部工具栏	--	*/
-					 table.on('toolbar(tea)', function (obj) {
+					 table.on('toolbar(Cour)', function (obj) {
 					    switch (obj.event) {
 					        case 'refresh':
 					        // 执行一个表格重载即实现刷新功能
@@ -253,46 +232,38 @@
 					             // 根据增加行为给form隐藏项赋值
 					        case 'add':
 					            var data = {};
+					            data.action = 'addCour';
 					            data.request_type = 'post';
-					            data.tno=null;
-					            data.tname=null;
-					            data.tsex=null;
+					            data.cno=null;
 					            data.cname=null;
+					            data.Ssex=null;
+					            data.credit=null;
+					            data.Sid=null;
+					            data.Dname=null;
+					            data.Clname=null;
 					            // 调用打开弹层的工具方法
-					            open_form("#open_div", data, '增加教师', '380px', '380px');
+					            open_form("#addopen_div", data, '增加学生', '380px', '550px');
 					            break;
 					    }
 					});
  			/* -- 监听操作栏  --*/
- 						table.on('tool(tea)', function (obj) {
+ 						table.on('tool(Cour)', function (obj) {
 						    var data = obj.data;
 						    var layEvent = obj.event;
-						    var id = data.tno;
-						    switch (layEvent) { 
-						        case 'del':
-				                    layer.confirm('真的删除该行么', function (index) {
-				                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-				                        //向服务端发送删除指令
-				                        $.ajax({
-				                            type: "get",  //数据提交方式(post/get)
-				                            url: "/goods/deleteGood?id=" + tno,  //提交到的url
-				                            contentType: "application/json; charset=utf-8",
-				                            dataType: "json",//返回的数据类型格式
-				                            success: function (result) {
-				                                layer.msg(result.msg, {icon: 1, time: 1000});
-				                            }, error: function (e) {
-				                                console.log(e, 'error');
-				                                layer.msg("异常，请再次重试！", {icon: 1, time: 1000});
-				                            }
-				                        });
-				                        layer.close(index);
-				                    });
-				                    break;
+						    var id = data.cno;
+						    switch (layEvent) {
+						        case 'edit':
+						            // 根据编辑行为为form隐藏项赋值
+						            data.action = 'updateCour';
+						            data.request_type = 'post';
+						            data.request_cno = id;
+						            open_form("#editopen_div", data, '编辑学生', '380px', '550px');
+						            break; 
 						    }
 						});
  					
 			/*	-- 监听表单提交-- */
-						form.on('submit(tea_submit)', function (data) {
+						form.on('submit(Cour_submit)', function (data) {
 						    var uri = data.field.action;
 						    var type = data.field.request_type;
 						    $.ajax({
