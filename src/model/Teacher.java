@@ -8,6 +8,7 @@ public class Teacher {
 	private String Tno; // 编号
 	private String Tname; // 姓名
 	private String Tsex; // 性别
+	private String Tphone; // 电话
 	private List<Course> courseList = new ArrayList<>();
 	
 	private String[] course = new String[]{}; //课程集合
@@ -35,6 +36,15 @@ public class Teacher {
 	public void setTsex(String tsex) {
 		Tsex = tsex;
 	}
+	
+	public String getTphone() {
+		return Tphone;
+	}
+
+	public void setTphone(String tphone) {
+		Tphone = tphone;
+	}
+
 	public List<Course> getCourseList() {
 		return courseList;
 	}
