@@ -13,27 +13,93 @@
 <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrapz.css">
 <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
 <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script>
+        $(function () {
+        $(".dropdown").mouseover(function () {
+            $(this).addClass("open");
+        });
+ 
+        $(".dropdown").mouseleave(function () {
+            $(this).removeClass("open");
+        })
+    })
+    </script>
 <title>管理员端|学生管理系统</title>
 <link rel="stylesheet" href="layui/css/layui.css">
 </head>
 <body class="layui-layout-body">
 	<div class="layui-layout layui-layout-admin">
 		<div class="layui-header">
-			<div class="layui-logo"><h3><a href="console/MainPage.jsp">学生信息管理系统</a></h3></div>
+			<div class="layui-logo"><h3><a href="console/MainPage.jsp"style="text-decoration:none;text-align:center;">学生信息管理系统</a></h3></div>
 
-			<ul class="layui-nav layui-layout-right">
-				<li class="layui-nav-item"><a href="javascript:;"> <img
-						src="image/School-Logo.JPG" class="layui-nav-img"> ${user.username}
-				</a>
-					<dl class="layui-nav-child">
-						<dd>
-							  <a href="javascript:void(0);"data-toggle="modal" data-target="#wyp">修改密码</a>
-						</dd>
-						<dd>
-							<div><a href="SystemServlet?method=LoginOut">退出登录</a></div>
-						</dd>
-					</dl></li>
-			</ul>
+			 <ul class="nav navbar-nav navbar-right"style="right:0%">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle"
+                               data-toggle="dropdown"
+                               style="height: 60px">
+                                <img alt="" class="img-circle" src="img/004.jpg" width="38px" height="38px"/>
+                                <span style="color: #FFFFFF;font-size: 15px">
+                                <i>AD</i>
+                            </span>
+                            </a>
+                            <div class="dropdown-menu pull-right"
+                                 style="background: #FFFFFF;width: 320px;overflow: hidden">
+                                <div style="margin-top: 16px;border-bottom: 1px solid #eeeeee">
+                                    <div style="text-align: center">
+                                        <img class="img-circle" src="img/004.jpg"
+                                             style="width: 38px;height: 38px;"/>
+                                    </div>
+                                    <div style="color: #323534;text-align: center;line-height: 36px;font-size: 15px">
+                                        <span>管理员</span>
+                                    </div>
+                                </div>
+ 
+                                <div class="row" style="margin-left: 15px;margin-right: 15px;margin-top: 10px">
+                                    <div class="col-md-4 text-center grid">
+                                        <i class="fa fa-user" style="font-size: 25px;line-height: 45px;"></i>
+                                        <p style="padding: 0px;margin-top: 6px;margin-bottom: 10px;font-size: 12px">
+                                            个人中心</p>
+                                    </div>
+                                    <div class="col-md-4 text-center grid">
+                                        <i class="fa fa-gear" style="font-size: 25px;line-height: 45px;"></i>
+                                        <p style="padding: 0px;margin-top: 6px;margin-bottom: 10px;font-size: 12px">
+                                            账号管理</p>
+                                    </div>
+                                    <div class="col-md-4 text-center grid">
+                                        <i class="fa fa-key" style="font-size: 25px;line-height: 45px;"></i>
+                                        <p style="padding: 0px;margin-top: 6px;margin-bottom: 10px;font-size: 12px"data-toggle="modal" data-target="#wyp">
+                                            密码修改</p>
+                                    </div>
+                                </div>
+ 
+                                <div class="row" style="margin-left: 15px;margin-right: 15px;margin-top: 10px">
+                                    <div class="col-md-4 text-center grid">
+                                        <i class="fa fa-user-circle" style="font-size: 25px;line-height: 45px;"></i>
+                                        <p style="padding: 0px;margin-top: 6px;margin-bottom: 10px;font-size: 12px">
+                                            修改头像</p>
+                                    </div>
+                                    <div class="col-md-4 text-center grid">
+                                        <i class="fa fa-comments" style="font-size: 25px;line-height: 45px;"></i>
+                                        <p style="padding: 0px;margin-top: 6px;margin-bottom: 10px;font-size: 12px">
+                                            消息</p>
+                                    </div>
+                                    <div class="col-md-4 text-center grid">
+                                        <i class="fa fa-heart-o" style="font-size: 25px;line-height: 45px;"></i>
+                                        <p style="padding: 0px;margin-top: 6px;margin-bottom: 10px;font-size: 12px">
+                                            帮助中心</p>
+                                    </div>
+                                </div>
+ 
+ 
+                                <div class="row" style="margin-top: 20px">
+                                    <div class="text-center"
+                                         style="padding: 15px;margin: 0px;background: #f6f5f5;color: #323534;">
+                                        <i class="fa fa-sign-out"></i> 退出登入界面
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
 		</div>
 
 		<div class="layui-side layui-bg-black">
@@ -43,51 +109,51 @@
 				<ul class="layui-nav layui-nav-tree" lay-filter="test">
 					<li class="layui-nav-item layui-nav-itemed">
 					<a class=""
-						href="javascript:;">学生管理</a>
+						href="javascript:;"style="text-decoration:none;">学生管理</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="https://blog.csdn.net/weixin_42855542/article/details/83476597">学生信息查询</a>
+								<a href="https://blog.csdn.net/weixin_42855542/article/details/83476597"style="text-decoration:none;">学生信息查询</a>
 							</dd>
 							<dd>
-								<a href="https://www.baidu.com">学生信息修改</a>
+								<a href="https://www.baidu.com"style="text-decoration:none;">学生信息修改</a>
 							</dd>
 						</dl></li>
-					<li class="layui-nav-item"><a href="javascript:;">教师管理</a>
+					<li class="layui-nav-item"><a href="javascript:;" style="text-decoration:none;">教师管理</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="javascript:;">教师信息查询</a>
+								<a href="javascript:;"style="text-decoration:none;">教师信息查询</a>
 							</dd>
 							<dd>
-								<a href="javascript:;">教师信息修改</a>
+								<a href="javascript:;"style="text-decoration:none;">教师信息修改</a>
 							</dd>
 						</dl></li>
-					<li class="layui-nav-item"><a href="javascript:;">课程管理</a>
+					<li class="layui-nav-item"><a href="javascript:;"style="text-decoration:none;">课程管理</a>
 					<dl class="layui-nav-child">
 							<dd>
-								<a href="javascript:;">课程信息查询</a>
+								<a href="javascript:;"style="text-decoration:none;">课程信息查询</a>
 							</dd>
 							<dd>
-								<a href="javascript:;">课程信息修改</a>
+								<a href="javascript:;"style="text-decoration:none;">课程信息修改</a>
 							</dd>
 						</dl>
 					</li>
-					<li class="layui-nav-item"><a href="javascript:;">成绩管理</a>
+					<li class="layui-nav-item"><a href="javascript:;"style="text-decoration:none;">成绩管理</a>
 						<dl class="layui-nav-child">
 						<dd>
-								<a href="javascript:;">成绩查询</a>
+								<a href="javascript:;"style="text-decoration:none;">成绩查询</a>
 							</dd>
 							<dd>
-								<a href="javascript:;">成绩录入修改</a>
+								<a href="javascript:;"style="text-decoration:none;">成绩录入修改</a>
 							</dd>
 						</dl>
 					</li>
-					<li class="layui-nav-item"><a href="javascript:;">高级</a>
+					<li class="layui-nav-item"><a href="javascript:;"style="text-decoration:none;">高级</a>
 						<dl class="layui-nav-child">
 						<dd>
-								<a href="javascript:;">男女比</a>
+								<a href="javascript:;"style="text-decoration:none;">男女比</a>
 							</dd>
 							<dd>
-								<a href="javascript:;">人数比</a>
+								<a href="javascript:;"style="text-decoration:none;">人数比</a>
 							</dd>
 						</dl>
 					</li>

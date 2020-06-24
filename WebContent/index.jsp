@@ -32,6 +32,7 @@ body, html {
 }
 img {
   transition: .1s ease-in-out;
+  transition-duration: 2s;
 }
 .container div {
   overflow: hidden;

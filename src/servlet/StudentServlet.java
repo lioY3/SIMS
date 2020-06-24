@@ -7,6 +7,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.lizhou.bean.Page;
+import com.lizhou.bean.Student;
+import com.lizhou.tools.StringTool;
+
+import service.StudentService;
+
+
+
 /**
  * Servlet implementation class StudentServlet
  */
@@ -14,28 +22,64 @@ import javax.servlet.http.HttpServletResponse;
 public class StudentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+	private StudentService service = new StudentService();
+	
     public StudentServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//获取请求的方法
+		String method = request.getParameter("method");
+		
+		if ("toStudentInfoView".equals(method)) {
+			request.getRequestDispatcher("/student/Stu-Infor.jsp").forward(request, response);
+		} else if ("toStudentModifyView".equals(method)) {
+			request.getRequestDispatcher("/student/Stu-modify.jsp").forward(request, response);
+		}
+		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		//获取请求的方法
+		String method = request.getParameter("method");
+		
+		//请求分发
+		if("StudentList".equals(method)){ //获取所有学生数据
+			studentList(request, response);
+		}
+		
 		doGet(request, response);
+	}
+
+
+	private void studentList(HttpServletRequest request, HttpServletResponse response) {
+		//年级ID
+		String gradeid = request.getParameter("gradeid");
+		//班级ID
+		String clazzid = request.getParameter("clazzid");
+		//获取分页参数
+		int page = Integer.parseInt(request.getParameter("page"));
+		int rows = Integer.parseInt(request.getParameter("rows"));
+		
+		//封装参数
+		Student student = new Student();
+		
+		if(!StringTool.isEmpty(gradeid)){
+			student.setGradeid(Integer.parseInt(gradeid));
+		}
+		if(!StringTool.isEmpty(clazzid)){
+			student.setClazzid(Integer.parseInt(clazzid));
+		}
+		
+		//获取数据
+		String result = service.getStudentList(student, new Page(page, rows));
+		//返回数据
+        response.getWriter().write(result);
+		
+		
 	}
 
 }

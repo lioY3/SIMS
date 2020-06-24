@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 
 
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.Enumeration;
 
@@ -16,21 +17,20 @@ import model.Course;
 import model.User;
 
 
-/**
- * 课程
- * @author bojiangzhou
- *
- */
+
 public class CourseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
       
 	private CourseService service = new CourseService();
+	public CourseServlet() {
+		super();
+	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//获取请求的方法
 		String method = request.getParameter("method");
 		if("toCourseListView".equalsIgnoreCase(method)){ //转发到课程列表页
-			request.getRequestDispatcher("//course/Cou-Infor.jsp").forward(request, response);
+			request.getRequestDispatcher("/course/Cou-Infor.jsp").forward(request, response);
 		}
 	}
 
