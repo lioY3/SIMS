@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="pass-revise.jsp"/>
+<jsp:include page="../personinfo/pass-revise.jsp"/>
 <!DOCTYPE html>
 
 <html>
@@ -57,12 +57,12 @@
                                 <div class="row" style="margin-left: 15px;margin-right: 15px;margin-top: 10px">
                                     <div class="col-md-4 text-center grid">
                                         <i class="fa fa-user" style="font-size: 25px;line-height: 45px;"></i>
-                                        <p style="padding: 0px;margin-top: 6px;margin-bottom: 10px;font-size: 12px">
-                                            个人中心</p>
+                                        <p style="padding: 0px;margin-top: 6px;margin-bottom: 10px;font-size: 12px" onclick="javascript:window.location.href='personinfo/infochange.jsp'">
+                                               个人中心</p>
                                     </div>
                                     <div class="col-md-4 text-center grid">
                                         <i class="fa fa-gear" style="font-size: 25px;line-height: 45px;"></i>
-                                        <p style="padding: 0px;margin-top: 6px;margin-bottom: 10px;font-size: 12px">
+                                        <p style="padding: 0px;margin-top: 6px;margin-bottom: 10px;font-size: 12px" >
                                             账号管理</p>
                                     </div>
                                     <div class="col-md-4 text-center grid">
