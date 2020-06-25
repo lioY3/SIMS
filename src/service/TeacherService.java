@@ -25,12 +25,24 @@ public class TeacherService {
 	 * @param rows
 	 * @return
 	 */
-	public String getTeacherList(Teacher teacher,Page page) {
-		//sql语句
-		//String sql = "SELECT * FROM teacher ORDER BY tno DESC LIMIT ?,?";
+	public String getTeacherList(Teacher teacher, String tno, String tname, Page page) {
+		// sql语句
 		StringBuffer sb = new StringBuffer("SELECT * FROM teacher ");
+
 		// 参数
 		List<Object> param = new LinkedList<>();
+
+		System.out.println(tno + "+" + tname);
+
+		if (teacher != null) {
+			if ((tno != null) && (tno != "")) {// 条件查询
+				param.add(tno);
+				sb.append("AND tno=? ");
+			} else if ((tname != null) && (tname != "")) {
+				param.add(tname);
+				sb.append("AND tname=? ");
+			} 
+		}
 
 		// 分页
 		if (page != null) {
@@ -39,15 +51,14 @@ public class TeacherService {
 			sb.append("limit ?,?");
 		}
 
-		// String sql = sb.toString().replaceFirst("AND", "WHERE");
-		String sql = sb.toString();
+		String sql = sb.toString().replaceFirst("AND", "WHERE");
 
-		System.out.println(sql);
+		System.out.println("全部查询：" + sql);
 
 		// 获取数据
 		List<Teacher> list = dao.getTeacherList(sql, param);
 		// 获取总记录数
-		long total = getCount(teacher);
+		long total = getCount(tno, tname, teacher);
 		// 定义Map
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		// code键 存放状态值，0为正常
@@ -66,19 +77,28 @@ public class TeacherService {
 	
 	/**
 	 * 获取记录数
-	 * 
-	 * @param teacher
-	 * @return
 	 */
-	private long getCount(Teacher teacher) {
-		// sql语句
-		StringBuffer sb = new StringBuffer("SELECT COUNT(*) FROM teacher");
+	private long getCount(String tno, String tname, Teacher teacher) {
+		// SQL语句
+		StringBuffer sb = new StringBuffer("SELECT COUNT(*) FROM teacher ");
 		// 参数
 		List<Object> param = new LinkedList<>();
 
+		if ((tno != null) && (tno != "")) {// 条件查询
+			param.add(tno);
+			sb.append("AND tno=? ");
+		} else if ((tname != null) && (tname != "")) {
+			param.add(tname);
+			sb.append("AND tname=? ");
+		} 
+
 		String sql = sb.toString().replaceFirst("AND", "WHERE");
 
-		long count = dao.count(sql, param).intValue();
+		System.out.println("条件查询：" + sql);
+
+		long count = dao.count(sql, param);
+
+		System.out.println(count);
 
 		return count;
 	}
