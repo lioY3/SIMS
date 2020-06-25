@@ -56,8 +56,7 @@
 				id : 'tableOne',
 				height : 450,
 				width : 900,
-				url : "testdata.json" //数据接口
-				,
+				url : "${pageContext.request.contextPath}/TeacherServlet?method=TeacherList", //数据接口
 				method :'post'//提交方式
 				,
 				page : true //开启分页
@@ -72,7 +71,7 @@
 			     {field: 'tno', title: '教师号', sort: true, fixed: 'left',align:'center'}
 				 ,{field: 'tname', title: '姓名',align:'center'}
 				 ,{field: 'tsex', title: '性别',align:'center'}
-				 ,{field: 'cname', title: '授课课程',align:'center'} 
+				 ,{field: 'tcourse', title: '授课课程',align:'center'} 
 				] ]
 			});
 		
