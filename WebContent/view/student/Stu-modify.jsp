@@ -94,28 +94,28 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">学号:</label>
 				<div class="layui-inline">
-					<input type="text" name="Sno" id="form_Sno" class="layui-input" autocomplete="off">
+					<input type="text" name="sno" id="form_Sno" class="layui-input" autocomplete="off">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">姓名：</label>
 				<div class="layui-inline">
-					<input type="text" name="Sname" id="form_Sname" class="layui-input" autocomplete="off">
+					<input type="text" name="sname" id="form_Sname" class="layui-input" autocomplete="off">
 				</div>
 			</div>
 			<div class="layui-form-item">
     			<label class="layui-form-label">性别:</label>
     			<div class="layui-input-block">
-     				<input type="radio" name="Ssex" id="form_Ssex" value="男" title="男"><i class="layui-icon" style="font-size: 17px; color: #1E9FFF;">&#xe662;</i>
+     				<input type="radio" name="ssex" id="form_Ssex1" value="男" title="男"><i class="layui-icon" style="font-size: 17px; color: #1E9FFF;">&#xe662;</i>
      				&emsp;
-     				<input type="radio" name="Ssex" id="form_Ssex" value="女"title="女"><i class="layui-icon"style="font-size: 17px; color: red;">&#xe661;</i>
+     				<input type="radio" name="ssex" id="form_Ssex2" value="女"title="女"><i class="layui-icon"style="font-size: 17px; color: red;">&#xe661;</i>
      			</div>
   			</div>
 			<div class="layui-form-item">
 				<div class="layui-inline">
 					<label class="layui-form-label">生日：</label>
 					<div class="layui-input-inline">
-				        <input type="text"  name="Sbirthday" id="form_birthday" class="layui-input" placeholder="yyyy-MM-dd">
+				        <input type="text"  name="sbirthday" id="form_birthday" class="layui-input" placeholder="yyyy-MM-dd">
 				    </div>
 				</div>
 			</div>
@@ -123,26 +123,26 @@
 				<div class="layui-inline">
 					<label class="layui-form-label">民族：</label>
 					<div class="layui-input-inline">
-				        <input type="text"  name="Snation" id="form_snation" class="layui-input">
+				        <input type="text"  name="snation" id="form_snation" class="layui-input">
 				    </div>
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">身份证:</label>
 				<div class="layui-inline">
-					<input type="text" name="Sid" id="form_Sid" class="layui-input" autocomplete="off">
+					<input type="text" name="sid" id="form_Sid" class="layui-input" autocomplete="off">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">学院:</label>
 				<div class="layui-inline">
-					<input type="text" name="Dname" id="form_Dname" class="layui-input" autocomplete="off">
+					<input type="text" name="dname" id="form_Dname" class="layui-input" autocomplete="off">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">班级:</label>
 				<div class="layui-inline">
-					<input type="text" name="Clname" id="form_Clname" class="layui-input" autocomplete="off">
+					<input type="text" name="clname" id="form_Clname" class="layui-input" autocomplete="off">
 				</div>
 			</div>
 			<div class="layui-form-item" style="margin-left: 40%">
@@ -203,35 +203,12 @@
 				] ]
 			});
 		
-			/*	--	按姓名重载	--	*/
-			var $ = layui.$, active = {
-				reload : function() {
-					var send_name = $('#send_name');
-
-					//执行重载
-					table.reload('tableOne', {
-						page : {
-							curr : 1//重新从第 1 页开始
-						},
-						where : {
-							key : {
-								Sname : send_name.val()
-							}
-						}
-					}, 'data');
-				}
-			};
-
-			$('#do_searchname').on('click', function() {
-				var type = $(this).data('type');
-				active[type] ? active[type].call(this) : '';
-			});
-			
-			/*	--	按学号重载	--	*/
+			/*	--	搜索重载	--	*/
 			var $ = layui.$, active = {
 					reload : function() {
+						var send_class = $('#send_class');
 						var send_no = $('#send_no');
-
+						var send_name = $('#send_name');
 						//执行重载
 						table.reload('tableOne', {
 							page : {
@@ -239,42 +216,28 @@
 							},
 							where : {
 								key : {
-									Sno : send_no.val()
+									Clname : send_class.val(),
+									Sno : send_no.val(),
+									Sname : send_name.val()
 								}
 							}
 						}, 'data');
 					}
 				};
 
-				$('#do_searchno').on('click', function() {
-					var type = $(this).data('type');
-					active[type] ? active[type].call(this) : '';
-				});
-				
-				
-			/*	--	按班级重载	--	*/
-				var $ = layui.$, active = {
-						reload : function() {
-							var send_class = $('#send_class');
-
-							//执行重载
-							table.reload('tableOne', {
-								page : {
-									curr : 1//重新从第 1 页开始
-								},
-								where : {
-									key : {
-										Clname : send_class.val()
-									}
-								}
-							}, 'data');
-						}
-					};
-
-					$('#do_searchclass').on('click', function() {
-						var type = $(this).data('type');
-						active[type] ? active[type].call(this) : '';
+							$('#do_searchclass').on('click', function() {
+								var type = $(this).data('type');
+								active[type] ? active[type].call(this) : '';
 					});
+							$('#do_searchno').on('click', function() {
+								var type = $(this).data('type');
+								active[type] ? active[type].call(this) : '';
+					});
+							$('#do_searchname').on('click', function() {
+								var type = $(this).data('type');
+								active[type] ? active[type].call(this) : '';
+					});
+
 					
  			/*	--	监听头部工具栏	--	*/
 					 table.on('toolbar(Stu)', function (obj) {
@@ -296,13 +259,14 @@
 					            var data = {};
 					            data.action = 'AddStudent';
 					            data.request_type = 'post';
-					            data.Sno=null;
-					            data.Sname=null;
-					            data.Ssex=null;
-					            data.Sbirthday=null;
-					            data.Sid=null;
-					            data.Dname=null;
-					            data.Clname=null;
+					            data.sno=null;
+					            data.sname=null;
+					            data.ssex=null;
+					            data.sbirthday=null;
+					            data.sid=null;
+					            data.dname=null;
+					            data.clname=null;
+					            data.snation=null;
 					            // 调用打开弹层的工具方法
 					            open_form("#open_div", data, '增加学生', '380px', '550px');
 					            break;
@@ -312,7 +276,7 @@
  						table.on('tool(Stu)', function (obj) {
 						    var data = obj.data;
 						    var layEvent = obj.event;
-						    var id = data.Sno;
+						    var id = data.sno;
 						    switch (layEvent) {
 						        case 'edit':
 						            // 根据编辑行为为form隐藏项赋值
@@ -323,15 +287,16 @@
 						            break; 
 						        case 'del':
 				                    layer.confirm('真的删除该行么', function (index) {
-				                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+				                        
 				                        //向服务端发送删除指令
 				                        $.ajax({
-				                            type: "post",  //数据提交方式(post/get)
-				                            url: "${pageContext.request.contextPath}/StudentServlet?method=DeleteStudent&id=" + Sno,  //提交到的url
+				                            type: "post",  //数据提交方式(post)
+				                            url: "${pageContext.request.contextPath}/StudentServlet?method=DeleteStudent&sno="+id,  //提交到的url
 				                            contentType: "application/json; charset=utf-8",
 				                            dataType: "json",//返回的数据类型格式
 				                            success: function (result) {
 				                                layer.msg(result.msg, {icon: 1, time: 1000});
+				                                obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
 				                            }, error: function (e) {
 				                                console.log(e, 'error');
 				                                layer.msg("异常，请再次重试！", {icon: 1, time: 1000});

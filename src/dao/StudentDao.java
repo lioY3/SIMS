@@ -18,7 +18,7 @@ public interface StudentDao extends BaseDao {
 	 * @param param 参数
 	 * @return
 	 */
-	//public List<Student> getStudentList(String sql, List<Object> param);
 	public List<StudentInfo> getStudentInfoList(String sql, List<Object> param);
+
 	
 }
