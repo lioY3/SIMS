@@ -172,8 +172,8 @@
 			table.render({
 				elem : '#stu-info',
 				id : 'tableOne',
-				height : 535,
-				width : 1200,
+				height : 520,
+				width : 1300,
 				url : "${pageContext.request.contextPath}/StudentServlet?method=StudentList", //数据接口
 				method: 'post',
 				page : true, //开启分页

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import service.ScoreService;
 import model.Page;
 import model.Score;
+import net.sf.json.JSONObject;
 
 @WebServlet("/ScoreServlet")
 public class ScoreServlet extends HttpServlet {
@@ -53,7 +54,11 @@ public class ScoreServlet extends HttpServlet {
 	}
 
 	private void deleteScore(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+		String sno = request.getParameter("sno");
+		String cno = request.getParameter("cno");
+
+		System.out.println(sno);
+		System.out.println(cno);
 		
 	}
 
@@ -70,12 +75,14 @@ public class ScoreServlet extends HttpServlet {
 		// 条件查询参数
 		String sno = request.getParameter("key[Sno]");
 		String cname = request.getParameter("key[Cname]");
+		String tno = request.getParameter("tno");
+		System.out.println("servlet:"+tno);
 
 		//System.out.println("key[Sno]:" + sno);
 
 		Score score = new Score();
 
-		String result = service.getScoreList(score, sno, cname,new Page(page, limit));
+		String result = service.getScoreList(score, sno, cname, tno, new Page(page, limit));
 		response.getWriter().write(result);
 		
 	}

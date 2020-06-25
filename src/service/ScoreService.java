@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.catalina.Session;
+
 import dao.ScoreDao;
 import dao.impl.ScoreDaoImpl;
 import model.Page;
@@ -27,24 +29,63 @@ public class ScoreService {
 	}
 	
 	/**
-	 * 获取成绩列表
+	 * 获取记录数
+	 * @param tno 
 	 */
-	public String getScoreList(Score score, String sno, String cname, Page page) {
-		// sql语句
-		StringBuffer sb = new StringBuffer("SELECT * FROM scoreinfo ");
-
-		// 参数
+	private long getCount(String sno, String cname, Score score, String tno){
+		//sql语句
+		StringBuffer sb = new StringBuffer("SELECT COUNT(*) FROM scoreinfo join course on course.cno = scoreinfo.cno ");
+		//参数
 		List<Object> param = new LinkedList<>();
+		
+		
+		if ((tno != null) && (tno != "")) {
+			param.add(tno);
+			sb.append("AND tno=? ");
 
-		//System.out.println(sno + "+" + sname + "+" + clname);
-
-		if (score != null) {
 			if ((sno != null) && (sno != "")) {// 条件查询
 				param.add(sno);
 				sb.append("AND sno=? ");
 			} else if ((cname != null) && (cname != "")) {
 				param.add(cname);
 				sb.append("AND cname=? ");
+			}
+		}
+		
+		String sql = sb.toString().replaceFirst("AND", "WHERE");
+		
+		System.out.println(sql);
+		
+		long count = dao.count(sql, param);
+
+		// System.out.println("条件查询：" + sql);
+		// System.out.println(count);
+
+		return count;
+	}
+
+	public String getScoreList(Score score, String sno, String cname, String tno, Page page) {
+		// sql语句
+		StringBuffer sb = new StringBuffer("SELECT * FROM scoreinfo join course on course.cno = scoreinfo.cno ");
+
+		// 参数
+		List<Object> param = new LinkedList<>();
+
+		//System.out.println(sno + "+" + sname + "+" + clname);
+		
+
+		if (score != null) {
+			if ((tno != null) && (tno != "")) {
+				param.add(tno);
+				sb.append("AND tno=? ");
+
+				if ((sno != null) && (sno != "")) {// 条件查询
+					param.add(sno);
+					sb.append("AND sno=? ");
+				} else if ((cname != null) && (cname != "")) {
+					param.add(cname);
+					sb.append("AND cname=? ");
+				}
 			}
 		}
 		
@@ -55,11 +96,14 @@ public class ScoreService {
 			sb.append("limit ?,?");
 		}
 		
-		String sql = sb.toString().replace("AND", "WHERE");
+		String sql = sb.toString().replaceFirst("AND", "WHERE");
+		
+		System.out.println("service:"+tno);
+		System.out.println(sql);
 		
 		List<ScoreInfo> list = dao.getScoreInfoList(sql, param);
 		// 获取总记录数
-		long total = getCount(sno, cname, score);
+		long total = getCount(sno, cname, score, tno);
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
@@ -78,33 +122,6 @@ public class ScoreService {
 		
 		// 返回结果
 		return result;
-	}
-	
-	/**
-	 * 获取记录数
-	 */
-	private long getCount(String sno, String cname, Score score){
-		//sql语句
-		StringBuffer sb = new StringBuffer("SELECT COUNT(*) FROM scoreinfo ");
-		//参数
-		List<Object> param = new LinkedList<>();
-		
-		if ((sno != null) && (sno != "")) {// 条件查询
-			param.add(sno);
-			sb.append("AND sno=? ");
-		} else if ((cname != null) && (cname != "")) {
-			param.add(cname);
-			sb.append("AND cname=? ");
-		}
-		
-		String sql = sb.toString().replaceFirst("AND", "WHERE");
-		
-		long count = dao.count(sql, param);
-
-		// System.out.println("条件查询：" + sql);
-		// System.out.println(count);
-
-		return count;
 	}
 		
 }
