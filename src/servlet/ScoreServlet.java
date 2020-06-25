@@ -2,18 +2,14 @@ package servlet;
 
 import java.io.IOException;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.beanutils.BeanUtils;
-
-
 import service.ScoreService;
+import model.Page;
 import model.Score;
 
 @WebServlet("/ScoreServlet")
@@ -42,59 +38,46 @@ public class ScoreServlet extends HttpServlet {
 		//请求分发
 		if("ScoreList".equalsIgnoreCase(method)){ //获取所有成绩数据
 			scoreList(request, response);
-		} else if("ColumnList".equalsIgnoreCase(method)){ //获取列
-			columnList(request, response);
-		} else if("SetScore".equalsIgnoreCase(method)){ //登记成绩
-			setScore(request, response);
-		} 
-		
-		
-		
-	}
-	
-	private void setScore(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String[] score = request.getParameterValues("score[]");
-		service.setScore(score);
-		//返回数据
-        response.getWriter().write("success");
-	}
-	
-	private void columnList(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		Enumeration<String> pNames = request.getParameterNames();
-		Score score = new Score();
-		while(pNames.hasMoreElements()){
-			String pName = pNames.nextElement();
-			String value = request.getParameter(pName);
-			try {
-				BeanUtils.setProperty(score, pName, value);
-			} catch (IllegalAccessException | InvocationTargetException e) {
-				e.printStackTrace();
-			}
+		} else if ("AddScore".equalsIgnoreCase(method)) { // 录入成绩
+			addScore(request, response);
+		} else if ("DeleteScore".equalsIgnoreCase(method)) { // 删除成绩
+			deleteScore(request, response);
+		} else if ("EditScore".equalsIgnoreCase(method)) { // 修改成绩
+			editScore(request, response);
 		}
-		
-		//获取数据
-		String result = service.columnList(score);
-		//返回数据
-        response.getWriter().write(result);
 	}
-	
+
+	private void editScore(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void deleteScore(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void addScore(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private void scoreList(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		Enumeration<String> pNames = request.getParameterNames();
+		// 获取分页参数
+		int page = Integer.parseInt(request.getParameter("page"));
+		int limit = Integer.parseInt(request.getParameter("limit"));
+
+		// 条件查询参数
+		String sno = request.getParameter("key[Sno]");
+		String cname = request.getParameter("key[Cname]");
+
+		//System.out.println("key[Sno]:" + sno);
+
 		Score score = new Score();
-		while(pNames.hasMoreElements()){
-			String pName = pNames.nextElement();
-			String value = request.getParameter(pName);
-			try {
-				BeanUtils.setProperty(score, pName, value);
-			} catch (IllegalAccessException | InvocationTargetException e) {
-				e.printStackTrace();
-			}
-		}
+
+		String result = service.getScoreList(score, sno, cname,new Page(page, limit));
+		response.getWriter().write(result);
 		
-		//获取数据
-		String result = service.getScoreList(score);
-		//返回数据
-        response.getWriter().write(result);
 	}
 	
 }
