@@ -10,9 +10,11 @@ import org.apache.catalina.Session;
 
 import dao.ScoreDao;
 import dao.impl.ScoreDaoImpl;
+import model.Class;
 import model.Page;
 import model.Score;
 import model.ScoreInfo;
+import model.Student;
 import net.sf.json.JSONObject;
 
 /**
@@ -122,6 +124,35 @@ public class ScoreService {
 		
 		// 返回结果
 		return result;
+	}
+
+	public void deleteScore(String sno, String cno) {
+		// 删除成绩
+		dao.delete("DELETE FROM score WHERE sno = ? and cno = ?", new Object[] { sno,cno });
+	}
+
+	public void addScore(Score score) {
+		
+		// 添加成绩
+		dao.insert("INSERT INTO score(sno, cno, grade value(?,?,?)",
+				new Object[] { score.getSno(), score.getCno(), score.getGrade()});		
+		
+	}
+
+	public void editScore(Score score, String sno, String cno) {
+		
+		List<Object> params = new LinkedList<>();
+		params.add(score.getGrade());
+		params.add(score.getSno());
+		params.add(score.getCno());
+
+		String sql = "update score "
+				+ "set grade = ? "
+				+ "where sno = ? and cno = ?";
+
+		// 更新学生信息
+		dao.update(sql, params);
+		
 	}
 		
 }

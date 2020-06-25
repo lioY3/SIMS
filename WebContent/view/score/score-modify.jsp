@@ -197,13 +197,9 @@
 					             // 根据增加行为给form隐藏项赋值
 					        case 'add':
 					            var data = {};
-					            data.action = 'addStu';
-					            data.request_type = 'post';
+					            data.action = 'AddScore';
 					            data.sno=null;
-					            data.sname=null;
 					            data.cno=null;
-					            data.cname=null;
-					            data.tname=null;
 					            data.grade=null;
 					            // 调用打开弹层的工具方法
 					            open_form("#open_div", data, '录入成绩', '380px', '550px');
@@ -218,10 +214,8 @@
 						    switch (layEvent) {
 						        case 'edit':
 						            // 根据编辑行为为form隐藏项赋值
-						            data.action = 'updateStu';
-						            data.request_type = 'post';
-						            data.request_Sno = id;
-						            open_form("#open_div", data, '编辑学生', '380px', '550px');
+						            data.action = 'UpdateScore';
+						            open_form("#open_div", data, '编辑成绩', '380px', '550px');
 						            break; 
 						        case 'del':
 				                    layer.confirm('真的删除该行么', function (index) {
@@ -248,10 +242,9 @@
 			/*	-- 监听表单提交-- */
 						form.on('submit(score_submit)', function (data) {
 						    var uri = data.field.action;
-						    var type = data.field.request_type;
 						    $.ajax({
 						         type: type,
-						         url: '/goods/' + uri,
+						         url: '${pageContext.request.contextPath}/ScoreServlet?method=' + uri,
 						         contentType: "application/json; charset=utf-8",
 						         data: JSON.stringify(data.field),
 						         dataType: "json",
@@ -262,8 +255,8 @@
 						                    page: {
 						                        curr: 1 //重新从第 1 页开始
 						                    },
-						                    url: '/goods/goodsList',
-						                    method: 'get'
+						                    url: '${pageContext.request.contextPath}/ScoreServlet?method=ScoreList&tno=${user.account}',
+						                    method: 'post'
 						                });
 						                layer.msg('修改成功', {icon: 1, time: 1000});
 						            } else {  //失败
