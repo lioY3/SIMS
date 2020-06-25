@@ -1,65 +1,63 @@
 package dao.impl;
 
-import java.util.LinkedHashMap;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
-import com.mysql.jdbc.Connection;
+import org.apache.commons.beanutils.BeanUtils;
 
 import dao.ScoreDao;
-import model.Score;
-import model.Student;
+import model.ScoreInfo;
 import utils.DBUtil;
 
 public class ScoreDaoImpl extends BaseDaoImpl implements ScoreDao {
 
-	public List<Map<String, Object>> getScoreList(Score score) {
-		//sql语句
-		List<Object> stuParam = new LinkedList<>();
-		StringBuffer stuSb = new StringBuffer("SELECT Sno, Sname FROM student WHERE Clno=? ");
-		stuParam.add(score.getCno());
-		if(score.getCno() != null){
-			stuParam.add(score.getCno());
-		}
-		String stuSql = stuSb.toString();
-		
-		//获取数据库连接
-		Connection conn = (Connection) DBUtil.getConnection();
-		
-		//获取该年级下的所有学生
-		List<Object> stuList = getList(Student.class, stuSql, stuParam);
-		
-		//数据集合
-		List<Map<String, Object>> list = new LinkedList<>();
-		
-		//sql语句
-		String sql = "SELECT e.id,e.courseid,e.score FROM student s, escore e "
-				+ "WHERE s.id=e.studentid AND e.examid=? AND e.studentid=?";
-		
-		for(int i = 0;i < stuList.size();i++){
-			Map<String, Object> map = new LinkedHashMap<>();
-			
-			Student student = (Student) stuList.get(i);
-			
-			map.put("Sname", student.getSname());
-			map.put("Sno", student.getSno());
-			
-			List<Object> scoreList = getList(conn, Score.class, sql, new Object[]{score.getCno(), student.getSno()});
-			int total = 0;
-			for(Object obj : scoreList){
-				Score score1 = (Score) obj;
-				total += score1.getGrade();
-				
-				//将成绩表id放入:便于获取单科成绩用于登记
-				map.put("course"+score1.getCno(), score1.getGrade());
-				map.put("escoreid"+score1.getCno(), score1.getGrade());
+	public List<ScoreInfo> getScoreInfoList(String sql, List<Object> param) {
+		// 数据集合
+		List<ScoreInfo> list = new LinkedList<>();
+		try {
+			// 获取数据库连接
+			Connection con = DBUtil.getConnection();
+			// 预编译
+			PreparedStatement ps = con.prepareStatement(sql);
+			// 设置参数
+			if (param != null && param.size() > 0) {
+				for (int i = 0; i < param.size(); i++) {
+					ps.setObject(i + 1, param.get(i));
+				}
+			}
+			// 执行SQL语句
+			ResultSet rs = ps.executeQuery();
+
+			// 获取元数据
+			ResultSetMetaData meta = rs.getMetaData();
+			// 遍历结果集
+			while (rs.next()) {
+				// 创建对象
+				ScoreInfo scoreInfo = new ScoreInfo();
+				// 遍历每个字段
+				for (int i = 1; i <= meta.getColumnCount(); i++) {
+					String field = meta.getColumnName(i);
+
+					// System.out.println(field+" "+rs.getObject(field));
+
+					BeanUtils.setProperty(scoreInfo, field, rs.getObject(field));
+				}
+
+				// 添加到集合
+				list.add(scoreInfo);
 			}
 
-			list.add(map);
+			// 关闭连接
+			DBUtil.closeConnection();
+			DBUtil.close(ps);
+			DBUtil.close(rs);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return list;
 	}
-	
-
 }

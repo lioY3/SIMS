@@ -1,9 +1,8 @@
 package dao;
 
 import java.util.List;
-import java.util.Map;
 import dao.BaseDao;
-import model.Score;
+import model.ScoreInfo;
 
 
 /**
@@ -15,9 +14,7 @@ public interface ScoreDao extends BaseDao {
 
 	/**
 	 * 获取学生成绩表
-	 * @param param
-	 * @return
 	 */
-	List<Map<String, Object>> getScoreList(Score score);
+	List<ScoreInfo> getScoreInfoList(String sql, List<Object> param);
 
 }

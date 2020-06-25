@@ -34,7 +34,7 @@
 
 	<div style="text-align: center;">
         <div class="layui-inline">
-			<table id="score-info" lay-filter="test"></table>
+			<table id="grade-info" lay-filter="test"></table>
 		</div>
 	</div>
 	<script src="${pageContext.request.contextPath}/static/layui/layui.js"></script>
@@ -45,11 +45,11 @@
 			
 		/*		-- 表格实例	 --		*/		
 			table.render({
-				elem : '#score-info',
+				elem : '#grade-info',
 				id : 'tableOne',
 				height : 500,
 				width : 1300,
-				url : "${pageContext.request.contextPath}/StudentServlet?method=StudentList", //数据接口
+				url : "${pageContext.request.contextPath}/ScoreServlet?method=ScoreList", //数据接口
 				method: 'post',
 				page : true, //开启分页
 				
@@ -65,7 +65,7 @@
 				 ,{field: 'cno', title: '课程号',align:'center'}
 				 ,{field: 'cname', title: '课程名',align:'center'}
 				 ,{field: 'tname', title: '授课教师',align:'center'} 
-				 ,{field: 'score', title: '成绩',sort: true,align:'center'} 
+				 ,{field: 'grade', title: '成绩',sort: true,align:'center'} 
 				] ]
 			});
 		
@@ -83,7 +83,7 @@
 								where : {
 									key : {
 										Sno : send_no.val(),
-										Sname : send_name.val()
+										Cname : send_name.val()
 									}
 								}
 							}, 'data');
