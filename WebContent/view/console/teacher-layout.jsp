@@ -41,32 +41,32 @@
 						href="javascript:;">学生管理</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="view/student/Stu-Infor.jsp">学生信息查询</a>
+								<a href="StudentServlet?method=toStudentInfoView">学生信息查询</a>
 							</dd>
 							<dd>
-								<a href="view/student/Stu-modify.jsp">学生信息修改</a>
+								<a href="StudentServlet?method=toStudentModifyView">学生信息修改</a>
 							</dd>
 						</dl></li>
 					<li class="layui-nav-item"><a href="javascript:;">教师管理</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="view/teacher/Tea-Infor.jsp">教师信息查询</a>
+								<a href="TeacherServlet?method=toTeacherInfoView">教师信息查询</a>
 							</dd>
 						</dl></li>
 					<li class="layui-nav-item"><a href="javascript:;">课程管理</a>
 					<dl class="layui-nav-child">
 							<dd>
-								<a href="javascript:;">课程信息查询</a>
+								<a href="CourseServlet?method=toCourseInfoView">课程信息查询</a>
 							</dd>
 						</dl>
 					</li>
 					<li class="layui-nav-item"><a href="javascript:;">成绩管理</a>
 						<dl class="layui-nav-child">
 						<dd>
-								<a href="javascript:;">成绩查询</a>
+								<a href="ScoreServlet?method=toScoreInfoView">成绩查询</a>
 							</dd>
 							<dd>
-								<a href="javascript:;">成绩录入修改</a>
+								<a href="ScoreServlet?method=toScoreModifyView">成绩录入修改</a>
 							</dd>
 						</dl>
 					</li>

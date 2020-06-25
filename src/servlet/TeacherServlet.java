@@ -2,9 +2,6 @@ package servlet;
 
 import java.io.IOException;
 
-
-
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.Enumeration;
 
@@ -25,11 +22,10 @@ import model.User;
 import net.sf.json.JSONObject;
 import service.TeacherService;
 
-/**
- * 教师类Servlet
- *
- */
+@WebServlet("/TeacherServlet")
 public class TeacherServlet extends HttpServlet {
+
+	private static final long serialVersionUID = 1L;
 	
 	//创建服务层对象
 	private TeacherService service = new TeacherService();
@@ -37,7 +33,7 @@ public class TeacherServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//获取请求的方法
 		String method = request.getParameter("method");
-		if("toTeacherListView".equalsIgnoreCase(method)){ //转发到教师信息查询页面
+		if("toTeacherInfoView".equalsIgnoreCase(method)){ //转发到教师信息查询页面
 			request.getRequestDispatcher("view/teacher/Tea-Infor.jsp").forward(request, response);
 		} else if("toTeacherNoteListView".equalsIgnoreCase(method)){ //转发到教师信息修改页面
 			request.getRequestDispatcher("view/teacher/Tea-modify.jsp").forward(request, response);

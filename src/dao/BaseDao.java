@@ -104,7 +104,7 @@ public interface BaseDao {
 	Long count(String sql, Object[] param);
 	
 	/**
-	 * 获取记录数
+	 * 获取记录数 *****
 	 * @param sql
 	 * @param param
 	 * @return
@@ -120,7 +120,7 @@ public interface BaseDao {
 	void update(String sql, Object[] param);
 	
 	/**
-	 * 插入或更新一条数据
+	 * 插入或更新一条数据 *****
 	 * @param sql
 	 * @param param
 	 */
@@ -143,7 +143,7 @@ public interface BaseDao {
 	void updateBatch(String sql, Object[][] param);
 	
 	/**
-	 * 插入一条数据
+	 * 插入一条数据 *****
 	 * @param sql
 	 * @param param
 	 */
@@ -199,7 +199,7 @@ public interface BaseDao {
 	
 	
 	/**
-	 * 删除
+	 * 删除 *****
 	 * @param sql
 	 * @param param
 	 */

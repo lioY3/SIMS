@@ -3,10 +3,6 @@ package servlet;
 import java.io.IOException;
 
 
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.Enumeration;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,17 +12,15 @@ import service.CourseService;
 import utils.GetRequestJsonUtils;
 import model.Course;
 import model.Page;
-import model.Student;
-import model.StudentInfo;
-import model.User;
 import net.sf.json.JSONObject;
 
 
-
+@WebServlet("/CourseServlet")
 public class CourseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
       
 	private CourseService service = new CourseService();
+	
 	public CourseServlet() {
 		super();
 	}
@@ -34,8 +28,10 @@ public class CourseServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//获取请求的方法
 		String method = request.getParameter("method");
-		if("toCourseListView".equalsIgnoreCase(method)){ //转发到课程列表页
-			request.getRequestDispatcher("view/course/Cou-Infor.jsp").forward(request, response);
+		if("toCourseInfoView".equalsIgnoreCase(method)){ //转发到课程列表页
+			request.getRequestDispatcher("view/course/Cour-info.jsp").forward(request, response);
+		} else if("toCourseModifyView".equalsIgnoreCase(method)){ //转发到课程修改页
+			request.getRequestDispatcher("view/course/Cour-modify.jsp").forward(request, response);
 		}
 	}
 

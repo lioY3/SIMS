@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Enumeration;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,12 +16,10 @@ import org.apache.commons.beanutils.BeanUtils;
 import service.ScoreService;
 import model.Score;
 
-/**
- * 成绩类Servlet
- *
- */
-@SuppressWarnings("serial")
+@WebServlet("/ScoreServlet")
 public class ScoreServlet extends HttpServlet {
+	
+	private static final long serialVersionUID = 1L;
 	
 	//创建服务层对象
 	private ScoreService service = new ScoreService();
@@ -29,9 +28,12 @@ public class ScoreServlet extends HttpServlet {
 		//获取请求的方法
 		String method = request.getParameter("method");
 		//请求分发
-		if("ExportScore".equalsIgnoreCase(method)){ //导出成绩
-			exportScore(request, response);
+		if("toScoreInfoView".equalsIgnoreCase(method)){ //转发到课程列表页
+			request.getRequestDispatcher("view/score/score-info.jsp").forward(request, response);
+		} else if ("toScoreModifyView".equals(method)) {
+			request.getRequestDispatcher("view/score/score-modify.jsp").forward(request, response);
 		}
+		
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -55,23 +57,6 @@ public class ScoreServlet extends HttpServlet {
 		service.setScore(score);
 		//返回数据
         response.getWriter().write("success");
-	}
-	
-	private void exportScore(HttpServletRequest request, HttpServletResponse response) {
-		//获取分页参数
-		Enumeration<String> pNames = request.getParameterNames();
-		Score score = new Score();
-		while(pNames.hasMoreElements()){
-			String pName = pNames.nextElement();
-			String value = request.getParameter(pName);
-			try {
-				BeanUtils.setProperty(score, pName, value);
-			} catch (IllegalAccessException | InvocationTargetException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		service.exportScore(response, score);
 	}
 	
 	private void columnList(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -39,13 +39,13 @@ public class StudentService {
 			sb.append("AND clname=? ");
 		}
 
-		String sql = sb.toString().replaceFirst("AND", "WHERE");
+		String sql = sb.toString().replace("AND", "WHERE");
 
-		System.out.println("条件查询：" + sql);
+		//System.out.println("条件查询：" + sql);
 
 		long count = dao.count(sql, param);
 
-		System.out.println(count);
+		//System.out.println(count);
 
 		return count;
 	}
@@ -108,7 +108,8 @@ public class StudentService {
 		params.add(stu.getClno());
 		params.add(uid);
 
-		String sql = "update student " + "set sno = ?,sname = ?,ssex =?,sbirthday = ?,sid=?,snation=?,clno=? "
+		String sql = "update student "
+				+ "set sno = ?,sname = ?,ssex =?,sbirthday = ?,sid=?,snation=?,clno=? "
 				+ "where sno = ?";
 
 		// 更新学生信息
@@ -123,7 +124,7 @@ public class StudentService {
 		// 参数
 		List<Object> param = new LinkedList<>();
 
-		System.out.println(sno + "+" + sname + "+" + clname);
+		//System.out.println(sno + "+" + sname + "+" + clname);
 
 		if (student != null) {
 			if ((sno != null) && (sno != "")) {// 条件查询
@@ -145,26 +146,30 @@ public class StudentService {
 			sb.append("limit ?,?");
 		}
 
-		String sql = sb.toString().replaceFirst("AND", "WHERE");
+		String sql = sb.toString().replace("AND", "WHERE");
 
-		System.out.println("全部查询：" + sql);
+		//System.out.println("全部查询：" + sql);
 
 		// 获取数据
 		List<StudentInfo> list = dao.getStudentInfoList(sql, param);
 		// 获取总记录数
 		long total = getCount(sno, sname, clname, student);
+		
 		// 定义Map
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
 		// code键 存放状态值，0为正常
 		jsonMap.put("code", 0);
 		// count键 存放总记录数，必须的
 		jsonMap.put("count", total);
-		// msg键 存放消息，空
+		// msg键 存放消息，可空
 		jsonMap.put("msg", "cwj笨蛋");
 		// data键 存放每页记录 list
 		jsonMap.put("data", list);
+		
 		// 格式化Map,以json格式返回数据
 		String result = JSONObject.fromObject(jsonMap).toString();
+		
 		// 返回结果
 		return result;
 	}
