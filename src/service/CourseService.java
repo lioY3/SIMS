@@ -1,18 +1,21 @@
 package service;
 
 import java.sql.Connection;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import dao.BaseDao;
+import dao.TeacherDao;
 import dao.impl.BaseDaoImpl;
+import dao.impl.TeacherDaoImpl;
 import model.Class;
 import model.Course;
 import model.Page;
 import model.Student;
-import model.StudentInfo;
+import model.Teacher;
 import net.sf.json.JSONObject;
 import utils.DBUtil;
 
@@ -29,13 +32,21 @@ public class CourseService {
 	 * 获取所有课程
 	 * @return
 	 */
-	public String getCourseList(Course course, Page page){
+	public String courseList(Course course,String cno,String cname, Page page){
 		// sql语句
 		StringBuffer sb = new StringBuffer("SELECT * FROM course ");
 		
 		// 参数
 		List<Object> param = new LinkedList<>();
-
+		if (course != null) {
+			if ((cno != null) && (cno != "")) {// 条件查询
+				param.add(cno);
+				sb.append("AND cno=? ");
+			} else if ((cname != null) && (cname != "")) {
+				param.add(cname);
+				sb.append("AND cname=? ");
+			} 
+		}
 		// 分页
 		if (page != null) {
 			param.add(page.getStart());
@@ -43,15 +54,14 @@ public class CourseService {
 			sb.append("limit ?,?");
 		}
 
-		// String sql = sb.toString().replaceFirst("AND", "WHERE");
-		String sql = sb.toString();
+		String sql = sb.toString().replaceFirst("AND", "WHERE");
 		
 		System.out.println(sql);
 
 		// 获取数据
 		List<Course> list = dao.getallCourseList(sql, param);
 		// 获取总记录数
-		long total = getCount(course);
+		long total = getCount(course,cno,cname);
 		// 定义Map
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		// code键 存放状态值，0为正常
@@ -75,13 +85,20 @@ public class CourseService {
 	 * @param student
 	 * @return
 	 */
-	private long getCount(Course course) {
+	private long getCount(Course course,String cno,String cname) {
 		// sql语句
 		StringBuffer sb = new StringBuffer("SELECT COUNT(*) FROM course");
 		// 参数
 		List<Object> param = new LinkedList<>();
+		if ((cno != null) && (cno != "")) {// 条件查询
+			param.add(cno);
+			sb.append("AND cno=? ");
+		} else if ((cname != null) && (cname != "")) {
+			param.add(cname);
+			sb.append("AND cname=? ");
+		} 
 
-		String sql = sb.toString().replaceFirst("AND", "WHERE");
+		String sql = sb.toString().replace("AND", "WHERE");
 
 		long count = dao.count(sql, param).intValue();
 
@@ -93,7 +110,12 @@ public class CourseService {
 	 * @param course
 	 */
 	public void addCourse(Course course) {
-		//dao.insert("INSERT INTO course(name) value(?)", new Object[]{course.getCname()});
+		Teacher teacher1 = getTeacher(course.getCname());
+
+		String tno = teacher1.getTno();
+        Course stu=new Course();
+		stu.setTno(tno);
+		dao.insert("INSERT INTO course(cno,cname,credit,term,hours,tno) value(?,?,?,?,?,?)", new Object[]{course.getCno(),course.getCname(),course.getCredit(),course.getTerm(),course.getHours(),course.getTno()});
 	}
 
 	/**
@@ -101,29 +123,12 @@ public class CourseService {
 	 * @param courseid
 	 * @throws Exception 
 	 */
-	public void deleteCourse(String cno) throws Exception {
-		//获取连接
-		Connection conn = DBUtil.getConnection();
-		try {
-			//开启事务
-			DBUtil.startTransaction();
-			//删除成绩表
-			dao.deleteTransaction(conn, "DELETE FROM score WHERE cno=?", new Object[]{cno});
-			//删除班级的课程和老师的关联
-			dao.deleteTransaction(conn, "DELETE FROM class_course_teacher WHERE cno=?", new Object[]{cno});
-			//最后删除课程
-			dao.deleteTransaction(conn, "DELETE FROM course WHERE cno=?",  new Object[]{cno});
-			
-			//提交事务
-			DBUtil.commit();
-		} catch (Exception e) {
-			//回滚事务
-			DBUtil.rollback();
-			e.printStackTrace();
-			throw e;
-		} finally {
-			DBUtil.closeConnection();
-		}
+	public void deleteCourse(String cno) {
+		// 删除成绩
+		dao.delete("DELETE FROM score WHERE cno =? ", new Object[] { cno });
+		// 删除课程
+		dao.delete("DELETE FROM course WHERE cno =? ", new Object[] { cno });
+
 	}
 	
 	/**
@@ -132,41 +137,38 @@ public class CourseService {
 	 * @param cno
 	 * @return
 	 */
-	public Course getCourse(String cno) {
+	public Teacher getTeacher(String tname) {
 
-		BaseDao dao = new BaseDaoImpl();
+		TeacherDao dao = new TeacherDaoImpl();
 
-		Course course = (Course) dao.getObject(Course.class, "SELECT * FROM course WHERE cno=?",
-				new Object[] { cno });
+		Teacher teacher1 = (Teacher) dao.getObject(Teacher.class, "SELECT * FROM teacher WHERE tname=?",
+				new Object[] { tname });
 
-		return course;
+		return teacher1;
 	}
 
 	
 	public void editCourse(Course course, String cno) {
-		Course course1 = getCourse(course.getCname());
+		Teacher teacher1 = getTeacher(course.getTno());
 
-		String cno1 = course1.getCno();
+		String tno = teacher1.getTno();
+		String uid = cno;
+        Course stu=new Course();
+		stu.setTno(tno);
 
-
-		Student stu = new Student();
-//		stu.setClno(clno);
-//
-//		List<Object> params = new LinkedList<>();
-//		params.add(stuinfo.getSno());
-//		params.add(stuinfo.getSname());
-//		params.add(stuinfo.getSsex());
-//		params.add(stuinfo.getSbirthday());
-//		params.add(stuinfo.getSid());
-//		params.add(stuinfo.getSnation());
-//		params.add(stu.getClno());
-//		params.add(uid);
-
-		//String sql = "update student " + "set sno = ?,sname = ?,ssex =?,sbirthday = ?,sid=?,snation=?,clno=? "
-				//+ "where sno = ?";
+		List<Object> params = new LinkedList<>();
+		params.add(course.getCno());
+		params.add(course.getCname());
+		params.add(course.getCredit());
+		params.add(course.getTerm());
+		params.add(course.getHours());
+		params.add(course.getTno());
+		params.add(uid);
+		String sql = "update course " + "set cno = ?,cname = ?,credit = ?,term = ?,hours = ?,tno = ? "
+				+ "where cno = ?";
 
 		// 更新课程信息
-		//dao.update(sql, params);
+		dao.update(sql, params);
 
 	}
 	
