@@ -130,10 +130,10 @@
 					<li class="layui-nav-item"><a href="javascript:;"style="text-decoration:none;">课程管理</a>
 					<dl class="layui-nav-child">
 							<dd>
-								<a href="javascript:;"style="text-decoration:none;">课程信息查询</a>
+								<a href="view/course/Cour-info.jsp"style="text-decoration:none;">课程信息查询</a>
 							</dd>
 							<dd>
-								<a href="javascript:;"style="text-decoration:none;">课程信息修改</a>
+								<a href="view/course/Cour-modify.jsp"style="text-decoration:none;">课程信息修改</a>
 							</dd>
 						</dl>
 					</li>

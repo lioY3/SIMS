@@ -7,9 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import model.Page;
 import model.Teacher;
-import model.User;
 import net.sf.json.JSONObject;
 import service.TeacherService;
 import utils.GetRequestJsonUtils;
@@ -47,60 +47,10 @@ public class TeacherServlet extends HttpServlet {
 			addTeacher(request, response);
 		} else if("DeleteTeacher".equalsIgnoreCase(method)){ //删除教师
 			deleteTeacher(request, response);
-		} else if("EditTeacher".equalsIgnoreCase(method)){ //修改教师信息
-			editTeacher(request, response);
-		} 
+		}
 		
 	}
 	
-
-
-	/**
-	 * 转到个人信息页，加载个人信息
-	 * @param request
-	 * @param response
-	 * @throws IOException 
-	 * @throws ServletException 
-	 */
-
-	@SuppressWarnings("unused")
-	private void getTeacher(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		//获取当前用户
-		User user = (User) request.getSession().getAttribute("user");
-		String number = user.getAccount();
-		String result = service.getTeacherResult(number);
-		response.getWriter().write(result);
-	}
-
-	private void editTeacher(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-		JSONObject json = GetRequestJsonUtils.getRequestJsonObject(request);
-
-		String tno = json.getString("request_Tno");
-
-		Teacher techer = new Teacher();
-
-		techer.setTname(json.getString("tname"));
-		techer.setTsex(json.getString("tsex"));
-		techer.setTcourse(json.getString("tcourse"));
-
-		JSONObject result = new JSONObject();
-		try {
-			service.editTeacher(techer, tno);
-			result.put("code", "0");
-			result.put("msg", "增加成功！");
-			String status = JSONObject.fromObject(result).toString();
-			response.getWriter().write(status);
-		} catch (Exception e) {
-			result.put("code", "1");
-			result.put("msg", "增加失败");
-			String status = JSONObject.fromObject(result).toString();
-			response.getWriter().write(status);
-			e.printStackTrace();
-		}
-
-	}
-
 
 	private void deleteTeacher(HttpServletRequest request, HttpServletResponse response) throws IOException {
 

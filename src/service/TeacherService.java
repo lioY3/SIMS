@@ -22,6 +22,7 @@ public class TeacherService {
 	 * @param rows
 	 * @return
 	 */
+
 	public String getTeacherList(Teacher teacher, String tname, String tno, String cname, Page page) {
 		// sql语句
 		StringBuffer sb = new StringBuffer("SELECT * FROM teacherinfo ");
@@ -59,7 +60,7 @@ public class TeacherService {
 		List<TeacherInfo> list = dao.getTeacherList(sql, param);
 		// 获取总记录数
 		long total = getCount(tno, tname, cname, teacher);
-		
+
 		// 定义Map
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
@@ -116,7 +117,7 @@ public class TeacherService {
 	 * @param teacher
 	 * @throws Exception 
 	 */
-	public void addTeacher(TeacherInfo teainfo) {
+	public void addTeacher(Teacher teacher) {
 		//Class class1 = getClass(stuinfo.getClname());
 
 		//String clno = class1.getClno();
@@ -125,8 +126,8 @@ public class TeacherService {
 		//stu.setClno(clno);
 
 		// 添加教师记录
-		dao.insert("INSERT INTO teacher(tno, tname, tsex, tcourse) value(?,?,?,?)",
-				new Object[] { teainfo.getTno(), teainfo.getTname(), teainfo.getTsex(), teainfo.getCname() });
+		//dao.insert("INSERT INTO teacher(tno, tname, tsex, tcourse) value(?,?,?,?)",
+		//		new Object[] { teacher.getTno(), teacher.getTname(), teacher.getTsex(), teacher.getCname() });
 
 	}
 	
