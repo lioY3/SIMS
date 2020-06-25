@@ -113,17 +113,17 @@
 			table.render({
 				elem : '#score-info',
 				id : 'tableOne',
-				height : 450,
-				width : 1200,
-				url : "test.json" //数据接口
+				height : 520,
+				width : 1300,
+				url : "${pageContext.request.contextPath}/ScoreServlet?method=ScoreList&tno=${user.account}"//数据接口
 				,
 				method :'post'
 				,
 				page : true //开启分页
 				,
-				limit : 8//默认展示的每页记录数
+				limit : 13//默认展示的每页记录数
 				,
-				limits : [ 5, 8, 10 ]//可选展示的每页记录数
+				limits : [ 13, 20, 25 ]//可选展示的每页记录数
 				,
 				size : 'sm'//小尺寸表格
 				,
@@ -133,12 +133,12 @@
 				,
 				cols : [ [ //表头
 				{type: 'checkbox', fixed: 'left'}
-			     ,{field: 'Sno', title: '学号', sort: true, fixed: 'left',align:'center'}
-				 ,{field: 'Sname', title: '姓名',align:'center'}
+			     ,{field: 'sno', title: '学号', sort: true, fixed: 'left',align:'center'}
+				 ,{field: 'sname', title: '姓名',align:'center'}
 				 ,{field: 'cno', title: '课程号', sort: true,align:'center'}
 				 ,{field: 'cname', title: '课程名',align:'center'}
 				 ,{field: 'tname', title: '授课教师',align:'center'} 
-				 ,{field: 'score', title: '成绩', sort: true,align:'center'}
+				 ,{field: 'grade', title: '成绩', sort: true,align:'center'}
 				 ,{
 		               fixed: 'right',
 		               title: '操作',
@@ -199,15 +199,14 @@
 					            var data = {};
 					            data.action = 'addStu';
 					            data.request_type = 'post';
-					            data.Sno=null;
-					            data.Sname=null;
-					            data.Ssex=null;
-					            data.Sbirthday=null;
-					            data.Sid=null;
-					            data.Dname=null;
-					            data.Clname=null;
+					            data.sno=null;
+					            data.sname=null;
+					            data.cno=null;
+					            data.cname=null;
+					            data.tname=null;
+					            data.grade=null;
 					            // 调用打开弹层的工具方法
-					            open_form("#open_div", data, '增加学生', '380px', '550px');
+					            open_form("#open_div", data, '录入成绩', '380px', '550px');
 					            break;
 					    }
 					});
@@ -226,15 +225,15 @@
 						            break; 
 						        case 'del':
 				                    layer.confirm('真的删除该行么', function (index) {
-				                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
 				                        //向服务端发送删除指令
 				                        $.ajax({
-				                            type: "get",  //数据提交方式(post/get)
-				                            url: "/goods/deleteGood?id=" + Sno,  //提交到的url
+				                            type: "post",  //数据提交方式(post/get)
+				                            url: "${pageContext.request.contextPath}/ScoreServlet?method=DeleteScore&sno="+id,  //提交到的url
 				                            contentType: "application/json; charset=utf-8",
 				                            dataType: "json",//返回的数据类型格式
 				                            success: function (result) {
 				                                layer.msg(result.msg, {icon: 1, time: 1000});
+						                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
 				                            }, error: function (e) {
 				                                console.log(e, 'error');
 				                                layer.msg("异常，请再次重试！", {icon: 1, time: 1000});
@@ -277,7 +276,6 @@
 						    layer.close(index);//关闭弹出层
 						    return false;
 						});
-		});
 	</script>
 </body>
 </html>
