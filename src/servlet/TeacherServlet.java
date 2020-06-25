@@ -27,7 +27,6 @@ import service.TeacherService;
 
 /**
  * 教师类Servlet
- * @author bojiangzhou
  *
  */
 public class TeacherServlet extends HttpServlet {
@@ -71,6 +70,7 @@ public class TeacherServlet extends HttpServlet {
 	 * @throws ServletException 
 	 */
 
+	@SuppressWarnings("unused")
 	private void getTeacher(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		//获取当前用户
 		User user = (User) request.getSession().getAttribute("user");
