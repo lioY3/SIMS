@@ -32,7 +32,7 @@
 <body class="layui-layout-body">
 	<div class="layui-layout layui-layout-admin">
 		<div class="layui-header">
-			<div class="layui-logo"><h3><a href="${pageContext.request.contextPath}/view/console/MainPage.jsp"style="text-decoration:none;text-align:center;">学生信息管理系统</a></h3></div>
+			<div class="layui-logo"style="top:25%"><h3><a href="${pageContext.request.contextPath}/view/console/MainPage.jsp"style="text-decoration:none;text-align:center;">学生信息管理系统</a></h3></div>
 
 			 <ul class="nav navbar-nav navbar-right"style="right:0%">
                         <li class="dropdown">
@@ -147,16 +147,16 @@
 							</dd>
 						</dl>
 					</li>
-<!-- 					<li class="layui-nav-item"><a href="javascript:;"style="text-decoration:none;">高级</a>
+				<li class="layui-nav-item"><a href="javascript:;"style="text-decoration:none;">高级</a>
 						<dl class="layui-nav-child">
 						<dd>
-								<a href="javascript:;"style="text-decoration:none;">男女比</a>
+								<a href="echarts.jsp"style="text-decoration:none;">男女比</a>
 							</dd>
 							<dd>
 								<a href="javascript:;"style="text-decoration:none;">人数比</a>
 							</dd>
 						</dl>
-					</li> -->
+					</li> 
 				</ul>
 
 			</div>
