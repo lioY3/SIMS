@@ -2,7 +2,8 @@
 <c3p0-config>
 	<default-config>
 		<!-- 连接四大参数配置 -->
-		<property name="jdbcUrl">jdbc:mysql://47.112.206.61:3306/StudentInfoManagement?useSSL=false</property>
+		<property name="jdbcUrl">jdbc:mysql://47.112.206.61:3306/StudentInfoManagement?useSSL=false
+		</property>
 		<property name="driverClass">com.mysql.jdbc.Driver</property>
 		<property name="user">chen</property>
 		<property name="password">chen295</property>
@@ -11,5 +12,6 @@
 		<property name="initialPoolSize">10</property>
 		<property name="minPoolSize">2</property>
 		<property name="maxPoolSize">10</property>
+		<property name="checkoutTimeout">3000</property>
 	</default-config>
 </c3p0-config>

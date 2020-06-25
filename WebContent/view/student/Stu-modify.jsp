@@ -120,6 +120,14 @@
 				</div>
 			</div>
 			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">民族：</label>
+					<div class="layui-input-inline">
+				        <input type="text"  name="Snation" id="form_snation" class="layui-input">
+				    </div>
+				</div>
+			</div>
+			<div class="layui-form-item">
 				<label class="layui-form-label">身份证:</label>
 				<div class="layui-inline">
 					<input type="text" name="Sid" id="form_Sid" class="layui-input" autocomplete="off">
@@ -164,32 +172,27 @@
 			table.render({
 				elem : '#stu-info',
 				id : 'tableOne',
-				height : 450,
+				height : 535,
 				width : 1200,
-				url : "test.json" //数据接口
-				,
-				page : true //开启分页
-				,
-				limit : 8//默认展示的每页记录数
-				,
-				limits : [ 5, 8, 10 ]//可选展示的每页记录数
-				,
-				size : 'sm'//小尺寸表格
-				,
-				toolbar: '#Stu_headerBar'
-				,
-				title : '学生信息表'
-				,
+				url : "${pageContext.request.contextPath}/StudentServlet?method=StudentList", //数据接口
+				method: 'post',
+				page : true, //开启分页
+				limit : 13,//默认展示的每页记录数
+				limits : [ 13,20,25 ],//可选展示的每页记录数
+				size : 'sm',//小尺寸表格
+				toolbar: '#Stu_headerBar',
+				
+				title : '学生信息表',
 				cols : [ [ //表头
 				{type: 'checkbox', fixed: 'left'}
-			     ,{field: 'Sno', title: '学号', sort: true, fixed: 'left',align:'center'}
-				 ,{field: 'Sname', title: '姓名',align:'center'}
-				 ,{field: 'Ssex', title: '性别',align:'center'}
-				 ,{field: 'Snation', title: '民族',align:'center'}
-				 ,{field: 'Sbirthday', title: '出生日期', sort: true,align:'center'} 
-				 ,{field: 'Sid', title: '身份证',align:'center'}
-				 ,{field: 'Dname', title: '学院',align:'center'}
-				 ,{field: 'Clname', title: '班级', sort: true,align:'center'} 
+			     ,{field: 'sno', title: '学号', sort: true, fixed: 'left',align:'center'}
+				 ,{field: 'sname', title: '姓名',align:'center'}
+				 ,{field: 'ssex', title: '性别',align:'center'}
+				 ,{field: 'snation', title: '民族',align:'center'}
+				 ,{field: 'sbirthday', title: '出生日期', sort: true,align:'center'} 
+				 ,{field: 'sid', title: '身份证',align:'center'}
+				 ,{field: 'dname', title: '学院',align:'center'}
+				 ,{field: 'clname', title: '班级', sort: true,align:'center'} 
 				 ,{
 		               fixed: 'right',
 		               title: '操作',
@@ -291,7 +294,7 @@
 					             // 根据增加行为给form隐藏项赋值
 					        case 'add':
 					            var data = {};
-					            data.action = 'addStu';
+					            data.action = 'AddStudent';
 					            data.request_type = 'post';
 					            data.Sno=null;
 					            data.Sname=null;
@@ -313,7 +316,7 @@
 						    switch (layEvent) {
 						        case 'edit':
 						            // 根据编辑行为为form隐藏项赋值
-						            data.action = 'updateStu';
+						            data.action = 'EditStudent';
 						            data.request_type = 'post';
 						            data.request_Sno = id;
 						            open_form("#open_div", data, '编辑学生', '380px', '550px');
@@ -323,8 +326,8 @@
 				                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
 				                        //向服务端发送删除指令
 				                        $.ajax({
-				                            type: "get",  //数据提交方式(post/get)
-				                            url: "/goods/deleteGood?id=" + Sno,  //提交到的url
+				                            type: "post",  //数据提交方式(post/get)
+				                            url: "${pageContext.request.contextPath}/StudentServlet?method=DeleteStudent&id=" + Sno,  //提交到的url
 				                            contentType: "application/json; charset=utf-8",
 				                            dataType: "json",//返回的数据类型格式
 				                            success: function (result) {
@@ -346,7 +349,7 @@
 						    var type = data.field.request_type;
 						    $.ajax({
 						         type: type,
-						         url: '/goods/' + uri,
+						         url: '${pageContext.request.contextPath}/StudentServlet?method='+uri,
 						         contentType: "application/json; charset=utf-8",
 						         data: JSON.stringify(data.field),
 						         dataType: "json",
@@ -357,8 +360,8 @@
 						                    page: {
 						                        curr: 1 //重新从第 1 页开始
 						                    },
-						                    url: '/goods/goodsList',
-						                    method: 'get'
+						                    url: "${pageContext.request.contextPath}/StudentServlet?method=StudentList",
+						                    method: 'post'
 						                });
 						                layer.msg('修改成功', {icon: 1, time: 1000});
 						            } else {  //失败

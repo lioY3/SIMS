@@ -9,7 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Page;
 import model.Student;
+import model.StudentInfo;
+import net.sf.json.JSONObject;
 import service.StudentService;
+import utils.GetRequestJsonUtils;
 
 @WebServlet("/StudentServlet")
 public class StudentServlet extends HttpServlet {
@@ -77,9 +80,25 @@ public class StudentServlet extends HttpServlet {
 
 	}
 
-	private void addStudent(HttpServletRequest request, HttpServletResponse response) {
+	private void addStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// TODO Auto-generated method stub
-
+		JSONObject json = GetRequestJsonUtils.getRequestJsonObject(request);
+		
+		StudentInfo stuinfo = new StudentInfo();
+		
+		stuinfo.setClname(json.getString("Clname"));
+		stuinfo.setDname(json.getString("Dname"));
+		stuinfo.setSbirthday(json.getString("Sbirthday"));
+		stuinfo.setSid(json.getString("Sid"));
+		stuinfo.setSname(json.getString("Sname"));
+		stuinfo.setSnation(json.getString("Sno"));
+		stuinfo.setSno(json.getString("Ssex"));
+		stuinfo.setSsex(json.getString("Snation"));
+		
+		service.addStudent(stuinfo);
+		
+		response.getWriter().write("success");
+	
 	}
 
 }

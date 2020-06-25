@@ -5,10 +5,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import dao.ClassDao;
 import dao.StudentDao;
+import dao.impl.ClassDaoImpl;
 import dao.impl.StudentDaoImpl;
 import model.Page;
 import model.Student;
+import model.Class;
 import model.StudentInfo;
 import net.sf.json.JSONObject;
 
@@ -19,7 +22,7 @@ public class StudentService {
 	public String getStudentList(Student student, Page page) {
 		// sql语句
 		StringBuffer sb = new StringBuffer("SELECT * FROM studentinfo ");
-		
+
 		// 参数
 		List<Object> param = new LinkedList<>();
 
@@ -32,7 +35,7 @@ public class StudentService {
 
 		// String sql = sb.toString().replaceFirst("AND", "WHERE");
 		String sql = sb.toString();
-		
+
 		System.out.println(sql);
 
 		// 获取数据
@@ -73,6 +76,37 @@ public class StudentService {
 		long count = dao.count(sql, param).intValue();
 
 		return count;
+	}
+
+	public void addStudent(StudentInfo stuinfo) {
+		Class class1 = getClass(stuinfo.getClname());
+
+		String clno = class1.getClno();
+
+		Student stu = new Student();
+		stu.setClno(clno);
+
+		// 添加学生记录
+		dao.insert("INSERT INTO student(sno, sname, ssex, sbirthday, sid, snation, clno) value(?,?,?,?,?,?,?)",
+				new Object[] { stuinfo.getSno(), stuinfo.getSname(), stuinfo.getSsex(), stuinfo.getSbirthday(),
+						stuinfo.getSid(), stuinfo.getSnation(), stu.getClno() });
+
+	}
+
+	/**
+	 * 获取班级详细信息
+	 * 
+	 * @param account
+	 * @return
+	 */
+	public Class getClass(String clname) {
+
+		ClassDao dao = new ClassDaoImpl();
+
+		Class class1 = (Class) dao.getObject(Class.class, "SELECT * FROM class WHERE clname=?",
+				new Object[] { clname });
+
+		return class1;
 	}
 
 }
