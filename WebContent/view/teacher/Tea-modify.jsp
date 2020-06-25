@@ -81,8 +81,7 @@
 	
 	<!-------------------------------------------------------------新增表单--------------------------------------------------------->
 	<div class="layui-row" id="open_div" style="display: none;">
-		<form id="add_form" class="layui-form" action="post" style="margin-top: 20px; align: center;">
-			<input type="hidden" name="request_no" id="request_no">
+		<form id="add_form" class="layui-form" action="" style="margin-top: 20px; align: center;">
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">教师号:</label>
@@ -104,12 +103,6 @@
      				<input type="radio" name="tsex" id="form_tsex" value="女"title="女"><i class="layui-icon"style="font-size: 17px; color: red;">&#xe661;</i>
      			</div>
   			</div>
-  			<div class="layui-form-item">
-				<label class="layui-form-label">教授课程：</label>
-				<div class="layui-inline">
-					<input type="text" name="tname" id="form_tname" class="layui-input" autocomplete="off">
-				</div>
-			</div>
 			<div class="layui-form-item" style="margin-left: 40%">
 				<div class="layui-btn-group">
 					<button class="layui-btn layui-btn-normal layui-btn-sm" lay-submit="" lay-filter="tea_submit">提&ensp;交</button>
@@ -216,14 +209,13 @@
 					             // 根据增加行为给form隐藏项赋值
 					        case 'add':
 					            var data = {};
-					            data.action = 'AddTeacher';
 					            
 					            data.tno=null;
 					            data.tname=null;
 					            data.tsex=null;
 					            data.cname=null;
 					            // 调用打开弹层的工具方法
-					            open_form("#open_div", data, '增加教师', '380px', '380px');
+					            open_form("#open_div", data, '增加教师', '380px', '300px');
 					            break;
 					    }
 					});
@@ -238,8 +230,8 @@
 				                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
 				                        //向服务端发送删除指令
 				                        $.ajax({
-				                            type: "get",  //数据提交方式(post/get)
-				                            url: "${pageContext.request.contextPath}/TeacherServlet?method=DeleteTeacher&sno="+id,  //提交到的url
+				                            type: "post",  //数据提交方式(post/get)
+				                            url: "${pageContext.request.contextPath}/TeacherServlet?method=DeleteTeacher&tno="+id,  //提交到的url
 				                            contentType: "application/json; charset=utf-8",
 				                            dataType: "json",//返回的数据类型格式
 				                            success: function (result) {
@@ -257,10 +249,9 @@
  					
 			/*	-- 监听表单提交-- */
 						form.on('submit(tea_submit)', function (data) {
-						    var uri = data.field.action;
-						    var type = data.field.request_type;
+
 						    $.ajax({
-						         type: type,
+						         type:'post',
 						         url: '${pageContext.request.contextPath}/TeacherServlet?method=AddTeacher',
 						         contentType: "application/json; charset=utf-8",
 						         data: JSON.stringify(data.field),

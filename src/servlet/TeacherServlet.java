@@ -55,6 +55,7 @@ public class TeacherServlet extends HttpServlet {
 	private void deleteTeacher(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		String tno = request.getParameter("tno");
+		//System.out.println("得到的Tno为"+tno);
 
 		JSONObject result = new JSONObject();
 		try {
@@ -81,7 +82,13 @@ public class TeacherServlet extends HttpServlet {
 		teacher.setTno(json.getString("tno"));
 		teacher.setTname(json.getString("tname"));
 		teacher.setTsex(json.getString("tsex"));
-
+		
+		/*
+		 * System.out.println("测试一下"+json.getString("tno"));
+		 * System.out.println("测试一下"+json.getString("tname"));
+		 * System.out.println("测试一下"+json.getString("tsex"));
+		 */
+		
 		JSONObject result = new JSONObject();
 
 		try {

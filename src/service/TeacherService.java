@@ -118,68 +118,21 @@ public class TeacherService {
 	 * @throws Exception 
 	 */
 	public void addTeacher(Teacher teacher) {
-		//Class class1 = getClass(stuinfo.getClname());
-
-		//String clno = class1.getClno();
-
-		//Student stu = new Student();
-		//stu.setClno(clno);
+		
 
 		// 添加教师记录
-		//dao.insert("INSERT INTO teacher(tno, tname, tsex, tcourse) value(?,?,?,?)",
-		//		new Object[] { teacher.getTno(), teacher.getTname(), teacher.getTsex(), teacher.getCname() });
+		dao.insert("INSERT INTO teacher(tno, tname, tsex) value(?,?,?)",
+				new Object[] { teacher.getTno(), teacher.getTname(), teacher.getTsex()});
 
 	}
 	
-	/**
-	 * 修改教师信息
-	 * @param teacher
-	 * @throws Exception
-	 */
-	public void editTeacher(TeacherInfo teainfo, String tno) throws Exception {
-
-		String uid = tno;
-
-		List<Object> params = new LinkedList<>();
-		params.add(teainfo.getTno());
-		params.add(teainfo.getTname());
-		params.add(teainfo.getTsex());
-		params.add(teainfo.getCname());
-		params.add(uid);
-
-		String sql = "update teacherinfo "
-				+ "set tno = ?,tname = ?,tsex =?,tname = ? "
-				+ "where tno = ?";
-
-		// 更新教师信息
-		dao.update(sql, params);
-		
-	}
-
-	
-	/**
-	 * 教师修改个人信息
-	 * @param teacher
-	 */
-//	public void editTeacherPersonal(Teacher teacher){
-//		
-//		String sql = "UPDATE teacher SET tname=?, tsex=?, tphone=? WHERE tno=?";
-//		
-//		//更新信息
-//		dao.update(sql, new Object[]{
-//				teacher.getTname(), 
-//				teacher.getTsex(),
-//				teacher.getTphone()});
-//		
-//		dao.update("UPDATE user SET username=? WHERE accound=?", 
-//				new Object[]{teacher.getTname(), teacher.getTno()});
-//	}
 	
 	/**
 	 * 删除教师
 	 * @throws Exception 
 	 */
 	public void deleteTeacher(String tno) {
+		
 		// 删除课程
 		dao.delete("DELETE FROM course WHERE tno =? ", new Object[] { tno });
 		// 删除教师

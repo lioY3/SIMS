@@ -8,14 +8,7 @@ import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import dao.impl.BaseDaoImpl;
-import com.mysql.jdbc.ResultSetMetaData;
-
 import dao.TeacherDao;
-import model.Class;
-import model.Course;
-import model.StudentInfo;
-import model.Teacher;
 import model.TeacherInfo;
 import utils.DBUtil;
 
