@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>课程信息修改</title>
+<title>成绩信息修改</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css" media="all">
 </head>
 <body>
@@ -19,29 +19,35 @@
 
 	<br>
 	<!------------------------------------------------------------搜索栏--------------------------------------------------------->
-	<div class="demoTable" style="position:relative;left:16%">
-		姓名：
+	<div class="demoTable" style="position: relative; left: 15%">
+		课程名：
 		<div class="layui-inline">
 			<input class="layui-input" name="keyword" id="send_name"
 				autocomplete="off">
 		</div>
-		<button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal" data-type="reload" id="do_searchname">
-		<i class="layui-icon">&#xe615;</i>搜索</button>
-		学号：
+		<button
+			class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal"
+			data-type="reload" id="do_searchname">
+			<i class="layui-icon">&#xe615;</i>搜索
+		</button>
+		&nbsp;&nbsp;学号：
 		<div class="layui-inline">
 			<input class="layui-input" name="keyword" id="send_no"
 				autocomplete="off">
 		</div>
-		<button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal" data-type="reload" id="do_searchno">
-		<i class="layui-icon">&#xe615;</i>搜索</button>		
+		<button
+			class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal"
+			data-type="reload" id="do_searchno">
+			<i class="layui-icon">&#xe615;</i>搜索
+		</button>
 	</div>
 	<!------------------------------------------------------------------搜索栏------------------------------------------------------------>
 	
 	
 	<hr class="layui-bg-blue">
 	
-	<!---------------------------------------------------新增、刷新、编辑按钮-------------------------------------------------------->
-	<script type="text/html" id="Cour_headerBar">
+	<!---------------------------------------------------新增、刷新、编辑、删除按钮-------------------------------------------------------->
+	<script type="text/html" id="score_headerBar">
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="add">
             <i class="layui-icon">&#xe608;</i> 新&emsp;增
@@ -51,7 +57,7 @@
         </button>
     </div>
 	</script>
-	<script type="text/html" id="Cour_lineBar">
+	<script type="text/html" id="Score_lineBar">
         <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="edit"><i class="layui-icon ">&#xe642;</i> </a>
     	<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon">&#xe640;</i></a>
         </button>
@@ -62,7 +68,7 @@
 	<!-------------------------------------------------------------数据表格--------------------------------------------------------------->
 	<div style="text-align: center;">
 		<div class="layui-inline">
-			<table id="Cour-info" lay-filter="Cour"></table>
+			<table id="score-info" lay-filter="SC"></table>
 		</div>
 	</div>
 	<!-------------------------------------------------------------数据表格--------------------------------------------------------------->
@@ -72,91 +78,26 @@
 		<form id="add_form" class="layui-form" action="" style="margin-top: 20px; align: center;">
 
 			<div class="layui-form-item">
-				<label class="layui-form-label">课程号:</label>
+				<label class="layui-form-label">学号:</label>
+				<div class="layui-inline">
+					<input type="text" name="sno" id="form_sno" class="layui-input" autocomplete="off">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">课程号：</label>
 				<div class="layui-inline">
 					<input type="text" name="cno" id="form_cno" class="layui-input" autocomplete="off">
 				</div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">课程名：</label>
+				<label class="layui-form-label">成绩:</label>
 				<div class="layui-inline">
-					<input type="text" name="cname" id="form_cname" class="layui-input" autocomplete="off">
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<div class="layui-inline">
-					<label class="layui-form-label">学分：</label>
-					<div class="layui-input-inline">
-				        <input type="text"  name="credit" id="form_credit" class="layui-input">
-				    </div>
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">学期:</label>
-				<div class="layui-inline">
-					<input type="text" name="term" id="term" class="layui-input" autocomplete="off">
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">学时:</label>
-				<div class="layui-inline">
-					<input type="text" name="hours" id="form_hours" class="layui-input" autocomplete="off">
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">任课教师号:</label>
-				<div class="layui-inline">
-					<input type="text" name="tno" id="form_tno" class="layui-input" autocomplete="off">
+					<input type="text" name="score" id="form_score" class="layui-input" autocomplete="off">
 				</div>
 			</div>
 			<div class="layui-form-item" style="margin-left: 40%">
 				<div class="layui-btn-group">
-					<button class="layui-btn layui-btn-normal layui-btn-sm" lay-submit="" lay-filter="Cour_submit">提&ensp;交</button>
-					<button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重&ensp;置</button>
-				</div>
-			</div>
-		</form>
-	</div>
-		<div class="layui-row" id="editopen_div" style="display: none;">
-		<form id="edit_form" class="layui-form" action="" style="margin-top: 20px; align: center;">
-
-					<input type="hidden" name="cno" id="form_cno" class="layui-input" autocomplete="off">
-					
-			<div class="layui-form-item">
-				<label class="layui-form-label">课程名：</label>
-				<div class="layui-inline">
-					<input type="text" name="cname" id="form_cname" class="layui-input" autocomplete="off">
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<div class="layui-inline">
-					<label class="layui-form-label">学分：</label>
-					<div class="layui-input-inline">
-				        <input type="text"  name="credit" id="form_credit" class="layui-input">
-				    </div>
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">学期:</label>
-				<div class="layui-inline">
-					<input type="text" name="term" id="term" class="layui-input" autocomplete="off">
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">学时:</label>
-				<div class="layui-inline">
-					<input type="text" name="hours" id="form_hours" class="layui-input" autocomplete="off">
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">任课教师号:</label>
-				<div class="layui-inline">
-					<input type="text" name="tno" id="form_tno" class="layui-input" autocomplete="off">
-				</div>
-			</div>
-			<div class="layui-form-item" style="margin-left: 40%">
-				<div class="layui-btn-group">
-					<button class="layui-btn layui-btn-normal layui-btn-sm" lay-submit="" lay-filter="Cour_submit">提&ensp;交</button>
+					<button class="layui-btn layui-btn-normal layui-btn-sm" lay-submit="" lay-filter="score_submit">提&ensp;交</button>
 					<button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重&ensp;置</button>
 				</div>
 			</div>
@@ -170,15 +111,15 @@
 			
 		/*		-- 表格实例	 --		*/		
 			table.render({
-				elem : '#Cour-info',
+				elem : '#score-info',
 				id : 'tableOne',
 				height : 450,
 				width : 1200,
 				url : "test.json" //数据接口
 				,
-				page : true //开启分页
+				method :'post'
 				,
-				method: 'post'//提交方式
+				page : true //开启分页
 				,
 				limit : 8//默认展示的每页记录数
 				,
@@ -186,57 +127,33 @@
 				,
 				size : 'sm'//小尺寸表格
 				,
-				toolbar: '#Cour_headerBar'
+				toolbar: '#score_headerBar'
 				,
-				title : '学生信息表'
+				title : '学生成绩信息表'
 				,
 				cols : [ [ //表头
 				{type: 'checkbox', fixed: 'left'}
-			      	,{field: 'cno', title: '课程号', sort: true, fixed: 'left',align:'center'}
-					 ,{field: 'cname', title: '课程名',align:'center'}
-					 ,{field: 'credit', title: '学分',align:'center'}
-					 ,{field: 'term', title: '学期',align:'center'}
-					 ,{field: 'hours', title: '学时', sort: true,align:'center'} 
-					 ,{field: 'tno', title: '教师号',align:'center'} 
+			     ,{field: 'Sno', title: '学号', sort: true, fixed: 'left',align:'center'}
+				 ,{field: 'Sname', title: '姓名',align:'center'}
+				 ,{field: 'cno', title: '课程号', sort: true,align:'center'}
+				 ,{field: 'cname', title: '课程名',align:'center'}
+				 ,{field: 'tname', title: '授课教师',align:'center'} 
+				 ,{field: 'score', title: '成绩', sort: true,align:'center'}
 				 ,{
 		               fixed: 'right',
 		               title: '操作',
-		               toolbar: '#Cour_lineBar',
+		               toolbar: '#Score_lineBar',
 		               width: 160,
 		               align: 'center'
 		             }
 				] ]
 			});
 		
-			/*	--	按课程名重载	--	*/
-			var $ = layui.$, active = {
-				reload : function() {
-					var send_name = $('#send_name');
-
-					//执行重载
-					table.reload('tableOne', {
-						page : {
-							curr : 1//重新从第 1 页开始
-						},
-						where : {
-							key : {
-								cname : send_name.val()
-							}
-						}
-					}, 'data');
-				}
-			};
-
-			$('#do_searchname').on('click', function() {
-				var type = $(this).data('type');
-				active[type] ? active[type].call(this) : '';
-			});
-			
-			/*	--	按课程号重载	--	*/
+			/*	--	搜索重载	--	*/
 			var $ = layui.$, active = {
 					reload : function() {
 						var send_no = $('#send_no');
-
+						var send_name = $('#send_name');
 						//执行重载
 						table.reload('tableOne', {
 							page : {
@@ -244,21 +161,26 @@
 							},
 							where : {
 								key : {
-									cno : send_no.val()
+									Sno : send_no.val(),
+									Sname : send_name.val()
 								}
 							}
 						}, 'data');
 					}
 				};
 
-				$('#do_searchno').on('click', function() {
-					var type = $(this).data('type');
-					active[type] ? active[type].call(this) : '';
+						$('#do_searchno').on('click', function() {
+							var type = $(this).data('type');
+							active[type] ? active[type].call(this) : '';
 				});
-				
+						$('#do_searchname').on('click', function() {
+							var type = $(this).data('type');
+							active[type] ? active[type].call(this) : '';
+				});
+			});
 					
  			/*	--	监听头部工具栏	--	*/
-					 table.on('toolbar(Cour)', function (obj) {
+					 table.on('toolbar(SC)', function (obj) {
 					    switch (obj.event) {
 					        case 'refresh':
 					        // 执行一个表格重载即实现刷新功能
@@ -269,41 +191,63 @@
 					                     curr: 1 //重新从第 1 页开始
 					                 },
 					                 url: "test.json",
-					                 method: 'get'
+					                 method: 'post'
 					             });
 					             break;
 					             // 根据增加行为给form隐藏项赋值
 					        case 'add':
 					            var data = {};
-					            data.cno=null;
-					            data.cname=null;
-					            data.credit=null;
-					            data.term=null;
-					            data.hours=null;
-					            data.tno=null;
+					            data.action = 'addStu';
+					            data.request_type = 'post';
+					            data.Sno=null;
+					            data.Sname=null;
+					            data.Ssex=null;
+					            data.Sbirthday=null;
+					            data.Sid=null;
+					            data.Dname=null;
+					            data.Clname=null;
 					            // 调用打开弹层的工具方法
-					            open_form("#addopen_div", data, '增加课程', '380px', '450px');
+					            open_form("#open_div", data, '增加学生', '380px', '550px');
 					            break;
 					    }
 					});
  			/* -- 监听操作栏  --*/
- 						table.on('tool(Cour)', function (obj) {
+ 						table.on('tool(SC)', function (obj) {
 						    var data = obj.data;
 						    var layEvent = obj.event;
-						    var id = data.cno;
+						    var id = data.Sno;
 						    switch (layEvent) {
 						        case 'edit':
 						            // 根据编辑行为为form隐藏项赋值
-						            data.action = 'updateCour';
+						            data.action = 'updateStu';
 						            data.request_type = 'post';
-						            data.request_cno = id;
-						            open_form("#editopen_div", data, '编辑课程', '380px', '450px');
+						            data.request_Sno = id;
+						            open_form("#open_div", data, '编辑学生', '380px', '550px');
 						            break; 
+						        case 'del':
+				                    layer.confirm('真的删除该行么', function (index) {
+				                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+				                        //向服务端发送删除指令
+				                        $.ajax({
+				                            type: "get",  //数据提交方式(post/get)
+				                            url: "/goods/deleteGood?id=" + Sno,  //提交到的url
+				                            contentType: "application/json; charset=utf-8",
+				                            dataType: "json",//返回的数据类型格式
+				                            success: function (result) {
+				                                layer.msg(result.msg, {icon: 1, time: 1000});
+				                            }, error: function (e) {
+				                                console.log(e, 'error');
+				                                layer.msg("异常，请再次重试！", {icon: 1, time: 1000});
+				                            }
+				                        });
+				                        layer.close(index);
+				                    });
+				                    break;
 						    }
 						});
  					
 			/*	-- 监听表单提交-- */
-						form.on('submit(Cour_submit)', function (data) {
+						form.on('submit(score_submit)', function (data) {
 						    var uri = data.field.action;
 						    var type = data.field.request_type;
 						    $.ajax({

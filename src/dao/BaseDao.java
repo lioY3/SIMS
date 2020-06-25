@@ -9,7 +9,7 @@ import java.util.List;
  * 基础dao
  *
  */
-@SuppressWarnings("rawtypes") //去除警告
+@SuppressWarnings("rawtypes")
 public interface BaseDao {
 	
 	/**
