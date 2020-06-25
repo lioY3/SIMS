@@ -16,14 +16,14 @@
 	<br>
 	
 	<div class="demoTable" style="position:relative;left:16%">
-		姓名：
+		课程名：
 		<div class="layui-inline">
 			<input class="layui-input" name="keyword" id="send_name"
 				autocomplete="off">
 		</div>
 		<button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal" data-type="reload" id="do_searchname">
 		<i class="layui-icon">&#xe615;</i>搜索</button>
-		学号：
+		课程号：
 		<div class="layui-inline">
 			<input class="layui-input" name="keyword" id="send_no"
 				autocomplete="off">
@@ -69,35 +69,11 @@
 				] ]
 			});
 		
-			/*	--	按课程名重载	--	*/
-			var $ = layui.$, active = {
-				reload : function() {
-					var send_name = $('#send_name');
-
-					//执行重载
-					table.reload('tableOne', {
-						page : {
-							curr : 1//重新从第 1 页开始
-						},
-						where : {
-							key : {
-								cname : send_name.val()
-							}
-						}
-					}, 'data');
-				}
-			};
-
-			$('#do_searchname').on('click', function() {
-				var type = $(this).data('type');
-				active[type] ? active[type].call(this) : '';
-			});
-				
 			/*	--	按课程号重载	--	*/
 			var $ = layui.$, active = {
 					reload : function() {
 						var send_no = $('#send_no');
-
+						var send_name = $('#send_name');
 						//执行重载
 						table.reload('tableOne', {
 							page : {
@@ -105,17 +81,23 @@
 							},
 							where : {
 								key : {
-									cno : send_no.val()
+									cno : send_no.val(),
+									cname : send_name.val()
+									
 								}
 							}
 						}, 'data');
 					}
 				};
-
+				$('#do_searchname').on('click', function() {
+					var type = $(this).data('type');
+					active[type] ? active[type].call(this) : '';
+				});
 				$('#do_searchno').on('click', function() {
 					var type = $(this).data('type');
 					active[type] ? active[type].call(this) : '';
 				});
+
 	</script>
 </body>
 </html>
