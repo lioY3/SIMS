@@ -46,7 +46,7 @@ public class StudentDaoImpl extends BaseDaoImpl implements StudentDao {
 				for(int i=1;i <= meta.getColumnCount();i++){
 					String field = meta.getColumnName(i);
 					
-					System.out.println(field+" "+rs.getObject(field));
+					//System.out.println(field+" "+rs.getObject(field));
 					
 					BeanUtils.setProperty(stuInfo, field, rs.getObject(field));
 				}
