@@ -1,6 +1,5 @@
 package service;
 
-import java.sql.Connection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,15 +7,10 @@ import java.util.Map;
 
 import dao.TeacherDao;
 import dao.impl.TeacherDaoImpl;
-import model.Class;
 import model.Page;
-import model.Student;
-import model.StudentInfo;
 import model.Teacher;
-import model.User;
+import model.TeacherInfo;
 import net.sf.json.JSONObject;
-import utils.DBUtil;
-import utils.StringTool;
 
 public class TeacherService {
 
@@ -28,24 +22,24 @@ public class TeacherService {
 	 * @param rows
 	 * @return
 	 */
-	public String getTeacherList(Teacher teacher, String tno, String tname, String tcourse, Page page) {
+	public String getTeacherList(TeacherInfo teainfo, String tno, String tname, String cname, Page page) {
 		// sql语句
-		StringBuffer sb = new StringBuffer("SELECT * FROM teacher ");
+		StringBuffer sb = new StringBuffer("SELECT * FROM teacherinfo ");
 
 		// 参数
 		List<Object> param = new LinkedList<>();
 
 		System.out.println(tno + "+" + tname);
 
-		if (teacher != null) {
+		if (teainfo != null) {
 			if ((tno != null) && (tno != "")) {// 条件查询
 				param.add(tno);
 				sb.append("AND tno=? ");
 			} else if ((tname != null) && (tname != "")) {
 				param.add(tname);
 				sb.append("AND tname=? ");
-			} else if ((tcourse != null) && (tcourse != "")) {
-				param.add(tcourse);
+			} else if ((cname != null) && (cname != "")) {
+				param.add(cname);
 				sb.append("AND tcourse=? ");
 			} 
 		}
@@ -64,7 +58,7 @@ public class TeacherService {
 		// 获取数据
 		List<Teacher> list = dao.getTeacherList(sql, param);
 		// 获取总记录数
-		long total = getCount(tno, tname, teacher);
+		long total = getCount(tno, tname, cname, teainfo);
 		// 定义Map
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		// code键 存放状态值，0为正常
@@ -84,9 +78,9 @@ public class TeacherService {
 	/**
 	 * 获取记录数
 	 */
-	private long getCount(String tno, String tname, Teacher teacher) {
+	private long getCount(String tno, String tname, String cname, TeacherInfo teainfo) {
 		// SQL语句
-		StringBuffer sb = new StringBuffer("SELECT COUNT(*) FROM teacher ");
+		StringBuffer sb = new StringBuffer("SELECT COUNT(*) FROM teacherinfo ");
 		// 参数
 		List<Object> param = new LinkedList<>();
 
@@ -96,6 +90,9 @@ public class TeacherService {
 		} else if ((tname != null) && (tname != "")) {
 			param.add(tname);
 			sb.append("AND tname=? ");
+		} else if ((cname != null) && (cname != "")) {
+			param.add(cname);
+			sb.append("AND cname=? ");
 		} 
 
 		String sql = sb.toString().replaceFirst("AND", "WHERE");
@@ -114,11 +111,11 @@ public class TeacherService {
 	 * @param number
 	 * @return
 	 */
-	public Teacher getTeacher(String tno) {
+	public TeacherInfo getTeacher(String tno) {
 		//sql语句
-		String sql = "SELECT * FROM teacher WHERE tno=?";
+		String sql = "SELECT * FROM teacherinfo WHERE tno=?";
 		//获取数据
-		List<Teacher> list = dao.getTeacherList(sql, new Object[]{tno});
+		List<TeacherInfo> list = dao.getTeacherList(sql, new Object[]{tno});
         //返回
 		return list.get(0);
 	}
@@ -153,8 +150,8 @@ public class TeacherService {
 	 * @return
 	 */
 	public String getTeacherResult(String tno) {
-		Teacher teacher = getTeacher(tno);
-		String result = JSONObject.fromObject(teacher).toString();
+		TeacherInfo teainfo = getTeacher(tno);
+		String result = JSONObject.fromObject(teainfo).toString();
         //返回
 		return result;
 	}
@@ -164,7 +161,7 @@ public class TeacherService {
 	 * @param teacher
 	 * @throws Exception 
 	 */
-	public void addTeacher(Teacher teacher) {
+	public void addTeacher(TeacherInfo teainfo) {
 		//Class class1 = getClass(stuinfo.getClname());
 
 		//String clno = class1.getClno();
@@ -172,9 +169,9 @@ public class TeacherService {
 		//Student stu = new Student();
 		//stu.setClno(clno);
 
-		// 添加学生记录
+		// 添加教师记录
 		dao.insert("INSERT INTO teacher(tno, tname, tsex, tcourse) value(?,?,?,?)",
-				new Object[] { teacher.getTno(), teacher.getTname(), teacher.getTsex(), teacher.getTcourse() });
+				new Object[] { teainfo.getTno(), teainfo.getTname(), teainfo.getTsex(), teainfo.getCname() });
 
 	}
 	
@@ -183,19 +180,19 @@ public class TeacherService {
 	 * @param teacher
 	 * @throws Exception
 	 */
-	public void editTeacher(Teacher teacher, String tno) throws Exception {
+	public void editTeacher(TeacherInfo teainfo, String tno) throws Exception {
 
 		String uid = tno;
 
 		List<Object> params = new LinkedList<>();
-		params.add(teacher.getTno());
-		params.add(teacher.getTname());
-		params.add(teacher.getTsex());
-		params.add(teacher.getTcourse());
+		params.add(teainfo.getTno());
+		params.add(teainfo.getTname());
+		params.add(teainfo.getTsex());
+		params.add(teainfo.getCname());
 		params.add(uid);
 
-		String sql = "update teacher "
-				+ "set tno = ?,tname = ?,tsex =?,tcourse = ? "
+		String sql = "update teacherinfo "
+				+ "set tno = ?,tname = ?,tsex =?,tname = ? "
 				+ "where tno = ?";
 
 		// 更新教师信息

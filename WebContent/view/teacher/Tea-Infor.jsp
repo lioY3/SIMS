@@ -71,7 +71,7 @@
 			     {field: 'tno', title: '教师号', sort: true, fixed: 'left',align:'center'}
 				 ,{field: 'tname', title: '姓名',align:'center'}
 				 ,{field: 'tsex', title: '性别',align:'center'}
-				 ,{field: 'tcourse', title: '授课课程',align:'center'} 
+				 ,{field: 'cname', title: '授课课程',align:'center'} 
 				] ]
 			});
 		

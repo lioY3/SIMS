@@ -1,10 +1,11 @@
 package model;
 
-public class Teacher {
+public class TeacherInfo {
 
 	private String Tno; // 编号
 	private String Tname; // 姓名
 	private String Tsex; // 性别
+	private String Cname; //课程
 	
 	public String getTno() {
 		return Tno;
@@ -28,6 +29,14 @@ public class Teacher {
 
 	public void setTsex(String tsex) {
 		Tsex = tsex;
+	}
+
+	public String getCname() {
+		return Cname;
+	}
+
+	public void setCname(String cname) {
+		Cname = cname;
 	}
 
 
