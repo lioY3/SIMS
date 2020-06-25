@@ -110,11 +110,6 @@ public class CourseService {
 	 * @param course
 	 */
 	public void addCourse(Course course) {
-		Teacher teacher1 = getTeacher(course.getCname());
-
-		String tno = teacher1.getTno();
-        Course stu=new Course();
-		stu.setTno(tno);
 		dao.insert("INSERT INTO course(cno,cname,credit,term,hours,tno) value(?,?,?,?,?,?)", new Object[]{course.getCno(),course.getCname(),course.getCredit(),course.getTerm(),course.getHours(),course.getTno()});
 	}
 
@@ -124,37 +119,14 @@ public class CourseService {
 	 * @throws Exception 
 	 */
 	public void deleteCourse(String cno) {
-		// 删除成绩
-		dao.delete("DELETE FROM score WHERE cno =? ", new Object[] { cno });
 		// 删除课程
 		dao.delete("DELETE FROM course WHERE cno =? ", new Object[] { cno });
 
 	}
 	
-	/**
-	 * 获取课程详细信息
-	 * 
-	 * @param cno
-	 * @return
-	 */
-	public Teacher getTeacher(String tname) {
-
-		TeacherDao dao = new TeacherDaoImpl();
-
-		Teacher teacher1 = (Teacher) dao.getObject(Teacher.class, "SELECT * FROM teacher WHERE tname=?",
-				new Object[] { tname });
-
-		return teacher1;
-	}
-
 	
 	public void editCourse(Course course, String cno) {
-		Teacher teacher1 = getTeacher(course.getTno());
-
-		String tno = teacher1.getTno();
-		String uid = cno;
-        Course stu=new Course();
-		stu.setTno(tno);
+		
 
 		List<Object> params = new LinkedList<>();
 		params.add(course.getCno());
@@ -163,7 +135,6 @@ public class CourseService {
 		params.add(course.getTerm());
 		params.add(course.getHours());
 		params.add(course.getTno());
-		params.add(uid);
 		String sql = "update course " + "set cno = ?,cname = ?,credit = ?,term = ?,hours = ?,tno = ? "
 				+ "where cno = ?";
 
