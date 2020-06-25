@@ -2,8 +2,6 @@ package dao;
 
 import java.util.List;
 
-import model.Class;
-
 import model.Teacher;
 
 
@@ -17,9 +15,11 @@ public interface TeacherDao extends BaseDao {
 	 * 获取教师信息，这里需要将教师所选择的课程查询出来
 	 * @param sql
 	 * @param param
-	 * @param class 班级参数
 	 * @return
 	 */
-	public List<Teacher> getTeacherList(String sql, Object[] param, String clno);
+
+	public List<Teacher> getTeacherList(String sql, List<Object> param);
+
+	public List<Teacher> getTeacherList(String sql, Object[] objects);
 	
 }

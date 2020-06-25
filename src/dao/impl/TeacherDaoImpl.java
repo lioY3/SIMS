@@ -24,7 +24,7 @@ import utils.DBUtil;
 
 public class TeacherDaoImpl extends BaseDaoImpl implements TeacherDao {
 
-	public List<Teacher> getTeacherList(String sql, Object[] param, Class clno) {
+	public List<Teacher> getTeacherList(String sql, List<Object> param) {
 		//数据集合
 		List<Teacher> list = new LinkedList<>();
 		try {
@@ -33,9 +33,9 @@ public class TeacherDaoImpl extends BaseDaoImpl implements TeacherDao {
 			//预编译
 			PreparedStatement ps = conn.prepareStatement(sql);
 			//设置参数
-			if(param != null && param.length > 0){
-				for(int i = 0;i < param.length;i++){
-					ps.setObject(i+1, param[i]);
+			if(param != null && param.size() > 0){
+				for(int i = 0;i < param.size();i++){
+					ps.setObject(i+1, param.get(i));
 				}
 			}
 			//执行sql语句
@@ -49,6 +49,9 @@ public class TeacherDaoImpl extends BaseDaoImpl implements TeacherDao {
 				//遍历每个字段
 				for(int i=1;i <= meta.getColumnCount();i++){
 					String field = meta.getColumnName(i);
+					
+					System.out.println(field+" "+rs.getObject(field));
+
 					BeanUtils.setProperty(teacher, field, rs.getObject(field));
 				}
 				
@@ -56,10 +59,6 @@ public class TeacherDaoImpl extends BaseDaoImpl implements TeacherDao {
 				StringBuffer itemSql = new StringBuffer("SELECT * FROM clazz_course_teacher WHERE teacherid=? ");
 				itemParam.add(teacher.getTno());
 				
-				if(clno != null){
-					itemSql.append(" AND clazzid=?");
-					itemParam.add(clno.getClno());
-				}
 				
 				List<Object> objList = getList(Course.class, itemSql.toString(), itemParam);
 				List<Course> itemList = new LinkedList<>();
@@ -67,10 +66,8 @@ public class TeacherDaoImpl extends BaseDaoImpl implements TeacherDao {
 					Course item = (Course) obj;
 					//查询班级
 					Class sclass = (Class) getObject(Class.class, "SELECT * FROM class WHERE Clno=?", new Object[]{item.getCls()});
-					//Course course = (Course) getObject(Course.class, "SELECT * FROM course WHERE Cno=?", new Object[]{item.getCno()});
 					
 					item.setCls(sclass);
-					//item.setCourse(course);
 					
 					itemList.add(item);
 				}

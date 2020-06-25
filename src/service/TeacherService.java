@@ -8,23 +8,16 @@ import java.util.Map;
 
 import dao.TeacherDao;
 import dao.impl.TeacherDaoImpl;
-import model.Course;
 import model.Page;
 import model.Teacher;
 import model.User;
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import utils.DBUtil;
 import utils.StringTool;
 
 public class TeacherService {
 
-	private TeacherDao dao;
-	private Object number;
-	
-	public TeacherService(){
-		dao = new TeacherDaoImpl();
-	}
+	TeacherDao dao = new TeacherDaoImpl();
 	
 	/**
 	 * 获取教师信息
@@ -32,24 +25,62 @@ public class TeacherService {
 	 * @param rows
 	 * @return
 	 */
-	public String getTeacherList(Page page) {
+	public String getTeacherList(Teacher teacher,Page page) {
 		//sql语句
-		String sql = "SELECT * FROM teacher ORDER BY tno DESC LIMIT ?,?";
-		//获取数据
-		List<Teacher> list = dao.getTeacherList(sql, new Object[]{page.getStart(), page.getSize()}, null);
-		//获取总记录数
-		long total = dao.count("SELECT COUNT(*) FROM teacher", new Object[]{});
-		//定义Map
-		Map<String, Object> jsonMap = new HashMap<String, Object>();  
-		//total键 存放总记录数，必须的
-        jsonMap.put("total", total);
-        //rows键 存放每页记录 list 
-        jsonMap.put("rows", list); 
-        //格式化Map,以json格式返回数据
-        String result = JSONObject.fromObject(jsonMap).toString();
-        
-        //返回
+		//String sql = "SELECT * FROM teacher ORDER BY tno DESC LIMIT ?,?";
+		StringBuffer sb = new StringBuffer("SELECT * FROM teacher ");
+		// 参数
+		List<Object> param = new LinkedList<>();
+
+		// 分页
+		if (page != null) {
+			param.add(page.getStart());
+			param.add(page.getSize());
+			sb.append("limit ?,?");
+		}
+
+		// String sql = sb.toString().replaceFirst("AND", "WHERE");
+		String sql = sb.toString();
+
+		System.out.println(sql);
+
+		// 获取数据
+		List<Teacher> list = dao.getTeacherList(sql, param);
+		// 获取总记录数
+		long total = getCount(teacher);
+		// 定义Map
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		// code键 存放状态值，0为正常
+		jsonMap.put("code", 0);
+		// count键 存放总记录数，必须的
+		jsonMap.put("count", total);
+		// msg键 存放消息，空
+		jsonMap.put("msg", "cwj笨蛋");
+		// data键 存放每页记录 list
+		jsonMap.put("data", list);
+		// 格式化Map,以json格式返回数据
+		String result = JSONObject.fromObject(jsonMap).toString();
+		// 返回结果
 		return result;
+	}
+	
+	/**
+	 * 获取记录数
+	 * 
+	 * @param teacher
+	 * @return
+	 */
+	private long getCount(Teacher teacher) {
+		// sql语句
+		StringBuffer sb = new StringBuffer("SELECT COUNT(*) FROM teacher");
+		// 参数
+		List<Object> param = new LinkedList<>();
+
+		String sql = sb.toString().replaceFirst("AND", "WHERE");
+
+		long count = dao.count(sql, param).intValue();
+
+		return count;
 	}
 	
 	/**
@@ -61,34 +92,34 @@ public class TeacherService {
 		//sql语句
 		String sql = "SELECT * FROM teacher WHERE tno=?";
 		//获取数据
-		List<Teacher> list = dao.getTeacherList(sql, new Object[]{tno}, null);
+		List<Teacher> list = dao.getTeacherList(sql, new Object[]{tno});
         //返回
 		return list.get(0);
 	}
 	
 	
-	/**
-	 * 查询课程下老师的课程
-	 * @param tno
-	 * @param class
-	 * @return
-	 */
-	public String getCourse(String tno, String clno) {
-		//sql语句
-		String sql = "SELECT * FROM teacher WHERE tno=?";
-		//获取数据
-		Teacher list = dao.getTeacherList(sql, new Object[]{tno}, clno).get(0);
-		
-		List<Course> courseList = new LinkedList<>();
-		List<Course> courseItem = list.getCourseList();
-		for(Course item : courseItem){
-			courseList.add(item.getCno());
-		}
-		String result = JSONArray.fromObject(courseList).toString();
-		
-        //返回
-		return result;
-	}
+//	/**
+//	 * 查询课程下老师的课程
+//	 * @param tno
+//	 * @param class
+//	 * @return
+//	 */
+//	public String getCourse(String tno, String clno) {
+//		//sql语句
+//		String sql = "SELECT * FROM teacher WHERE tno=?";
+//		//获取数据
+//		Teacher list = dao.getTeacherList(sql, new Object[]{tno}).get(0);
+//		
+//		List<Course> courseList = new LinkedList<>();
+//		List<Course> courseItem = list.getCourseList();
+//		for(Course item : courseItem){
+//			courseList.add(item.getCno());
+//		}
+//		String result = JSONArray.fromObject(courseList).toString();
+//		
+//        //返回
+//		return result;
+//	}
 	
 	/**
 	 * 获取老师详细信息
@@ -121,7 +152,7 @@ public class TeacherService {
 					teacher.getTphone(),
 				};
 			//添加教师信息
-			String tno = dao.insertReturnKeysTransaction(conn, sql, param);
+			int tno = dao.insertReturnKeysTransaction(conn, sql, param);
 			//设置课程
 			if(teacher.getCourse() != null && teacher.getCourse().length > 0){
 				for(String course : teacher.getCourse()){
