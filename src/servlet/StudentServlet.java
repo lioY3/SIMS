@@ -24,7 +24,8 @@ public class StudentServlet extends HttpServlet {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// 获取请求的方法
 		String method = request.getParameter("method");
 
@@ -36,7 +37,8 @@ public class StudentServlet extends HttpServlet {
 
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// 获取请求的方法
 		String method = request.getParameter("method");
 
@@ -58,13 +60,13 @@ public class StudentServlet extends HttpServlet {
 		int page = Integer.parseInt(request.getParameter("page"));
 		int limit = Integer.parseInt(request.getParameter("limit"));
 
-		//条件查询参数
+		// 条件查询参数
 		String sno = request.getParameter("key[Sno]");
 		String sname = request.getParameter("key[Sname]");
 		String clname = request.getParameter("key[Clname]");
-		
-		System.out.println("key[Sno]:"+sno);
-		
+
+		System.out.println("key[Sno]:" + sno);
+
 		Student student = new Student();
 
 		// 获取数据
@@ -75,11 +77,10 @@ public class StudentServlet extends HttpServlet {
 
 	}
 
-	
 	private void editStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
+
 		JSONObject json = GetRequestJsonUtils.getRequestJsonObject(request);
-		
+
 		String sno = json.getString("request_Sno");
 
 		StudentInfo stuinfo = new StudentInfo();
@@ -92,18 +93,18 @@ public class StudentServlet extends HttpServlet {
 		stuinfo.setSnation(json.getString("snation"));
 		stuinfo.setSno(json.getString("sno"));
 		stuinfo.setSsex(json.getString("ssex"));
-		
+
 		JSONObject result = new JSONObject();
 		try {
-			service.editStudent(stuinfo,sno);
+			service.editStudent(stuinfo, sno);
 			result.put("code", "0");
-	        result.put("msg", "增加成功！");
-	        String status = JSONObject.fromObject(result).toString();
+			result.put("msg", "增加成功！");
+			String status = JSONObject.fromObject(result).toString();
 			response.getWriter().write(status);
 		} catch (Exception e) {
 			result.put("code", "1");
-	        result.put("msg", "增加失败");
-	        String status = JSONObject.fromObject(result).toString();
+			result.put("msg", "增加失败");
+			String status = JSONObject.fromObject(result).toString();
 			response.getWriter().write(status);
 			e.printStackTrace();
 		}
@@ -113,32 +114,28 @@ public class StudentServlet extends HttpServlet {
 	private void deleteStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		String sno = request.getParameter("sno");
-		
+
 		JSONObject result = new JSONObject();
 		try {
 			service.deleteStudent(sno);
-	        result.put("msg", "删除成功！");
-	        String status = JSONObject.fromObject(result).toString();
+			result.put("msg", "删除成功！");
+			String status = JSONObject.fromObject(result).toString();
 			response.getWriter().write(status);
 		} catch (Exception e) {
-	        result.put("msg", "删除失败！");
-	        String status = JSONObject.fromObject(result).toString();
+			result.put("msg", "删除失败！");
+			String status = JSONObject.fromObject(result).toString();
 			response.getWriter().write(status);
 			e.printStackTrace();
 		}
-		
-		
-		
-		
 
 	}
 
 	private void addStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		JSONObject json = GetRequestJsonUtils.getRequestJsonObject(request);
-		
+
 		StudentInfo stuinfo = new StudentInfo();
-		
+
 		stuinfo.setClname(json.getString("clname"));
 		stuinfo.setDname(json.getString("dname"));
 		stuinfo.setSbirthday(json.getString("sbirthday"));
@@ -147,23 +144,23 @@ public class StudentServlet extends HttpServlet {
 		stuinfo.setSnation(json.getString("snation"));
 		stuinfo.setSno(json.getString("sno"));
 		stuinfo.setSsex(json.getString("ssex"));
-			
+
 		JSONObject result = new JSONObject();
-		
+
 		try {
 			service.addStudent(stuinfo);
 			result.put("code", "0");
-	        result.put("msg", "增加成功！");
-	        String status = JSONObject.fromObject(result).toString();
+			result.put("msg", "增加成功！");
+			String status = JSONObject.fromObject(result).toString();
 			response.getWriter().write(status);
 		} catch (Exception e) {
 			result.put("code", "1");
-	        result.put("msg", "增加失败");
-	        String status = JSONObject.fromObject(result).toString();
+			result.put("msg", "增加失败");
+			String status = JSONObject.fromObject(result).toString();
 			response.getWriter().write(status);
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }
