@@ -81,7 +81,7 @@ public class StudentServlet extends HttpServlet {
 	}
 
 	private void addStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// TODO Auto-generated method stub
+
 		JSONObject json = GetRequestJsonUtils.getRequestJsonObject(request);
 		
 		StudentInfo stuinfo = new StudentInfo();
@@ -91,14 +91,19 @@ public class StudentServlet extends HttpServlet {
 		stuinfo.setSbirthday(json.getString("Sbirthday"));
 		stuinfo.setSid(json.getString("Sid"));
 		stuinfo.setSname(json.getString("Sname"));
-		stuinfo.setSnation(json.getString("Sno"));
-		stuinfo.setSno(json.getString("Ssex"));
-		stuinfo.setSsex(json.getString("Snation"));
+		stuinfo.setSnation(json.getString("Snation"));
+		stuinfo.setSno(json.getString("Sno"));
+		stuinfo.setSsex(json.getString("Ssex"));
 		
 		service.addStudent(stuinfo);
 		
-		response.getWriter().write("success");
-	
+		JSONObject result = new JSONObject();
+		result.put("code", "0");
+        result.put("msg", "操作成功！");
+		
+        String status = JSONObject.fromObject(result).toString();
+		response.getWriter().write(status);
+		
 	}
 
 }

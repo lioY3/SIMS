@@ -90,7 +90,7 @@ public class StudentService {
 		dao.insert("INSERT INTO student(sno, sname, ssex, sbirthday, sid, snation, clno) value(?,?,?,?,?,?,?)",
 				new Object[] { stuinfo.getSno(), stuinfo.getSname(), stuinfo.getSsex(), stuinfo.getSbirthday(),
 						stuinfo.getSid(), stuinfo.getSnation(), stu.getClno() });
-
+		
 	}
 
 	/**

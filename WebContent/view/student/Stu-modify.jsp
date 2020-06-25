@@ -287,8 +287,8 @@
 					                 page: {
 					                     curr: 1 //重新从第 1 页开始
 					                 },
-					                 url: "test.json",
-					                 method: 'get'
+					                 url: "${pageContext.request.contextPath}/StudentServlet?method=StudentList",
+					                 method: 'post'
 					             });
 					             break;
 					             // 根据增加行为给form隐藏项赋值
