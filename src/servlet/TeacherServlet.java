@@ -29,6 +29,7 @@ import service.TeacherService;
  * 教师类Servlet
  *
  */
+@SuppressWarnings("serial")
 public class TeacherServlet extends HttpServlet {
 	
 	//创建服务层对象
