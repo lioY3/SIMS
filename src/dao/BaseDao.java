@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import model.Course;
+
 
 /**
  * 基础dao
@@ -237,5 +239,7 @@ public interface BaseDao {
 	 * @return
 	 */
 	List<String> getColumn(String sql, Object[] param);
+
+	List<Course> getallCourseList(String sql, List<Object> param);
 	
 }

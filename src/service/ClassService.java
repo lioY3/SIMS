@@ -1,6 +1,5 @@
 package service;
 
-import java.sql.Connection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,11 +7,9 @@ import java.util.Map;
 import dao.ClassDao;
 import dao.impl.ClassDaoImpl;
 import model.Page;
-import model.Student;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
-import utils.DBUtil;
 import utils.StringTool;
 
 /**

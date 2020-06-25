@@ -13,8 +13,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import service.CourseService;
+import utils.GetRequestJsonUtils;
 import model.Course;
+import model.Page;
+import model.Student;
+import model.StudentInfo;
 import model.User;
+import net.sf.json.JSONObject;
 
 
 
@@ -49,30 +54,73 @@ public class CourseServlet extends HttpServlet {
 	}
 	
 	private void deleteCourse(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		int Cno = Integer.parseInt(request.getParameter("Cno"));
+
+		String cno = request.getParameter("cno");
+		
+		JSONObject result = new JSONObject();
 		try {
-			service.deleteCourse(Cno);
-			response.getWriter().write("success");
+			service.deleteCourse(cno);
+	        result.put("msg", "删除成功！");
+	        String status = JSONObject.fromObject(result).toString();
+			response.getWriter().write(status);
 		} catch (Exception e) {
-			response.getWriter().write("fail");
+	        result.put("msg", "删除失败！");
+	        String status = JSONObject.fromObject(result).toString();
+			response.getWriter().write(status);
 			e.printStackTrace();
 		}
+		
+		
 	}
 
 	private void addCourse(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String name = request.getParameter("name");
+
+		JSONObject json = GetRequestJsonUtils.getRequestJsonObject(request);
+		
 		Course course = new Course();
-		course.setCname(name);
-		service.addCourse(course);
-		response.getWriter().write("success");
+		
+		course.setCno(json.getString("cno"));
+		course.setCname(json.getString("cname"));
+//		course.setCredit(json.getString("sbirthday"));
+//		stuinfo.setSid(json.getString("sid"));
+//		stuinfo.setSname(json.getString("sname"));
+//		stuinfo.setSnation(json.getString("snation"));
+//		stuinfo.setSno(json.getString("sno"));
+//		stuinfo.setSsex(json.getString("ssex"));
+			
+		JSONObject result = new JSONObject();
+		
+		try {
+			service.addCourse(course);
+			result.put("code", "0");
+	        result.put("msg", "增加成功！");
+	        String status = JSONObject.fromObject(result).toString();
+			response.getWriter().write(status);
+		} catch (Exception e) {
+			result.put("code", "1");
+	        result.put("msg", "增加失败");
+	        String status = JSONObject.fromObject(result).toString();
+			response.getWriter().write(status);
+			e.printStackTrace();
+		}
+		
 	}
+
 	
 	private void courseList(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String Cno = request.getParameter("Cno");
-		
-		String result = service.getCourseList(Cno);
-		//返回数据
-        response.getWriter().write(result);
+		// 获取分页参数
+		int page = Integer.parseInt(request.getParameter("page"));
+		int limit = Integer.parseInt(request.getParameter("limit"));
+
+		Course course = new Course();
+
+		// 获取数据
+		String result = service.getCourseList(course, new Page(page, limit));
+
+		// 返回数据
+		response.getWriter().write(result);
+
 	}
+
 
 }
