@@ -58,10 +58,17 @@ public class StudentServlet extends HttpServlet {
 		int page = Integer.parseInt(request.getParameter("page"));
 		int limit = Integer.parseInt(request.getParameter("limit"));
 
+		//条件查询参数
+		String sno = request.getParameter("key[Sno]");
+		String sname = request.getParameter("key[Sname]");
+		String clname = request.getParameter("key[Clname]");
+		
+		System.out.println("key[Sno]:"+sno);
+		
 		Student student = new Student();
 
 		// 获取数据
-		String result = service.getStudentList(student, new Page(page, limit));
+		String result = service.getStudentList(student, sno, sname, clname, new Page(page, limit));
 
 		// 返回数据
 		response.getWriter().write(result);
@@ -77,14 +84,14 @@ public class StudentServlet extends HttpServlet {
 
 		StudentInfo stuinfo = new StudentInfo();
 
-		stuinfo.setClname(json.getString("Clname"));
-		stuinfo.setDname(json.getString("Dname"));
-		stuinfo.setSbirthday(json.getString("Sbirthday"));
-		stuinfo.setSid(json.getString("Sid"));
-		stuinfo.setSname(json.getString("Sname"));
-		stuinfo.setSnation(json.getString("Snation"));
-		stuinfo.setSno(json.getString("Sno"));
-		stuinfo.setSsex(json.getString("Ssex"));
+		stuinfo.setClname(json.getString("clname"));
+		stuinfo.setDname(json.getString("dname"));
+		stuinfo.setSbirthday(json.getString("sbirthday"));
+		stuinfo.setSid(json.getString("sid"));
+		stuinfo.setSname(json.getString("sname"));
+		stuinfo.setSnation(json.getString("snation"));
+		stuinfo.setSno(json.getString("sno"));
+		stuinfo.setSsex(json.getString("ssex"));
 		
 		JSONObject result = new JSONObject();
 		try {
