@@ -1,18 +1,12 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Teacher {
 
 	private String Tno; // 编号
 	private String Tname; // 姓名
 	private String Tsex; // 性别
-	private String Tphone; // 电话
-	private List<Course> courseList = new ArrayList<>();
+	private String Tcourse; //课程
 	
-	private String[] course = new String[]{}; //课程集合
-
 	public String getTno() {
 		return Tno;
 	}
@@ -36,32 +30,14 @@ public class Teacher {
 	public void setTsex(String tsex) {
 		Tsex = tsex;
 	}
-	
-	public String getTphone() {
-		return Tphone;
+
+	public String getTcourse() {
+		return Tcourse;
 	}
 
-	public void setTphone(String tphone) {
-		Tphone = tphone;
+	public void setTcourse(String tcourse) {
+		Tcourse = tcourse;
 	}
-
-	public List<Course> getCourseList() {
-		return courseList;
-	}
-	
-	public void setCourseList(List<Course> courseList) {
-		this.courseList = courseList;
-		
-	}
-	
-	public String[] getCourse() {
-		return course;
-	}
-
-	public void setCourse(String[] course) {
-		this.course = course;
-	}
-
 
 
 }

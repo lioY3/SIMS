@@ -2,25 +2,17 @@ package servlet;
 
 import java.io.IOException;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Enumeration;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.beanutils.BeanUtils;
-
 import model.Page;
 import model.Teacher;
 import model.User;
 import net.sf.json.JSONObject;
 import service.TeacherService;
+import utils.GetRequestJsonUtils;
 
 @WebServlet("/TeacherServlet")
 public class TeacherServlet extends HttpServlet {
@@ -30,9 +22,14 @@ public class TeacherServlet extends HttpServlet {
 	//创建服务层对象
 	private TeacherService service = new TeacherService();
 	
+	public TeacherServlet() {
+		super();
+	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//获取请求的方法
 		String method = request.getParameter("method");
+		
 		if("toTeacherInfoView".equalsIgnoreCase(method)){ //转发到教师信息查询页面
 			request.getRequestDispatcher("view/teacher/Tea-Infor.jsp").forward(request, response);
 		} else if("toTeacherNoteListView".equalsIgnoreCase(method)){ //转发到教师信息修改页面
@@ -76,79 +73,101 @@ public class TeacherServlet extends HttpServlet {
 	}
 
 	private void editTeacher(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		//获取参数名
-		Enumeration<String> pNames = request.getParameterNames();
-		Teacher teacher = new Teacher();
-		while(pNames.hasMoreElements()){
-			String pName = pNames.nextElement();
-			String value = request.getParameter(pName);
-			try {
-				if("course[]".equals(pName)){//设置所选课程
-					BeanUtils.setProperty(teacher, "course", request.getParameterValues("course[]"));
-				} else{
-					BeanUtils.setProperty(teacher, pName, value);
-				}
-			} catch (IllegalAccessException | InvocationTargetException e) {
-				e.printStackTrace();
-			}
-		}
+
+		JSONObject json = GetRequestJsonUtils.getRequestJsonObject(request);
+
+		String tno = json.getString("request_Tno");
+
+		Teacher techer = new Teacher();
+
+		techer.setTname(json.getString("tname"));
+		techer.setTsex(json.getString("tsex"));
+		techer.setTcourse(json.getString("tcourse"));
+
+		JSONObject result = new JSONObject();
 		try {
-			service.editTeacher(teacher);
-			response.getWriter().write("success");
+			service.editTeacher(techer, tno);
+			result.put("code", "0");
+			result.put("msg", "增加成功！");
+			String status = JSONObject.fromObject(result).toString();
+			response.getWriter().write(status);
 		} catch (Exception e) {
-			response.getWriter().write("fail");
+			result.put("code", "1");
+			result.put("msg", "增加失败");
+			String status = JSONObject.fromObject(result).toString();
+			response.getWriter().write(status);
 			e.printStackTrace();
 		}
+
 	}
+
 
 	private void deleteTeacher(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		//获取要删除的教师编号
-		String[] ids = request.getParameterValues("ids[]");
-		String[] numbers = request.getParameterValues("numbers[]");
+
+		String tno = request.getParameter("tno");
+
+		JSONObject result = new JSONObject();
 		try {
-			service.deleteTeacher(ids, numbers);
-			response.getWriter().write("success");
+			service.deleteTeacher(tno);
+			result.put("msg", "删除成功！");
+			String status = JSONObject.fromObject(result).toString();
+			response.getWriter().write(status);
 		} catch (Exception e) {
-			response.getWriter().write("fail");
+			result.put("msg", "删除失败！");
+			String status = JSONObject.fromObject(result).toString();
+			response.getWriter().write(status);
 			e.printStackTrace();
 		}
+
 	}
+
 
 	private void addTeacher(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		//获取参数名
-		Enumeration<String> pNames = request.getParameterNames();
+
+		JSONObject json = GetRequestJsonUtils.getRequestJsonObject(request);
+
 		Teacher teacher = new Teacher();
-		while(pNames.hasMoreElements()){
-			String pName = pNames.nextElement();
-			String value = request.getParameter(pName);
-			try {
-				if("course[]".equals(pName)){//设置所选课程
-					BeanUtils.setProperty(teacher, "course", request.getParameterValues("course[]"));
-				} else{
-					BeanUtils.setProperty(teacher, pName, value);
-				}
-			} catch (IllegalAccessException | InvocationTargetException e) {
-				e.printStackTrace();
-			}
-		}
+		
+		teacher.setTno(json.getString("tno"));
+		teacher.setTname(json.getString("tname"));
+		teacher.setTsex(json.getString("tsex"));
+		teacher.setTcourse(json.getString("tcourse"));
+
+		JSONObject result = new JSONObject();
+
 		try {
 			service.addTeacher(teacher);
-			response.getWriter().write("success");
+			result.put("code", "0");
+			result.put("msg", "增加成功！");
+			String status = JSONObject.fromObject(result).toString();
+			response.getWriter().write(status);
 		} catch (Exception e) {
-			response.getWriter().write("fail");
+			result.put("code", "1");
+			result.put("msg", "增加失败");
+			String status = JSONObject.fromObject(result).toString();
+			response.getWriter().write(status);
 			e.printStackTrace();
 		}
+
 	}
 
+
 	private void teacherList(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		//获取分页参数
+		// 获取分页参数
 		int page = Integer.parseInt(request.getParameter("page"));
-		int rows = Integer.parseInt(request.getParameter("rows"));
-		
-		//获取数据
-		String result = service.getTeacherList(new Page(page, rows));
-		//返回数据
-        response.getWriter().write(result);
+		int limit = Integer.parseInt(request.getParameter("limit"));
+
+		// 条件查询参数
+		String tname = request.getParameter("key[Tname]");
+		String tno = request.getParameter("key[Tno]");
+		String tcourse = request.getParameter("key[Tcourse]");
+
+
+		Teacher teacher = new Teacher();
+
+		String result = service.getTeacherList(teacher, tname, tno, tcourse, new Page(page, limit));
+		response.getWriter().write(result);
+
 	}
 	
 }

@@ -8,7 +8,10 @@ import java.util.Map;
 
 import dao.TeacherDao;
 import dao.impl.TeacherDaoImpl;
+import model.Class;
 import model.Page;
+import model.Student;
+import model.StudentInfo;
 import model.Teacher;
 import model.User;
 import net.sf.json.JSONObject;
@@ -25,7 +28,7 @@ public class TeacherService {
 	 * @param rows
 	 * @return
 	 */
-	public String getTeacherList(Teacher teacher, String tno, String tname, Page page) {
+	public String getTeacherList(Teacher teacher, String tno, String tname, String tcourse, Page page) {
 		// sql语句
 		StringBuffer sb = new StringBuffer("SELECT * FROM teacher ");
 
@@ -41,6 +44,9 @@ public class TeacherService {
 			} else if ((tname != null) && (tname != "")) {
 				param.add(tname);
 				sb.append("AND tname=? ");
+			} else if ((tcourse != null) && (tcourse != "")) {
+				param.add(tcourse);
+				sb.append("AND tcourse=? ");
 			} 
 		}
 
@@ -158,51 +164,18 @@ public class TeacherService {
 	 * @param teacher
 	 * @throws Exception 
 	 */
-	public void addTeacher(Teacher teacher) throws Exception {
-		Connection conn = DBUtil.getConnection();
-		try {
-			//开启事务
-			DBUtil.startTransaction();
-			
-			String sql = "INSERT INTO teacher(tno, tname, tsex, tphone) value(?,?,?,?)";
-			Object[] param = new Object[]{
-					teacher.getTno(), 
-					teacher.getTname(), 
-					teacher.getTsex(), 
-					teacher.getTphone(),
-				};
-			//添加教师信息
-			int tno = dao.insertReturnKeysTransaction(conn, sql, param);
-			//设置课程
-			if(teacher.getCourse() != null && teacher.getCourse().length > 0){
-				for(String course : teacher.getCourse()){
-					String[] gcc = course.split("_");
-					String clno = gcc[1];
-					String cno = gcc[2];
-					
-					dao.insertTransaction(conn, 
-							"INSERT INTO clazz_course_teacher(clno, cno, tno) value(?,?,?) ", 
-							new Object[]{clno, cno, tno});
-				}
-			}
-			//添加用户记录
-			dao.insertTransaction(conn, "INSERT INTO user(account, name, type) value(?,?,?)", 
-					new Object[]{
-						teacher.getTno(),
-						teacher.getTname(),
-						User.TEACHER
-				});
-			
-			//提交事务
-			DBUtil.commit();
-		} catch (Exception e) {
-			//回滚事务
-			DBUtil.rollback();
-			e.printStackTrace();
-			throw e;
-		} finally {
-			DBUtil.closeConnection();
-		}
+	public void addTeacher(Teacher teacher) {
+		//Class class1 = getClass(stuinfo.getClname());
+
+		//String clno = class1.getClno();
+
+		//Student stu = new Student();
+		//stu.setClno(clno);
+
+		// 添加学生记录
+		dao.insert("INSERT INTO teacher(tno, tname, tsex, tcourse) value(?,?,?,?)",
+				new Object[] { teacher.getTno(), teacher.getTname(), teacher.getTsex(), teacher.getTcourse() });
+
 	}
 	
 	/**
@@ -210,103 +183,55 @@ public class TeacherService {
 	 * @param teacher
 	 * @throws Exception
 	 */
-	public void editTeacher(Teacher teacher) throws Exception {
-		Connection conn = DBUtil.getConnection();
-		try {
-			//开启事务
-			DBUtil.startTransaction();
-			
-			String sql = "UPDATE teacher set tname=?,tsex=?,tphone=? WHERE tno=?";
-			Object[] param = new Object[]{
-					teacher.getTname(), 
-					teacher.getTsex(), 
-					teacher.getTphone(),
-				};
-			//修改教师信息
-			dao.updateTransaction(conn, sql, param);
-			//修改系统用户信息
-			dao.update("UPDATE user SET tname=? WHERE tno=?", 
-					new Object[]{teacher.getTname(), teacher.getTno()});
-			//删除教师与课程的关联
-			dao.deleteTransaction(conn, "DELETE FROM class_course_teacher WHERE tno =?", new Object[]{teacher.getTno()});
-			//设置课程
-			if(teacher.getCourse() != null && teacher.getCourse().length > 0){
-				for(String course : teacher.getCourse()){
-					String[] gcc = course.split("_");
-					String clno = gcc[0];
-					String cno = gcc[1];
-					
-					dao.insertTransaction(conn, 
-							"INSERT INTO class_course_teacher(clno, cno, tno) value(?,?,?) ", 
-							new Object[]{clno, cno, teacher.getTno()});
-				}
-			}
-			
-			//提交事务
-			DBUtil.commit();
-		} catch (Exception e) {
-			//回滚事务
-			DBUtil.rollback();
-			e.printStackTrace();
-			throw e;
-		} finally {
-			DBUtil.closeConnection();
-		}
+	public void editTeacher(Teacher teacher, String tno) throws Exception {
+
+		String uid = tno;
+
+		List<Object> params = new LinkedList<>();
+		params.add(teacher.getTno());
+		params.add(teacher.getTname());
+		params.add(teacher.getTsex());
+		params.add(teacher.getTcourse());
+		params.add(uid);
+
+		String sql = "update teacher "
+				+ "set tno = ?,tname = ?,tsex =?,tcourse = ? "
+				+ "where tno = ?";
+
+		// 更新教师信息
+		dao.update(sql, params);
+		
 	}
+
 	
 	/**
 	 * 教师修改个人信息
 	 * @param teacher
 	 */
-	public void editTeacherPersonal(Teacher teacher){
-		
-		String sql = "UPDATE teacher SET tname=?, tsex=?, tphone=? WHERE tno=?";
-		
-		//更新信息
-		dao.update(sql, new Object[]{
-				teacher.getTname(), 
-				teacher.getTsex(),
-				teacher.getTphone()});
-		
-		dao.update("UPDATE user SET username=? WHERE accound=?", 
-				new Object[]{teacher.getTname(), teacher.getTno()});
-	}
+//	public void editTeacherPersonal(Teacher teacher){
+//		
+//		String sql = "UPDATE teacher SET tname=?, tsex=?, tphone=? WHERE tno=?";
+//		
+//		//更新信息
+//		dao.update(sql, new Object[]{
+//				teacher.getTname(), 
+//				teacher.getTsex(),
+//				teacher.getTphone()});
+//		
+//		dao.update("UPDATE user SET username=? WHERE accound=?", 
+//				new Object[]{teacher.getTname(), teacher.getTno()});
+//	}
 	
 	/**
 	 * 删除教师
-	 * @param ids 教师ID数组
-	 * @param numbers 教师工号数组
 	 * @throws Exception 
 	 */
-	public void deleteTeacher(String[] ids, String[] numbers) throws Exception{
-		//获取占位符
-		String mark = StringTool.getMark(ids.length);
-		String tno[] = new String[ids.length];
-		for(int i =0 ;i < ids.length;i++){
-			tno[i] = ids[i];
-		}
-		//获取连接
-		Connection conn = DBUtil.getConnection();
-		//开启事务
-		DBUtil.startTransaction();
-		try {
-			//删除教师与课程的关联
-			dao.deleteTransaction(conn, "DELETE FROM class_course_teacher WHERE tno IN("+mark+")", tno);
-			//删除教师
-			dao.deleteTransaction(conn, "DELETE FROM teacher WHERE tno IN("+mark+")", tno);
-			//删除系统用户
-			dao.deleteTransaction(conn, "DELETE FROM user WHERE account IN("+mark+")",  tno);
-			
-			//提交事务
-			DBUtil.commit();
-		} catch (Exception e) {
-			//回滚事务
-			DBUtil.rollback();
-			e.printStackTrace();
-			throw e;
-		} finally {
-			DBUtil.closeConnection();
-		}
+	public void deleteTeacher(String tno) {
+		// 删除课程
+		dao.delete("DELETE FROM course WHERE tno =? ", new Object[] { tno });
+		// 删除教师
+		dao.delete("DELETE FROM teacher WHERE tno =? ", new Object[] { tno });
+
 	}
 	
 }
