@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Page;
+import model.Teacher;
 import model.TeacherInfo;
 import model.User;
 import net.sf.json.JSONObject;
@@ -163,9 +164,9 @@ public class TeacherServlet extends HttpServlet {
 		String cname = request.getParameter("key[Cname]");
 
 
-		TeacherInfo teainfo = new TeacherInfo();
+		Teacher teacher = new Teacher();
 
-		String result = service.getTeacherList(teainfo, tname, tno, cname, new Page(page, limit));
+		String result = service.getTeacherList(teacher, tname, tno, cname, new Page(page, limit));
 		response.getWriter().write(result);
 
 	}

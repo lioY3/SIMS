@@ -22,7 +22,7 @@ public class TeacherService {
 	 * @param rows
 	 * @return
 	 */
-	public String getTeacherList(TeacherInfo teainfo, String tno, String tname, String cname, Page page) {
+	public String getTeacherList(Teacher teacher, String tno, String tname, String cname, Page page) {
 		// sql语句
 		StringBuffer sb = new StringBuffer("SELECT * FROM teacherinfo ");
 
@@ -31,7 +31,7 @@ public class TeacherService {
 
 		System.out.println(tno + "+" + tname);
 
-		if (teainfo != null) {
+		if (teacher != null) {
 			if ((tno != null) && (tno != "")) {// 条件查询
 				param.add(tno);
 				sb.append("AND tno=? ");
@@ -58,7 +58,7 @@ public class TeacherService {
 		// 获取数据
 		List<Teacher> list = dao.getTeacherList(sql, param);
 		// 获取总记录数
-		long total = getCount(tno, tname, cname, teainfo);
+		long total = getCount(tno, tname, cname, teacher);
 		// 定义Map
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		// code键 存放状态值，0为正常
@@ -78,7 +78,7 @@ public class TeacherService {
 	/**
 	 * 获取记录数
 	 */
-	private long getCount(String tno, String tname, String cname, TeacherInfo teainfo) {
+	private long getCount(String tno, String tname, String cname, Teacher teacher) {
 		// SQL语句
 		StringBuffer sb = new StringBuffer("SELECT COUNT(*) FROM teacherinfo ");
 		// 参数
