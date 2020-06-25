@@ -53,14 +53,6 @@ public class ScoreService {
 		StringBuffer sb = new StringBuffer("SELECT COUNT(*) FROM score ");
 		//参数
 		List<Object> param = new LinkedList<>();
-		//判断条件
-//		if(score != null){ 
-//			if(score.getCno() != null){//条件：年级
-//				int gradeid = exam.getGradeid();
-//				param.add(gradeid);
-//				sb.append("AND gradeid=? ");
-//			}
-//		}
 		String sql = sb.toString().replaceFirst("AND", "WHERE");
 		
 		long count = dao.count(sql, param).intValue();
@@ -68,100 +60,6 @@ public class ScoreService {
 		return count;
 	}
 	
-	/**
-	 * 添加考试
-	 * @param exam
-	 * @throws Exception
-	 */
-//	public void addExam(Exam exam) throws Exception {
-//		Connection conn = MysqlTool.getConnection();
-//		try {
-//			//开启事务
-//			MysqlTool.startTransaction();
-//			
-//			//添加考试信息
-//			int examid = dao.insertReturnKeysTransaction(conn, 
-//					"INSERT INTO exam(name, time, remark, type, gradeid, clazzid) value(?,?,?,?,?,?)", 
-//					new Object[]{
-//						exam.getName(), 
-//						exam.getTime(),
-//						exam.getRemark(),
-//						exam.getType(),
-//						exam.getGradeid(),
-//						exam.getClazzid()
-//					});
-//			
-//			//添加学生成绩表
-//			String sql = "INSERT INTO escore(examid,clazzid,studentid,gradeid,courseid) value(?,?,?,?,?)";
-//			
-//			if(exam.getType() == Exam.EXAM_GRADE_TYPE){ //年级统考
-//				
-//				//查询该年级的课程
-//				List<Object> couObjList = dao.getList(Course.class, 
-//						"SELECT courseid id FROM grade_course WHERE gradeid=?", 
-//						new Object[]{exam.getGradeid()});
-//				
-//				//查询该年级下的学生
-//				List<Object> stuList = dao.getList(Student.class, 
-//						"SELECT id, clazzid FROM student WHERE gradeid=?",
-//						new Object[]{exam.getGradeid()});
-//				
-//				//转换类型
-//				List<Course> couList = new LinkedList<>();
-//				for(Object obj : couObjList){
-//					Course course = (Course) obj;
-//					couList.add(course);
-//				}
-//				//批量参数
-//				Object[][] param = new Object[stuList.size()*couList.size()][5];
-//				int index = 0;
-//				for(int i = 0;i < stuList.size();i++){
-//					Student student = (Student) stuList.get(i);
-//					for(int j = 0;j < couList.size();j++){
-//						param[index][0] = examid;
-//						param[index][1] = student.getClazzid();
-//						param[index][2] = student.getId();
-//						param[index][3] = exam.getGradeid();
-//						param[index][4] = couList.get(j).getId();
-//						
-//						index++;
-//					}
-//				}
-//				//批量添加学生考试表
-//				dao.insertBatchTransaction(conn, sql, param);
-//				
-//			} else{  //平时考试
-//				
-//				//查询该班级下的学生
-//				List<Object> stuList = dao.getList(Student.class, 
-//						"SELECT id FROM student WHERE clazzid=?",
-//						new Object[]{exam.getClazzid()});
-//				
-//				//批量参数
-//				Object[][] param = new Object[stuList.size()][5];
-//				for(int i = 0;i < stuList.size();i++){
-//					Student student = (Student) stuList.get(i);
-//					param[i][0] = examid;
-//					param[i][1] = exam.getClazzid();
-//					param[i][2] = student.getId();
-//					param[i][3] = exam.getGradeid();
-//					param[i][4] = exam.getCourseid();
-//				}
-//				//批量添加学生考试表
-//				dao.insertBatchTransaction(conn, sql, param);
-//			}
-//			
-//			//提交事务
-//			MysqlTool.commit();
-//		} catch (Exception e) {
-//			//回滚事务
-//			MysqlTool.rollback();
-//			e.printStackTrace();
-//			throw e;
-//		} finally {
-//			MysqlTool.closeConnection();
-//		}
-//	}
 
 	/**
 	 * 获取数据栏的列名
