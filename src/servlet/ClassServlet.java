@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Page;
+import net.sf.json.JSONObject;
 import service.ClassService;
 import utils.StringTool;
 
@@ -35,20 +36,26 @@ public class ClassServlet extends HttpServlet {
 		} else if("AddClass".equalsIgnoreCase(method)){ //添加班级
 			addClass(request, response);
 		} else if("DeleteClass".equalsIgnoreCase(method)){ //删除班级
-			deleteClazz(request, response);
+			deleteClass(request, response);
 		}
 		
 	}
 	
-	private void deleteClazz(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String Clno = request.getParameter("Clno");
+	private void deleteClass(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String clno = request.getParameter("clno");
+		JSONObject result = new JSONObject();
 		try {
-			service.deleteClazz(Clno);
-			response.getWriter().write("success");
+			service.deleteClass(clno);
+	        result.put("msg", "删除成功！");
+	        String status = JSONObject.fromObject(result).toString();
+			response.getWriter().write(status);
 		} catch (Exception e) {
-			response.getWriter().write("fail");
+	        result.put("msg", "删除失败！");
+	        String status = JSONObject.fromObject(result).toString();
+			response.getWriter().write(status);
 			e.printStackTrace();
 		}
+		
 	}
 
 	private void addClass(HttpServletRequest request, HttpServletResponse response) throws IOException {
