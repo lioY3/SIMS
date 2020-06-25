@@ -130,7 +130,7 @@
 				id : 'tableOne',
 				height : 450,
 				width : 1200,
-				url : "${pageContext.request.contextPath}/student/test.json" //数据接口
+				url : "${pageContext.request.contextPath}/TeacherServlet?method=TeacherList" //数据接口
 				,
 				page : true //开启分页
 				,
@@ -151,7 +151,7 @@
 			     ,{field: 'tno', title: '教师号', sort: true, fixed: 'left',align:'center'}
 				 ,{field: 'tname', title: '姓名',align:'center'}
 				 ,{field: 'tsex', title: '性别',align:'center'}
-				 ,{field: 'tcourse', title: '教授课程',align:'center'}
+				 ,{field: 'cname', title: '教授课程',align:'center'}
 				 ,{
 		               fixed: 'right',
 		               title: '操作',
@@ -162,11 +162,12 @@
 				] ]
 			});
 		
-			/*	--	按姓名重载	--	*/
+			/*	--	搜索重载	--	*/
 			var $ = layui.$, active = {
 				reload : function() {
+					var send_no = $('#send_no');
+					var send_cname = $('#send_cname');
 					var send_name = $('#send_name');
-
 					//执行重载
 					table.reload('tableOne', {
 						page : {
@@ -174,7 +175,9 @@
 						},
 						where : {
 							key : {
-								tname : send_name.val()
+								tname : send_name.val(),
+								tno : send_no.val(),
+								cname : send_cname.val()
 							}
 						}
 					}, 'data');
@@ -185,56 +188,16 @@
 				var type = $(this).data('type');
 				active[type] ? active[type].call(this) : '';
 			});
+			$('#do_searchclass').on('click', function() {
+				var type = $(this).data('type');
+				active[type] ? active[type].call(this) : '';
+			});
+			$('#do_searchno').on('click', function() {
+				var type = $(this).data('type');
+				active[type] ? active[type].call(this) : '';
+			});
 			
-			/*	--	按教师号重载	--	*/
-			var $ = layui.$, active = {
-					reload : function() {
-						var send_no = $('#send_no');
-
-						//执行重载
-						table.reload('tableOne', {
-							page : {
-								curr : 1//重新从第 1 页开始
-							},
-							where : {
-								key : {
-									tno : send_no.val()
-								}
-							}
-						}, 'data');
-					}
-				};
-
-				$('#do_searchno').on('click', function() {
-					var type = $(this).data('type');
-					active[type] ? active[type].call(this) : '';
-				});
-				
-				
-			/*	--	按教授课程重载	--	*/
-				var $ = layui.$, active = {
-						reload : function() {
-							var send_cname = $('#send_cname');
-
-							//执行重载
-							table.reload('tableOne', {
-								page : {
-									curr : 1//重新从第 1 页开始
-								},
-								where : {
-									key : {
-										cname : send_cname.val()
-									}
-								}
-							}, 'data');
-						}
-					};
-
-					$('#do_searchcname').on('click', function() {
-						var type = $(this).data('type');
-						active[type] ? active[type].call(this) : '';
-					});
-					
+			
  			/*	--	监听头部工具栏	--	*/
 					 table.on('toolbar(tea)', function (obj) {
 					    switch (obj.event) {
@@ -246,14 +209,15 @@
 					                 page: {
 					                     curr: 1 //重新从第 1 页开始
 					                 },
-					                 url: "test.json",
-					                 method: 'get'
+					                 url: "${pageContext.request.contextPath}/TeacherServlet?method=TeacherList",
+					                 method: 'post'
 					             });
 					             break;
 					             // 根据增加行为给form隐藏项赋值
 					        case 'add':
 					            var data = {};
-					            data.request_type = 'post';
+					            data.action = 'AddTeacher';
+					            
 					            data.tno=null;
 					            data.tname=null;
 					            data.tsex=null;
@@ -275,7 +239,7 @@
 				                        //向服务端发送删除指令
 				                        $.ajax({
 				                            type: "get",  //数据提交方式(post/get)
-				                            url: "/goods/deleteGood?id=" + tno,  //提交到的url
+				                            url: "${pageContext.request.contextPath}/TeacherServlet?method=DeleteTeacher&sno="+id,  //提交到的url
 				                            contentType: "application/json; charset=utf-8",
 				                            dataType: "json",//返回的数据类型格式
 				                            success: function (result) {
@@ -297,7 +261,7 @@
 						    var type = data.field.request_type;
 						    $.ajax({
 						         type: type,
-						         url: '/goods/' + uri,
+						         url: '${pageContext.request.contextPath}/TeacherServlet?method=AddTeacher',
 						         contentType: "application/json; charset=utf-8",
 						         data: JSON.stringify(data.field),
 						         dataType: "json",
@@ -308,8 +272,8 @@
 						                    page: {
 						                        curr: 1 //重新从第 1 页开始
 						                    },
-						                    url: '/goods/goodsList',
-						                    method: 'get'
+						                    url: '${pageContext.request.contextPath}/TeacherServlet?method=TeacherList',
+						                    method: 'post'
 						                });
 						                layer.msg('修改成功', {icon: 1, time: 1000});
 						            } else {  //失败

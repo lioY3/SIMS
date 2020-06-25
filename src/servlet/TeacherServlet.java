@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Page;
-import model.TeacherInfo;
+import model.Teacher;
 import model.User;
 import net.sf.json.JSONObject;
 import service.TeacherService;
@@ -78,15 +78,15 @@ public class TeacherServlet extends HttpServlet {
 
 		String tno = json.getString("request_Tno");
 
-		TeacherInfo teainfo = new TeacherInfo();
+		Teacher techer = new Teacher();
 
-		teainfo.setTname(json.getString("tname"));
-		teainfo.setTsex(json.getString("tsex"));
-		teainfo.setCname(json.getString("cname"));
+		techer.setTname(json.getString("tname"));
+		techer.setTsex(json.getString("tsex"));
+		techer.setTcourse(json.getString("tcourse"));
 
 		JSONObject result = new JSONObject();
 		try {
-			service.editTeacher(teainfo, tno);
+			service.editTeacher(techer, tno);
 			result.put("code", "0");
 			result.put("msg", "增加成功！");
 			String status = JSONObject.fromObject(result).toString();
@@ -126,17 +126,16 @@ public class TeacherServlet extends HttpServlet {
 
 		JSONObject json = GetRequestJsonUtils.getRequestJsonObject(request);
 
-		TeacherInfo teainfo = new TeacherInfo();
+		Teacher teacher = new Teacher();
 		
-		teainfo.setTno(json.getString("tno"));
-		teainfo.setTname(json.getString("tname"));
-		teainfo.setTsex(json.getString("tsex"));
-		teainfo.setCname(json.getString("cname"));
+		teacher.setTno(json.getString("tno"));
+		teacher.setTname(json.getString("tname"));
+		teacher.setTsex(json.getString("tsex"));
 
 		JSONObject result = new JSONObject();
 
 		try {
-			service.addTeacher(teainfo);
+			service.addTeacher(teacher);
 			result.put("code", "0");
 			result.put("msg", "增加成功！");
 			String status = JSONObject.fromObject(result).toString();
@@ -158,14 +157,16 @@ public class TeacherServlet extends HttpServlet {
 		int limit = Integer.parseInt(request.getParameter("limit"));
 
 		// 条件查询参数
-		String tname = request.getParameter("key[Tname]");
-		String tno = request.getParameter("key[Tno]");
-		String cname = request.getParameter("key[Cname]");
+		String tname = request.getParameter("key[tname]");
+		String tno = request.getParameter("key[tno]");
+		String cname = request.getParameter("key[cname]");
+		
+		//System.out.println(tname+" "+tno+" "+cname);
 
 
-		TeacherInfo teainfo = new TeacherInfo();
+		Teacher teacher = new Teacher();
 
-		String result = service.getTeacherList(teainfo, tname, tno, cname, new Page(page, limit));
+		String result = service.getTeacherList(teacher, tname, tno, cname, new Page(page, limit));
 		response.getWriter().write(result);
 
 	}

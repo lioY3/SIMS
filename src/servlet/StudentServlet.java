@@ -24,7 +24,8 @@ public class StudentServlet extends HttpServlet {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// 获取请求的方法
 		String method = request.getParameter("method");
 
@@ -64,7 +65,7 @@ public class StudentServlet extends HttpServlet {
 		String sname = request.getParameter("key[Sname]");
 		String clname = request.getParameter("key[Clname]");
 
-		//System.out.println("key[Sno]:" + sno);
+		// System.out.println("key[Sno]:" + sno);
 
 		Student student = new Student();
 

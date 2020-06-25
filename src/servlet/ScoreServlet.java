@@ -12,7 +12,6 @@ import service.ScoreService;
 import utils.GetRequestJsonUtils;
 import model.Page;
 import model.Score;
-import model.StudentInfo;
 import net.sf.json.JSONObject;
 
 @WebServlet("/ScoreServlet")
@@ -104,7 +103,7 @@ public class ScoreServlet extends HttpServlet {
 		JSONObject json = GetRequestJsonUtils.getRequestJsonObject(request);
 
 		Score score = new Score();
-
+		
 		score.setSno(json.getString("sno"));
 		score.setCno(json.getString("cno"));
 		score.setGrade(json.getDouble("grade"));

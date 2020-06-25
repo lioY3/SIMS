@@ -75,11 +75,12 @@
 				] ]
 			});
 		
-			/*	--	按姓名重载	--	*/
+			/*	--	搜索重载	--	*/
 			var $ = layui.$, active = {
 				reload : function() {
+					var send_no = $('#send_no');
+					var send_cname = $('#send_cname');
 					var send_name = $('#send_name');
-
 					//执行重载
 					table.reload('tableOne', {
 						page : {
@@ -87,7 +88,9 @@
 						},
 						where : {
 							key : {
-								tname : send_name.val()
+								tname : send_name.val(),
+								tno : send_no.val(),
+								cname : send_cname.val()
 							}
 						}
 					}, 'data');
@@ -98,55 +101,15 @@
 				var type = $(this).data('type');
 				active[type] ? active[type].call(this) : '';
 			});
-			
-			/*	--	按教师号重载	--	*/
-			var $ = layui.$, active = {
-					reload : function() {
-						var send_no = $('#send_no');
-
-						//执行重载
-						table.reload('tableOne', {
-							page : {
-								curr : 1//重新从第 1 页开始
-							},
-							where : {
-								key : {
-									tno : send_no.val()
-								}
-							}
-						}, 'data');
-					}
-				};
-
-				$('#do_searchno').on('click', function() {
-					var type = $(this).data('type');
-					active[type] ? active[type].call(this) : '';
-				});
-				
-				
-			/*	--	按课程重载	--	*/
-				var $ = layui.$, active = {
-						reload : function() {
-							var send_cname = $('#send_cname');
-
-							//执行重载
-							table.reload('tableOne', {
-								page : {
-									curr : 1//重新从第 1 页开始
-								},
-								where : {
-									key : {
-										cname : send_cname.val()
-									}
-								}
-							}, 'data');
-						}
-					};
-
-					$('#do_searchcname').on('click', function() {
-						var type = $(this).data('type');
-						active[type] ? active[type].call(this) : '';
+			$('#do_searchclass').on('click', function() {
+				var type = $(this).data('type');
+				active[type] ? active[type].call(this) : '';
 			});
+			$('#do_searchno').on('click', function() {
+				var type = $(this).data('type');
+				active[type] ? active[type].call(this) : '';
+			});
+
 		});
 	</script>
 </body>

@@ -6,15 +6,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.catalina.Session;
-
 import dao.ScoreDao;
 import dao.impl.ScoreDaoImpl;
-import model.Class;
 import model.Page;
 import model.Score;
 import model.ScoreInfo;
-import model.Student;
 import net.sf.json.JSONObject;
 
 /**
