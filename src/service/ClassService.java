@@ -76,5 +76,8 @@ public class ClassService {
 	public void addClass(String clname, String clno) {
 		dao.insert("INSERT INTO class(clname, clno) value(?,?)", new Object[]{clname, clno});
 	}
+	public void deleteClass(String clno) {
+		dao.delete("DELETE FROM class WHERE clno =? ", new Object[] { clno });
+	}
 	
 }
