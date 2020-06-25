@@ -43,8 +43,10 @@ public class CourseServlet extends HttpServlet {
 			courseList(request, response);
 		} else if("AddCourse".equalsIgnoreCase(method)){ //添加课程
 			addCourse(request, response);
-		} else if("deleteCourse".equalsIgnoreCase(method)){ //删除课程
+		} else if("DeleteCourse".equalsIgnoreCase(method)){ //删除课程
 			deleteCourse(request, response);
+		}else if("EditCourse".equalsIgnoreCase(method)){ //修改课程
+			editCourse(request, response);
 		}
 		
 	}
@@ -77,13 +79,11 @@ public class CourseServlet extends HttpServlet {
 		
 		course.setCno(json.getString("cno"));
 		course.setCname(json.getString("cname"));
-//		course.setCredit(json.getString("sbirthday"));
-//		stuinfo.setSid(json.getString("sid"));
-//		stuinfo.setSname(json.getString("sname"));
-//		stuinfo.setSnation(json.getString("snation"));
-//		stuinfo.setSno(json.getString("sno"));
-//		stuinfo.setSsex(json.getString("ssex"));
-			
+		course.setCredit(json.getInt("credit"));
+		course.setTerm(json.getString("term"));
+		course.setHours(json.getString("hours"));
+		course.setTno(json.getString("tno"));
+
 		JSONObject result = new JSONObject();
 		
 		try {
@@ -107,15 +107,46 @@ public class CourseServlet extends HttpServlet {
 		// 获取分页参数
 		int page = Integer.parseInt(request.getParameter("page"));
 		int limit = Integer.parseInt(request.getParameter("limit"));
-
+		String cno = request.getParameter("key[Cno]");
+		String cname = request.getParameter("key[Cname]");
 		Course course = new Course();
 
 		// 获取数据
-		String result = service.getCourseList(course, new Page(page, limit));
+		String result = service.courseList(course, cno,cname,new Page(page, limit));
 
 		// 返回数据
 		response.getWriter().write(result);
 
+	}
+	private void editCourse(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		JSONObject json = GetRequestJsonUtils.getRequestJsonObject(request);
+		String cno = json.getString("request_Cno");
+		Course course = new Course();
+		
+		course.setCno(json.getString("cno"));
+		course.setCname(json.getString("cname"));
+		course.setCredit(json.getInt("credit"));
+		course.setTerm(json.getString("term"));
+		course.setHours(json.getString("hours"));
+		course.setTno(json.getString("tno"));
+
+		JSONObject result = new JSONObject();
+		
+		try {
+			service.editCourse(course,cno);
+			result.put("code", "0");
+	        result.put("msg", "增加成功！");
+	        String status = JSONObject.fromObject(result).toString();
+			response.getWriter().write(status);
+		} catch (Exception e) {
+			result.put("code", "1");
+	        result.put("msg", "增加失败");
+	        String status = JSONObject.fromObject(result).toString();
+			response.getWriter().write(status);
+			e.printStackTrace();
+		}
+		
 	}
 
 

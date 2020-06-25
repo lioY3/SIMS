@@ -50,7 +50,7 @@
 				id : 'tableOne',
 				height : 500,
 				width : 1300,
-				url : "${pageContext.request.contextPath}/StudentServlet?method=StudentList", //数据接口
+				url : "${pageContext.request.contextPath}/CourseServlet?method=CourseList", //数据接口
 				method: 'post',
 				page : true, //开启分页
 				
@@ -81,8 +81,8 @@
 							},
 							where : {
 								key : {
-									cno : send_no.val(),
-									cname : send_name.val()
+									Cno : send_no.val(),
+									Cname : send_name.val()
 									
 								}
 							}
@@ -97,6 +97,7 @@
 					var type = $(this).data('type');
 					active[type] ? active[type].call(this) : '';
 				});
+		});
 
 	</script>
 </body>
