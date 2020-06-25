@@ -5,6 +5,11 @@ public class ScoreInfo {
 	private String Sno;// 学号
 	private String Sname;// 姓名
 	private String Cno;// 课程号
+	private String Cname;// 课程名
+	private String Tname;// 任课教师
+	private String Grade;// 成绩
+	private String Term;// 学期
+
 
 	public String getSno() {
 		return Sno;
@@ -54,8 +59,12 @@ public class ScoreInfo {
 		Grade = grade;
 	}
 
-	private String Cname;// 课程名
-	private String Tname;// 任课教师
-	private String Grade;// 成绩
+	public String getTerm() {
+		return Term;
+	}
+
+	public void setTerm(String term) {
+		Term = term;
+	}
 
 }

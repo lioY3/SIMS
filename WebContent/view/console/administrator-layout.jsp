@@ -140,10 +140,10 @@
 					<li class="layui-nav-item"><a href="javascript:;"style="text-decoration:none;">成绩管理</a>
 						<dl class="layui-nav-child">
 						<dd>
-								<a href="javascript:;"style="text-decoration:none;">成绩查询</a>
+								<a href="ScoreServlet?method=toScoreInfoView" style="text-decoration:none;">成绩查询</a>
 							</dd>
 							<dd>
-								<a href="javascript:;"style="text-decoration:none;">成绩录入修改</a>
+								<a href="ScoreServlet?method=toScoreModifyView"style="text-decoration:none;">成绩录入修改</a>
 							</dd>
 						</dl>
 					</li>

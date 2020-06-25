@@ -136,7 +136,7 @@
 	         id: 'tableOne',
 	         height: 520,
 	         width: 1300,
-	         url: "${pageContext.request.contextPath}/ScoreServlet?method=ScoreList&tno=${user.account}" //数据接口
+	         url: "${pageContext.request.contextPath}/ScoreServlet?method=ScoreList&account=${user.account}&type=${user.type}" //数据接口
 	     ,
 	         method: 'post',
 	         page: true //开启分页
@@ -232,7 +232,7 @@
 	                 page: {
 	                     curr: 1 //重新从第 1 页开始
 	                 },
-	                 url: "${pageContext.request.contextPath}/ScoreServlet?method=ScorList",
+	                 url: "${pageContext.request.contextPath}/ScoreServlet?method=ScoreList&account=${user.account}&type=${user.type}",
 	                 method: 'post'
 	             });
 	             break;
@@ -310,7 +310,7 @@
 	                         page: {
 	                             curr: 1 //重新从第 1 页开始
 	                         },
-	                         url: '${pageContext.request.contextPath}/ScoreServlet?method=ScoreList&tno=${user.account}',
+	                         url: '${pageContext.request.contextPath}/ScoreServlet?method=ScoreList&account=${user.account}&type=${user.type}',
 	                         method: 'post'
 	                     });
 	                     layer.msg('修改成功', {

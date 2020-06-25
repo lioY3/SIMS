@@ -20,14 +20,14 @@
 	<br>
 	<!------------------------------------------------------------搜索栏--------------------------------------------------------->
 	<div class="demoTable" style="position:relative;left:16%">
-		姓名：
+		课程名：
 		<div class="layui-inline">
 			<input class="layui-input" name="keyword" id="send_name"
 				autocomplete="off">
 		</div>
 		<button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal" data-type="reload" id="do_searchname">
 		<i class="layui-icon">&#xe615;</i>搜索</button>
-		学号：
+		课程号：
 		<div class="layui-inline">
 			<input class="layui-input" name="keyword" id="send_no"
 				autocomplete="off">
@@ -53,7 +53,6 @@
 	</script>
 	<script type="text/html" id="Cour_lineBar">
         <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="edit"><i class="layui-icon ">&#xe642;</i> </a>
-    	<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon">&#xe640;</i></a>
         </button>
 	</script>
 	<!---------------------------------------------------新增、刷新、编辑、删除按钮-------------------------------------------------------->
@@ -70,7 +69,7 @@
 	<!-------------------------------------------------------------新增、编辑表单--------------------------------------------------------->
 	<div class="layui-row" id="addopen_div" style="display: none;">
 		<form id="add_form" class="layui-form" action="" style="margin-top: 20px; align: center;">
-
+			<input type="hidden" name="action" id="form_action" value="AddCourse">
 			<div class="layui-form-item">
 				<label class="layui-form-label">课程号:</label>
 				<div class="layui-inline">
@@ -120,8 +119,8 @@
 		<div class="layui-row" id="editopen_div" style="display: none;">
 		<form id="edit_form" class="layui-form" action="" style="margin-top: 20px; align: center;">
 
-					<input type="hidden" name="cno" id="form_cno" class="layui-input" autocomplete="off">
-					
+			<input type="hidden" name="request_cno" id="form_cno" class="layui-input" autocomplete="off">
+			<input type="hidden" name="action" id="form_action" value="EditCourse">
 			<div class="layui-form-item">
 				<label class="layui-form-label">课程名：</label>
 				<div class="layui-inline">
@@ -174,7 +173,7 @@
 				id : 'tableOne',
 				height : 450,
 				width : 1200,
-				url : "test.json" //数据接口
+				url : "${pageContext.request.contextPath}/CourseServlet?method=CourseList" //数据接口
 				,
 				page : true //开启分页
 				,
@@ -208,35 +207,11 @@
 				] ]
 			});
 		
-			/*	--	按课程名重载	--	*/
-			var $ = layui.$, active = {
-				reload : function() {
-					var send_name = $('#send_name');
-
-					//执行重载
-					table.reload('tableOne', {
-						page : {
-							curr : 1//重新从第 1 页开始
-						},
-						where : {
-							key : {
-								cname : send_name.val()
-							}
-						}
-					}, 'data');
-				}
-			};
-
-			$('#do_searchname').on('click', function() {
-				var type = $(this).data('type');
-				active[type] ? active[type].call(this) : '';
-			});
-			
-			/*	--	按课程号重载	--	*/
+		
 			var $ = layui.$, active = {
 					reload : function() {
 						var send_no = $('#send_no');
-
+						var send_name = $('#send_name');
 						//执行重载
 						table.reload('tableOne', {
 							page : {
@@ -244,13 +219,18 @@
 							},
 							where : {
 								key : {
-									cno : send_no.val()
+									Cno : send_no.val(),
+									Cname : send_name.val()
+									
 								}
 							}
 						}, 'data');
 					}
 				};
-
+				$('#do_searchname').on('click', function() {
+					var type = $(this).data('type');
+					active[type] ? active[type].call(this) : '';
+				});
 				$('#do_searchno').on('click', function() {
 					var type = $(this).data('type');
 					active[type] ? active[type].call(this) : '';
@@ -268,8 +248,8 @@
 					                 page: {
 					                     curr: 1 //重新从第 1 页开始
 					                 },
-					                 url: "test.json",
-					                 method: 'get'
+					                 url: "${pageContext.request.contextPath}/CourseServlet?method=CourseList",
+					                 method: 'post'
 					             });
 					             break;
 					             // 根据增加行为给form隐藏项赋值
@@ -294,8 +274,6 @@
 						    switch (layEvent) {
 						        case 'edit':
 						            // 根据编辑行为为form隐藏项赋值
-						            data.action = 'updateCour';
-						            data.request_type = 'post';
 						            data.request_cno = id;
 						            open_form("#editopen_div", data, '编辑课程', '380px', '450px');
 						            break; 
@@ -305,10 +283,9 @@
 			/*	-- 监听表单提交-- */
 						form.on('submit(Cour_submit)', function (data) {
 						    var uri = data.field.action;
-						    var type = data.field.request_type;
 						    $.ajax({
-						         type: type,
-						         url: '/goods/' + uri,
+						         type: 'post',
+						         url: '${pageContext.request.contextPath}/CourseServlet?method=' + uri,
 						         contentType: "application/json; charset=utf-8",
 						         data: JSON.stringify(data.field),
 						         dataType: "json",
@@ -319,8 +296,8 @@
 						                    page: {
 						                        curr: 1 //重新从第 1 页开始
 						                    },
-						                    url: '/goods/goodsList',
-						                    method: 'get'
+						                    url: '${pageContext.request.contextPath}/CourseServlet?method=CourseList',
+						                    method: 'post'
 						                });
 						                layer.msg('修改成功', {icon: 1, time: 1000});
 						            } else {  //失败

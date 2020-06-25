@@ -9,8 +9,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/css/bootstrap.css">
 <script src="${pageContext.request.contextPath}/static/easyui/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-
-<title>Insert title here</title>
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/static/image/favicon.ico" />
+<title>管理员端|学生管理系统</title>
 <script type="text/javascript">  
 $("#qu").click(function(){		
 	var data = $("#form1").serialize();//序列化表单值 使用ajax()提交表单

@@ -121,10 +121,13 @@ public class CourseServlet extends HttpServlet {
 	private void editCourse(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		JSONObject json = GetRequestJsonUtils.getRequestJsonObject(request);
-		String cno = json.getString("request_Cno");
+		String request_cno = json.getString("request_cno");
+		
+		System.out.println(request_cno);
+		
 		Course course = new Course();
 		
-		course.setCno(json.getString("cno"));
+		//course.setCno(json.getString("cno"));
 		course.setCname(json.getString("cname"));
 		course.setCredit(json.getInt("credit"));
 		course.setTerm(json.getString("term"));
@@ -134,7 +137,7 @@ public class CourseServlet extends HttpServlet {
 		JSONObject result = new JSONObject();
 		
 		try {
-			service.editCourse(course,cno);
+			service.editCourse(course,request_cno);
 			result.put("code", "0");
 	        result.put("msg", "增加成功！");
 	        String status = JSONObject.fromObject(result).toString();

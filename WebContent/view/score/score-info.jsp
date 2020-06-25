@@ -49,7 +49,7 @@
 				id : 'tableOne',
 				height : 500,
 				width : 1300,
-				url : "${pageContext.request.contextPath}/ScoreServlet?method=ScoreList", //数据接口
+				url : "${pageContext.request.contextPath}/ScoreServlet?method=ScoreList&account=${user.account}&type=${user.type}", //数据接口
 				method: 'post',
 				page : true, //开启分页
 				
@@ -64,8 +64,10 @@
 				 ,{field: 'sname', title: '姓名',align:'center'}
 				 ,{field: 'cno', title: '课程号',align:'center'}
 				 ,{field: 'cname', title: '课程名',align:'center'}
+				 ,{field: 'term', title: '学期',align:'center'} 
 				 ,{field: 'tname', title: '授课教师',align:'center'} 
 				 ,{field: 'grade', title: '成绩',sort: true,align:'center'} 
+				 
 				] ]
 			});
 		

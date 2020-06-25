@@ -69,7 +69,7 @@
 				] ]
 			});
 		
-			/*	--	按课程号重载	--	*/
+			/*	--	重载	--	*/
 			var $ = layui.$, active = {
 					reload : function() {
 						var send_no = $('#send_no');

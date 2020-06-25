@@ -1,23 +1,15 @@
 package service;
 
-import java.sql.Connection;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import dao.BaseDao;
-import dao.TeacherDao;
-import dao.impl.BaseDaoImpl;
-import dao.impl.TeacherDaoImpl;
-import model.Class;
+import dao.CourseDao;
+import dao.impl.CourseDaoImpl;
 import model.Course;
 import model.Page;
-import model.Student;
-import model.Teacher;
 import net.sf.json.JSONObject;
-import utils.DBUtil;
 
 /**
  * 课程服务层
@@ -26,7 +18,7 @@ import utils.DBUtil;
 
 public class CourseService {
 
-	BaseDao dao = new BaseDaoImpl();
+	CourseDao dao = new CourseDaoImpl();
 	
 	/**
 	 * 获取所有课程
@@ -56,7 +48,7 @@ public class CourseService {
 
 		String sql = sb.toString().replaceFirst("AND", "WHERE");
 		
-		System.out.println(sql);
+		//System.out.println(sql);
 
 		// 获取数据
 		List<Course> list = dao.getallCourseList(sql, param);
@@ -129,13 +121,15 @@ public class CourseService {
 		
 
 		List<Object> params = new LinkedList<>();
-		params.add(course.getCno());
+		//params.add(course.getCno());
 		params.add(course.getCname());
 		params.add(course.getCredit());
 		params.add(course.getTerm());
 		params.add(course.getHours());
 		params.add(course.getTno());
-		String sql = "update course " + "set cno = ?,cname = ?,credit = ?,term = ?,hours = ?,tno = ? "
+		params.add(cno);
+		String sql = "update course "
+				+ "set cname = ?,credit = ?,term = ?,hours = ?,tno = ? "
 				+ "where cno = ?";
 
 		// 更新课程信息

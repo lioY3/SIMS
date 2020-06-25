@@ -32,7 +32,9 @@ public class ScoreService {
 	 */
 	private long getCount(String sno, String cname, Score score, String tno){
 		//sql语句
-		StringBuffer sb = new StringBuffer("SELECT COUNT(*) FROM scoreinfo join course on course.cno = scoreinfo.cno ");
+		//StringBuffer sb = new StringBuffer("SELECT COUNT(*) FROM scoreinfo join course on course.cno = scoreinfo.cno ");
+		StringBuffer sb = new StringBuffer("SELECT COUNT(*) FROM scoreinfo ");
+		
 		//参数
 		List<Object> param = new LinkedList<>();
 		
@@ -64,7 +66,8 @@ public class ScoreService {
 
 	public String getScoreList(Score score, String sno, String cname, String tno, Page page) {
 		// sql语句
-		StringBuffer sb = new StringBuffer("SELECT * FROM scoreinfo join course on course.cno = scoreinfo.cno ");
+		//StringBuffer sb = new StringBuffer("SELECT * FROM scoreinfo join course on course.cno = scoreinfo.cno ");
+		StringBuffer sb = new StringBuffer("SELECT * FROM scoreinfo ");
 
 		// 参数
 		List<Object> param = new LinkedList<>();

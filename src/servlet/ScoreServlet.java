@@ -12,6 +12,7 @@ import service.ScoreService;
 import utils.GetRequestJsonUtils;
 import model.Page;
 import model.Score;
+import model.User;
 import net.sf.json.JSONObject;
 
 @WebServlet("/ScoreServlet")
@@ -130,6 +131,7 @@ public class ScoreServlet extends HttpServlet {
 		// 获取分页参数
 		int page = Integer.parseInt(request.getParameter("page"));
 		int limit = Integer.parseInt(request.getParameter("limit"));
+		
 
 		// 条件查询参数
 		String sno = request.getParameter("key[Sno]");
