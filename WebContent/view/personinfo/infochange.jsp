@@ -10,7 +10,8 @@
 <link href="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/css/bootstrap.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-<script src="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+
 </head>
 
 <body>
@@ -50,7 +51,7 @@
 
             
 			<div class="btn-group" style="left:28%;">
-				 <button class="btn btn-default" data-toggle="modal" data-target="#myModal">修改</button>
+				 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">修改</button>
 				  <button type="button" class="btn btn-default">提交</button>
 			</div>	
  
