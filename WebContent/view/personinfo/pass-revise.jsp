@@ -83,17 +83,17 @@
 				<div class="modal-body">
 					<div class="form-body">
 						<div class="form-group">
-							<label class="control-label col-md-3">新密码</label>
+							<label class="control-label col-md-3">用户名</label>
 							<div class="input-icon col-md-7">
 								 <input
 									class="form-control placeholder-no-fix" type="password"
-									placeholder="新密码" name="StorePassword" id="newAcount" required /><span
+									placeholder="用户名" name="StorePassword" id="newAcount" required /><span
 									class="help-block" hidden   minlength="6" maxlength="6"
 							></span>
 							</div>
 						 </div>
 						 <div class="form-group">
-							<label class="control-label col-md-3">确认密码</label>
+							<label class="control-label col-md-3">新密码</label>
 							<div class="controls">
 								<div class="input-icon col-md-7">
 									<input class="form-control placeholder-no-fix" type="password"
