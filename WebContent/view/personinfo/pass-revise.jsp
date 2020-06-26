@@ -12,24 +12,18 @@
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/static/image/favicon.ico" />
 <title>管理员端|学生管理系统</title>
 <script type="text/javascript">  
-
-
-
-
-
-
- 
+	
+	
 	$(function(){
 		//点击图片切换验证码
 		$("#vcodeImg").click(function(){
 			this.src="SystemServlet?method=GetVCode&time"+new Date().getTime();
 		});
 		
-		$("#requeding").click(function(){		
-			var data = $("#passform").serialize();//序列化表单值 使用ajax()提交表单
+		form.on('submit("requeding")', function (data) {
 			$.ajax({
 				type: "post",
-				url: "SystemServlet?method=GetVCode",
+				url: "SystemServlet?method=EditPassword&user=${user.account}",
 				data: data, 
 				dataType: "text", //返回数据类型
 				success: function(msg){
@@ -65,21 +59,10 @@
 <body>
  <div class="modal changepassesModal" id="wyp">
 	<div class="modal-dialog">
-		  <div class="modal-content">
-			    <div class="modal-header">
-				<!-- 创建隐藏域，得到uid用户的id(js中无法使用el)，因为修改当前用户的密码，首先要知道获取当前用户所在数据表中的id-->
-				<input name="uiid" type="hidden"/>
-				<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true" id="gb">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">
-					<i class="icon-info"></i><span style="margin-left: .5em;">修改密码</span>
-				</h4>
-			   </div>
- 
-            
-            
+		  <div class="modal-content">     
 			<!-- BEGIN FORM 修改密码的第一要素：输入新密码-->
-			<form class="form-horizontal" method="post" id=passform" name="passForm" novalidate>
+			
+			<form class="form-horizontal" action="SystemServlet?method=EditPassword&user=${user.account}" method="post" id=passform" name="passform" novalidate>
 				<div class="modal-body">
 					<div class="form-body">
 						<div class="form-group">
@@ -108,7 +91,7 @@
 							     <div class="controls">
 								<div class="input-icon col-md-7">
 									<input class="form-control placeholder-no-fix" type="password"
-										   placeholder="验证码" name="newStorePassword" id="newStorePassword" required/><span
+										   placeholder="验证码" name="proof" id="newStorePassword" required/><span
 										class="help-block" hidden  minlength="6" maxlength="6"
 								></span>        
 								<img title="点击图片切换验证码" id="vcodeImg" style="height:40px;width:115px" src="SystemServlet?method=GetVCode"></div>
@@ -119,7 +102,7 @@
 				<!-- 关闭和确定修改-->
 							<div class="modal-footer">
 								<button type="reset" id="close" class="btn btn-default" >重置</button>
-								<button type="button" id="requeding" class="btn btn-default">提交</button>
+								<button type="submit" id="requeding" class="btn btn-default" lay-filter="requeding">提交</button>
 							</div>
 			</form>
 

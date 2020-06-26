@@ -123,11 +123,26 @@ public class SystemServlet extends HttpServlet {
 	}
 
 	private void editPasswod(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		User user = new User();
-		user.setAccount(request.getParameter("account"));
-		user.setPassword(request.getParameter("password"));
-		service.editPassword(user);
-		response.getWriter().write("success");
+		String StorePassword =request.getParameter("StorePassword");
+		String newStorePassword =request.getParameter("newStorePassword");
+		String account =request.getParameter("user");
+		
+		if(!StorePassword.equals(newStorePassword)) {
+			response.getWriter().write("两次输入的密码不匹配");
+			
+		} else {
+			//System.out.print(account);
+			System.out.println(StorePassword+"+"+newStorePassword);
+			
+			User user = new User();
+			user.setAccount(account);
+			user.setPassword(newStorePassword);
+			
+			service.editPassword(user);
+			
+			response.getWriter().write("success");
+			response.setHeader("Refresh", "5;URL="+request.getContextPath());
+		}
 	}
 	
 }
