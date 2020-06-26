@@ -152,9 +152,9 @@
 						<dd>
 								<a href="echarts.jsp"style="text-decoration:none;">男女比</a>
 							</dd>
-							<dd>
+							<!-- <dd>
 								<a href="javascript:;"style="text-decoration:none;">人数比</a>
-							</dd>
+							</dd> -->
 						</dl>
 					</li> 
 				</ul>

@@ -14,7 +14,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
-111
 	<div id="main" style="height:400px"></div>
     <script type="text/javascript">
         // 路径配置
@@ -51,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	        }
             	    },
                     legend: {
-                        data:['销量']
+                        data:['人数']
                     },
                     xAxis : [
                         {
@@ -66,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     ],
                     series : [
                         {
-                            "name":"销量",
+                            "name":"人数",
                             "type":"bar",
                             
                         }
