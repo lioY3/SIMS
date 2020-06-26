@@ -46,13 +46,13 @@
 					<li class="layui-nav-item"><a href="javascript:;">课程管理</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="javascript:;">课程信息查询</a>
+								<a href="CourseServlet?method=toCourseInfoView">课程信息查询</a>
 							</dd>
 						</dl></li>
 					<li class="layui-nav-item"><a href="javascript:;">成绩管理</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="javascript:;">成绩查询</a>
+								<a href="ScoreServlet?method=toScoreInfoView">成绩查询</a>
 							</dd>
 						</dl></li>
 				</ul>
