@@ -13,7 +13,6 @@ import net.sf.json.JSONObject;
 
 /**
  * 课程服务层
- *
  */
 
 public class CourseService {
@@ -22,7 +21,6 @@ public class CourseService {
 	
 	/**
 	 * 获取所有课程
-	 * @return
 	 */
 	public String courseList(Course course,String cno,String cname, Page page){
 		// sql语句
@@ -73,9 +71,6 @@ public class CourseService {
 
 	/**
 	 * 获取记录数
-	 * 
-	 * @param student
-	 * @return
 	 */
 	private long getCount(Course course,String cno,String cname) {
 		// sql语句
@@ -99,7 +94,6 @@ public class CourseService {
 
 	/**
 	 * 添加课程
-	 * @param course
 	 */
 	public void addCourse(Course course) {
 		dao.insert("INSERT INTO course(cno,cname,credit,term,hours,tno) value(?,?,?,?,?,?)", new Object[]{course.getCno(),course.getCname(),course.getCredit(),course.getTerm(),course.getHours(),course.getTno()});
@@ -107,8 +101,6 @@ public class CourseService {
 
 	/**
 	 * 删除课程
-	 * @param courseid
-	 * @throws Exception 
 	 */
 	public void deleteCourse(String cno) {
 		// 删除课程
@@ -139,6 +131,4 @@ public class CourseService {
 	
 	
 }	
-	
-	
 
