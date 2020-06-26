@@ -87,7 +87,7 @@ public class SystemServlet extends HttpServlet {
 		String vcode = request.getParameter("vcode");
 		// 获取登录类型
 
-		// 返回信息
+		// 返回信息z
 		String msg = null;
 
 		// 获取session中的验证码

@@ -12,58 +12,44 @@
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/static/image/favicon.ico" />
 <title>管理员端|学生管理系统</title>
 <script type="text/javascript">  
-$("#qu").click(function(){		
-	var data = $("#form1").serialize();//序列化表单值 使用ajax()提交表单
-	$.ajax({
-		type: "post",
-		url: "",
-		data: data, 
-		dataType: "text", //返回数据类型
-		success: function(msg){
-			if("vcodeError" == msg){
-				$.messager.alert("消息提醒", "验证码错误!", "warning");
-				$("#vcodeImg").click();//切换验证码
-				$("input[name='vcode']").val("");//清空验证码输入框
-			} else if("loginError" == msg){
-				$.messager.alert("消息提醒", "用户名或密码错误!", "warning");
-				$("#vcodeImg").click();//切换验证码
-				$("input[name='vcode']").val("");//清空验证码输入框
-			} 
-		}
-		
-	});
-});
 
 
 
 
- $(function(){
-	$("#StorePassword").on('input',function(){
-		if(this.value.length==6)
-		 {
-			$(".queding").prop('disabled',false);
-		 }else{
-			 $(".queding").prop('disabled',true);
-		 }
-		$("newStorePassword").on('input',function(){
-			if(this.value.length==6)
-			 {
-				$(".queding").prop('disabled',false);
-			 }else{
-				 $(".queding").prop('disabled',true);
-			 }
-			
-		});
-		
-    })
-	
- });
+
+
  
 	$(function(){
 		//点击图片切换验证码
 		$("#vcodeImg").click(function(){
 			this.src="SystemServlet?method=GetVCode&time"+new Date().getTime();
 		});
+		
+		$("#requeding").click(function(){		
+			var data = $("#passform").serialize();//序列化表单值 使用ajax()提交表单
+			$.ajax({
+				type: "post",
+				url: "SystemServlet?method=GetVCode",
+				data: data, 
+				dataType: "text", //返回数据类型
+				success: function(msg){
+					if("vcodeError" == msg){
+						$.messager.alert("消息提醒", "验证码错误!", "warning");
+						$("#vcodeImg").click();//切换验证码
+						$("input[name='vcode']").val("");//清空验证码输入框
+					} else if("loginError" == msg){
+						$.messager.alert("消息提醒", "用户名或密码错误!", "warning");
+						$("#vcodeImg").click();//切换验证码
+						$("input[name='vcode']").val("");//清空验证码输入框
+					} 
+				}
+				
+			});
+		});
+		
+		
+		
+		
 		
 	});
 
