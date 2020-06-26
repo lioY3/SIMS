@@ -1,27 +1,21 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%-- <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%> --%>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE>
 <html>
 <head>
-<%-- <base href="<%=basePath%>"> --%>
 <title>ECharts</title>
-<script src="js/esl.js"></script>
-<script src="js/jquery-3.3.1.js"></script>
+<script src="${pageContext.request.contextPath}/static/echarts/esl.js"></script>
+<script src="${pageContext.request.contextPath}/static/echarts/jquery-3.3.1.js"></script>
 </head>
 
 <body>
-111
 	<div id="main" style="height:400px"></div>
     <script type="text/javascript">
         // 路径配置
         require.config({
             paths:{ 
-                'echarts' : 'js/echarts',
-                'echarts/chart/bar' : 'js/echarts'
+                'echarts' : '${pageContext.request.contextPath}/static/echarts/echarts',
+                'echarts/chart/bar' : '${pageContext.request.contextPath}/static/echarts/echarts'
             }
         });
         
@@ -51,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	        }
             	    },
                     legend: {
-                        data:['销量']
+                        data:['人数']
                     },
                     xAxis : [
                         {
@@ -66,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     ],
                     series : [
                         {
-                            "name":"销量",
+                            "name":"人数",
                             "type":"bar",
                             
                         }
@@ -82,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             $.ajax({
                type : "post",
                async : false, //同步执行
-               url : "hhh.do",
+               url : "${pageContext.request.contextPath}/hhh.do",
                data : {},
                dataType : "json", //返回数据形式为json
                success : function(result) {

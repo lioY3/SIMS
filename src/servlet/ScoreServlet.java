@@ -8,12 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import service.ScoreService;
-import utils.GetRequestJsonUtils;
 import model.Page;
 import model.Score;
-import model.User;
 import net.sf.json.JSONObject;
+import service.ScoreService;
+import utils.GetRequestJsonUtils;
 
 @WebServlet("/ScoreServlet")
 public class ScoreServlet extends HttpServlet {
@@ -53,12 +52,15 @@ public class ScoreServlet extends HttpServlet {
 	private void editScore(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		JSONObject json = GetRequestJsonUtils.getRequestJsonObject(request);
 
-		String sno = json.getString("request_Sno");
-		String cno = json.getString("request_Cno");
+		String sno = json.getString("request_sno");
+		String cno = json.getString("request_cno");
+		Double grade = json.getDouble("grade");
 
 		Score score = new Score();
-
-		score.setGrade(json.getDouble("grade"));
+		
+		score.setSno(sno);
+		score.setCno(cno);
+		score.setGrade(grade);
 
 
 		JSONObject result = new JSONObject();
@@ -136,14 +138,17 @@ public class ScoreServlet extends HttpServlet {
 		// 条件查询参数
 		String sno = request.getParameter("key[Sno]");
 		String cname = request.getParameter("key[Cname]");
-		String tno = request.getParameter("tno");
-		System.out.println("servlet:"+tno);
+		String account = request.getParameter("account");
+		String type = request.getParameter("type");
 
-		//System.out.println("key[Sno]:" + sno);
+		System.out.println(sno);
+		System.out.println(cname);
+		System.out.println(account);
+		System.out.println(type);
 
 		Score score = new Score();
 
-		String result = service.getScoreList(score, sno, cname, tno, new Page(page, limit));
+		String result = service.getScoreList(score, sno, cname, account, type, new Page(page, limit));
 		response.getWriter().write(result);
 		
 	}

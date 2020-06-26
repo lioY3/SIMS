@@ -1,4 +1,4 @@
-package dao.impl;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,15 +9,14 @@ import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import dao.CourseDao;
-import model.Course;
+import model.ScoreInfo;
 import utils.DBUtil;
 
-public class CourseDaoImpl extends BaseDaoImpl implements CourseDao {
+public class ScoreDaoImpl extends BaseDaoImpl implements ScoreDao {
 
-	@Override
-	public List<Course> getallCourseList(String sql, List<Object> param) {
-		List<Course> list = new LinkedList<>();
+	public List<ScoreInfo> getScoreInfoList(String sql, List<Object> param) {
+		// 数据集合
+		List<ScoreInfo> list = new LinkedList<>();
 		try {
 			// 获取数据库连接
 			Connection con = DBUtil.getConnection();
@@ -37,18 +36,18 @@ public class CourseDaoImpl extends BaseDaoImpl implements CourseDao {
 			// 遍历结果集
 			while (rs.next()) {
 				// 创建对象
-				Course course = new Course();
+				ScoreInfo scoreInfo = new ScoreInfo();
 				// 遍历每个字段
 				for (int i = 1; i <= meta.getColumnCount(); i++) {
 					String field = meta.getColumnName(i);
 
 					// System.out.println(field+" "+rs.getObject(field));
 
-					BeanUtils.setProperty(course, field, rs.getObject(field));
+					BeanUtils.setProperty(scoreInfo, field, rs.getObject(field));
 				}
 
 				// 添加到集合
-				list.add(course);
+				list.add(scoreInfo);
 			}
 
 			// 关闭连接
@@ -60,5 +59,4 @@ public class CourseDaoImpl extends BaseDaoImpl implements CourseDao {
 		}
 		return list;
 	}
-
 }

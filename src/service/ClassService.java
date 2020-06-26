@@ -1,7 +1,7 @@
 package service;
 
 import dao.ClassDao;
-import dao.impl.ClassDaoImpl;
+import dao.ClassDaoImpl;
 
 /**
  * 年级服务层

@@ -1,7 +1,6 @@
-package dao.impl;
+package dao;
 
-import dao.impl.BaseDaoImpl;
-import dao.SystemDao;
+import dao.BaseDaoImpl;
 /**
  * 系统数据层
  *

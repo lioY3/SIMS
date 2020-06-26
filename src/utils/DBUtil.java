@@ -37,53 +37,9 @@ public class DBUtil {
 		return conn;
 	}
 
-	/**
-	 * 开始事务
-	 * 
-	 * @throws SQLException
-	 */
-	public static void startTransaction() {
-		Connection conn = getConnection();
-		try {
-			conn.setAutoCommit(false);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * 回滚事务
-	 * 
-	 * @throws SQLException
-	 */
-	public static void rollback() {
-		Connection conn = getConnection();
-		try {
-			conn.rollback();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	/**
-	 * 提交事务
-	 * 
-	 * @throws SQLException
-	 */
-	public static void commit() {
-		Connection conn = getConnection();
-		try {
-			conn.commit();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * 关闭Connection,并移除线程中的连接
-	 * 
-	 * @throws SQLException
 	 */
 	public static void closeConnection() {
 		close(getConnection());
@@ -121,7 +77,6 @@ public class DBUtil {
 	}
 
 	public static void close(PreparedStatement ps) {
-		// TODO Auto-generated method stub
 		try {
 			if (ps != null) {
 				ps.close();

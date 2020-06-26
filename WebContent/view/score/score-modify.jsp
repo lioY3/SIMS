@@ -106,7 +106,7 @@
 	<div class="layui-row" id="editopen_div" style="display: none;">
 		<form id="add_form" class="layui-form" action="" style="margin-top: 20px; align: center;">
 			<div class="layui-form-item">
-					<input type="hidden" name="action" id="action" value="UpdateScore">
+					<input type="hidden" name="action" id="action" value="EditScore">
 					<input type="hidden" name="request_sno" id="form_sno" >
 					<input type="hidden" name="request_cno" id="form_cno">
 
@@ -261,8 +261,8 @@
 	         case 'edit':
 	             // 根据编辑行为为form隐藏项赋值
 	             data.request_sno = sid;
-	             data.request.cno = cid;
-	             data.action = 'UpdateScore';
+	             data.request_cno = cid;
+	             data.action = 'EditScore';
 	             open_form("#editopen_div", data, '编辑成绩', '380px', '550px');
 	             break;
 	         case 'del':
@@ -298,7 +298,7 @@
 	     form.on('submit(score_submit)', function (data) {
 	         var uri = data.field.action;
 	         $.ajax({
-	             type: type,
+	             type: "post",
 	             url: '${pageContext.request.contextPath}/ScoreServlet?method=' + uri,
 	             contentType: "application/json; charset=utf-8",
 	             data: JSON.stringify(data.field),

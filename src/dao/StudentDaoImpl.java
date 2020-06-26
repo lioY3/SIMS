@@ -1,4 +1,4 @@
-package dao.impl;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,10 +9,8 @@ import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import dao.impl.BaseDaoImpl;
+import dao.BaseDaoImpl;
 import model.StudentInfo;
-import dao.StudentDao;
-
 import utils.DBUtil;
 
 

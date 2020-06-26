@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import dao.TeacherDao;
-import dao.impl.TeacherDaoImpl;
+import dao.TeacherDaoImpl;
 import model.Page;
 import model.Teacher;
 import model.TeacherInfo;
