@@ -150,7 +150,7 @@
 				<li class="layui-nav-item"><a href="javascript:;"style="text-decoration:none;">高级</a>
 						<dl class="layui-nav-child">
 						<dd>
-								<a href="echarts.jsp"style="text-decoration:none;">男女比</a>
+								<a href="view/console/echarts.jsp"style="text-decoration:none;">男女比</a>
 							</dd>
 							<!-- <dd>
 								<a href="javascript:;"style="text-decoration:none;">人数比</a>
