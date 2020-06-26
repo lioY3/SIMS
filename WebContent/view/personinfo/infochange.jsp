@@ -22,11 +22,11 @@
     <form action="" class="form-horizontal"style="position: absolute;width: 350px;height: 400px;background: transparent;left: 40%;top: 30%;">
             <div class="form-group">
                     <label class="control-label col-md-3">昵称</label>
-                    <input type="text" id="name" readonly="readonly" style="height:30px;">
+                    <input type="text" id="name" readonly="readonly" style="height:30px;"value="煦妹">
             </div>
             <div class="form-group">
                     <label class="control-label col-md-3">手机</label>
-                    <input type="text" id="fhone"  readonly="readonly"style="height:30px;">
+                    <input type="text" id="fhone"  readonly="readonly"style="height:30px;"value="26060606">
             </div>
 
             <div class="form-group">
@@ -37,16 +37,16 @@
             </div>
             <div class="form-group">
                     <label class="control-label col-md-3">邮箱</label>
-                    <input type="text" id="#manager_name"  readonly="readonly"style="height:30px;">
+                    <input type="text" id="#manager_name"  readonly="readonly"style="height:30px;"value="1156609270@ss.com">
             </div>
             <div class="form-group">
                     <label class="control-label col-md-3">生日</label>
-                    <input type="text" id="#manager_name"  readonly="readonly"style="height:30px;">
+                    <input type="text" id="#manager_name"  readonly="readonly"style="height:30px;"value="2000-4-21">
             </div>
            
             <div class="form-group">
                     <label class="control-label col-md-3">介绍</label>
-                    <textarea class="form-control" rows="5" ></textarea>
+                    <textarea class="form-control" rows="5" >I'm a bay guy</textarea>
             </div>
 
             
