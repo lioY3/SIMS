@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import dao.CourseDao;
-import dao.impl.CourseDaoImpl;
+import dao.CourseDaoImpl;
 import model.Course;
 import model.Page;
 import net.sf.json.JSONObject;

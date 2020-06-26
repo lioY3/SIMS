@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import dao.ScoreDao;
-import dao.impl.ScoreDaoImpl;
+import dao.ScoreDaoImpl;
 import model.Page;
 import model.Score;
 import model.ScoreInfo;

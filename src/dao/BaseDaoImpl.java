@@ -1,4 +1,4 @@
-package dao.impl;
+package dao;
 
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -8,7 +8,6 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
-import dao.BaseDao;
 import utils.DBUtil;
 
 

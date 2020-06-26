@@ -1,6 +1,4 @@
-package dao.impl;
-
-import dao.ClassDao;
+package dao;
 
 public class ClassDaoImpl extends BaseDaoImpl implements ClassDao {
 

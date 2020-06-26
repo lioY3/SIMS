@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import dao.ClassDao;
+import dao.ClassDaoImpl;
 import dao.StudentDao;
-import dao.impl.ClassDaoImpl;
-import dao.impl.StudentDaoImpl;
+import dao.StudentDaoImpl;
 import model.Page;
 import model.Student;
 import model.Class;
