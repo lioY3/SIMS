@@ -15,10 +15,6 @@ public class GetRequestJsonUtils {
 
 	/***
 	 * 获取 request 中 json 字符串的内容
-	 * 
-	 * @param request
-	 * @return : <code>byte[]</code>
-	 * @throws IOException
 	 */
 	public static String getRequestJsonString(HttpServletRequest request) throws IOException {
 		String submitMehtod = request.getMethod();
@@ -33,14 +29,6 @@ public class GetRequestJsonUtils {
 
 	/**
 	 * 描述:获取 post 请求的 byte[] 数组
-	 * 
-	 * <pre>
-	 * 举例：
-	 * </pre>
-	 * 
-	 * @param request
-	 * @return
-	 * @throws IOException
 	 */
 	public static byte[] getRequestPostBytes(HttpServletRequest request) throws IOException {
 		int contentLength = request.getContentLength();
@@ -61,14 +49,6 @@ public class GetRequestJsonUtils {
 
 	/**
 	 * 描述:获取 post 请求内容
-	 * 
-	 * <pre>
-	 * 举例：
-	 * </pre>
-	 * 
-	 * @param request
-	 * @return
-	 * @throws IOException
 	 */
 	public static String getRequestPostStr(HttpServletRequest request) throws IOException {
 		byte buffer[] = getRequestPostBytes(request);
